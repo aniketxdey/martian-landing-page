@@ -139,7 +139,7 @@ export default {
 			backgroundImage: {
 				'hero-gradient': 'linear-gradient(90deg, hsl(24, 100%, 70%) 0%, hsl(9, 85%, 50%) 100%)',
 				'hero-gradient-2': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
-				'pulse-gradient': 'linear-gradient(180deg, rgba(249,115,22,0.8) 0%, rgba(249,115,22,0) 100%)',
+				'pulse-gradient': 'linear-gradient(180deg, hsl(39, 100%, 77%) 0%, hsl(22, 95%, 35%) 100%)',
 			},
 			fontFamily: {
 				'sans': ['Inter', 'sans-serif'],
