@@ -21,8 +21,12 @@ const Hero = () => {
   }, []);
   
   return (
-    <section className="min-h-screen bg-background flex items-center justify-center pt-20" id="hero">
-      <div className="section-container text-center">
+    <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
+      {/* Orange gradient background effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-orange-400/10 to-transparent opacity-60" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-orange-500/5 to-orange-400/20 transform -skew-y-12 scale-150" />
+      
+      <div className="section-container text-center relative z-10">
         <div className="animate-on-scroll">
           <div className="pulse-chip mb-8 transition-all duration-500">
             {chipMessages[currentChip]}
