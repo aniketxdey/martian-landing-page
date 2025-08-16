@@ -1,16 +1,31 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import AIAgentConversation from "./AIAgentConversation";
 
 const Hero = () => {
+  const [currentChip, setCurrentChip] = useState(0);
+  
+  const chipMessages = [
+    "Transform Infrastructure Costs",
+    "Optimize Immediately", 
+    "Technical Expertise Never Required"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentChip((prev) => (prev + 1) % chipMessages.length);
+    }, 3000);
+    
+    return () => clearInterval(timer);
+  }, []);
   
   return (
     <section className="min-h-screen bg-background flex items-center justify-center pt-20" id="hero">
       <div className="section-container text-center">
         <div className="animate-on-scroll">
-          <div className="pulse-chip mb-8">
-            Transform Infrastructure Costs
+          <div className="pulse-chip mb-8 transition-all duration-500">
+            {chipMessages[currentChip]}
           </div>
           
           <h1 className="section-title text-foreground mb-6">
