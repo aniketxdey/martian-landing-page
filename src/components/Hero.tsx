@@ -23,7 +23,7 @@ const Hero = () => {
   return (
     <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
       {/* Single wider orange gradient line */}
-      <div className="absolute top-1/3 left-0 w-full h-32 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent transform -translate-y-1/2 blur-xl" />
+      <div className="absolute top-1/4 left-0 w-full h-32 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent transform -translate-y-1/2 blur-xl" />
       
       <div className="section-container text-center relative z-10">
         <div className="animate-on-scroll">
