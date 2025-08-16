@@ -21,7 +21,7 @@ const Hero = () => {
   }, []);
   
   return (
-    <section className="min-h-screen bg-background flex items-center justify-center pt-20" id="hero">
+    <section className="min-h-screen bg-gradient-to-br from-background via-background to-pulse-500/10 relative overflow-hidden flex items-center justify-center pt-20" id="hero">
       <div className="section-container text-center">
         <div className="animate-on-scroll">
           <div className="pulse-chip mb-8 transition-all duration-500">
