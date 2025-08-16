@@ -9,8 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <span className="text-2xl">🚀</span>
-              <span className="text-xl font-bold">Martian</span>
+              <span className="text-xl font-bold bg-hero-gradient bg-clip-text text-transparent">Martian</span>
             </div>
             <p className="text-gray-400 max-w-md mb-4">
               AI agents to eliminate infrastructure waste and transform enterprise cost optimization.
@@ -23,7 +22,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">Product</h4>
+            <h4 className="font-semibold mb-4 text-pulse-500">Product</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="#product" className="hover:text-white">AI Platform</a></li>
               <li><a href="#solutions" className="hover:text-white">Pricing</a></li>
@@ -32,7 +31,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">Company</h4>
+            <h4 className="font-semibold mb-4 text-pulse-500">Company</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="#about" className="hover:text-white">About</a></li>
               <li><a href="#contact" className="hover:text-white">Contact</a></li>
@@ -40,7 +39,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">Resources</h4>
+            <h4 className="font-semibold mb-4 text-pulse-500">Resources</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="#" className="hover:text-white">Documentation</a></li>
               <li><a href="#" className="hover:text-white">Support</a></li>

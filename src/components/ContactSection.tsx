@@ -27,20 +27,20 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section bg-gray-50">
-      <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+    <section id="contact" className="section bg-pulse-50">
+      <div className="section-container">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="section-title text-gray-900 mb-4">
             Get Started Today
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="section-subtitle mx-auto">
             Ready to eliminate infrastructure waste and boost your EBITDA? Let's talk.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
+          <div className="glass-card p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Request a Demo</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -121,7 +121,7 @@ const ContactSection = () => {
               
               <Button 
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-lg text-lg"
+                className="button-primary w-full py-4 text-lg"
               >
                 Request Demo
               </Button>
@@ -135,7 +135,7 @@ const ContactSection = () => {
               
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <MapPin className="w-6 h-6 text-primary mt-1 mr-4" />
+                  <MapPin className="w-6 h-6 text-pulse-500 mt-1 mr-4" />
                   <div>
                     <p className="font-medium text-gray-900">Location</p>
                     <p className="text-gray-600">San Ramon, CA / San Francisco, CA</p>
@@ -143,7 +143,7 @@ const ContactSection = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <Mail className="w-6 h-6 text-primary mt-1 mr-4" />
+                  <Mail className="w-6 h-6 text-pulse-500 mt-1 mr-4" />
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
                     <p className="text-gray-600">hello@martian.ai</p>
@@ -151,7 +151,7 @@ const ContactSection = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <Phone className="w-6 h-6 text-primary mt-1 mr-4" />
+                  <Phone className="w-6 h-6 text-pulse-500 mt-1 mr-4" />
                   <div>
                     <p className="font-medium text-gray-900">Schedule</p>
                     <p className="text-gray-600">Schedule a Call</p>

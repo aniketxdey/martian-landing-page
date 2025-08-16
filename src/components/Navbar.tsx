@@ -54,8 +54,7 @@ const Navbar = () => {
           }}
           aria-label="Martian"
         >
-          <span className="text-2xl font-bold">🚀</span>
-          <span className="font-bold text-xl text-gray-900">Martian</span>
+          <span className="font-bold text-xl bg-hero-gradient bg-clip-text text-transparent">Martian</span>
         </a>
 
         {/* Desktop Navigation */}

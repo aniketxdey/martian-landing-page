@@ -4,13 +4,13 @@ import { Youtube, Play } from "lucide-react";
 
 const DemoSection = () => {
   return (
-    <section id="demo" className="section bg-gradient-to-br from-primary to-secondary text-white">
-      <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+    <section id="demo" className="section bg-hero-gradient text-white">
+      <div className="section-container">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="section-title text-white mb-4">
             See Martian in Action
           </h2>
-          <p className="text-lg sm:text-xl opacity-90 max-w-3xl mx-auto">
+          <p className="section-subtitle text-white/90 mx-auto">
             Experience how Martian agents automatically discover infrastructure dependencies, 
             analyze optimization opportunities, and remove wasted resources
           </p>
