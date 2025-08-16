@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import DemoSection from "@/components/DemoSection";
-import ProductSection from "@/components/ProductSection";
+import ScrollingFeatures from "@/components/ScrollingFeatures";
 import SolutionsSection from "@/components/SolutionsSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -61,7 +61,7 @@ const Index = () => {
       <main className="space-y-0">
         <Hero />
         <DemoSection />
-        <ProductSection />
+        <ScrollingFeatures />
         <SolutionsSection />
         <AboutSection />
         <ContactSection />

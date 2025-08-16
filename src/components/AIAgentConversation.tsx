@@ -1,0 +1,81 @@
+import React, { useState, useEffect } from "react";
+
+const AIAgentConversation = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const conversations = [
+    {
+      title: "👽 Martian Alpha",
+      message: "I've discovered 847 idle VMs costing $1.2M annually. Would you like me to safely remove the unused resources?",
+      savings: "$97,500",
+      type: "Virtual Machine Optimization"
+    },
+    {
+      title: "👽 Martian Alpha", 
+      message: "Found 2.3TB of duplicate files across storage arrays consuming $45K monthly. I can consolidate these while maintaining all access patterns.",
+      savings: "$45,000",
+      type: "Physical Storage Optimization"
+    },
+    {
+      title: "👽 Martian Alpha",
+      message: "Detected 15 over-provisioned database instances with 80% idle capacity. Shall I optimize the resource allocation?",
+      savings: "$76,200", 
+      type: "Database Resource Optimization"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % conversations.length);
+    }, 4000);
+    
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentConversation = conversations[currentSlide];
+
+  return (
+    <div className="mt-16 animate-on-scroll">
+      <div className="relative max-w-4xl mx-auto">
+        <div className="glass-card bg-pulse-gradient p-8">
+          <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-8 text-left">
+            <h3 className="text-2xl font-bold mb-4 text-pulse-600">{currentConversation.title}</h3>
+            <div className="mb-2">
+              <span className="text-sm text-muted-foreground uppercase tracking-wide">
+                {currentConversation.type}
+              </span>
+            </div>
+            <p className="text-lg mb-4 text-card-foreground">
+              "{currentConversation.message}"
+            </p>
+            <div className="mt-6 flex justify-between items-center">
+              <span className="text-sm font-medium text-pulse-600">
+                Potential Monthly Savings: {currentConversation.savings}
+              </span>
+              <div className="flex gap-2">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-3 h-3 bg-green-400/60 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+                <div className="w-3 h-3 bg-green-400/30 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+              </div>
+            </div>
+            
+            {/* Slide indicators */}
+            <div className="flex justify-center mt-6 gap-2">
+              {conversations.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentSlide ? 'bg-pulse-500' : 'bg-muted'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AIAgentConversation;
