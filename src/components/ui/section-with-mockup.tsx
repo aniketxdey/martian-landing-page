@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 interface SectionWithMockupProps {
@@ -18,42 +18,6 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
     secondaryImageSrc,
     reverseLayout = false,
 }) => {
-    console.log('SectionWithMockup rendering:', { title, description });
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3,
-                delayChildren: 0.1,
-            }
-        },
-    };
-
-    const textVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 50,
-        },
-        visible: { 
-            opacity: 1, 
-            y: 0,
-        },
-    };
-
-    const imageVariants = {
-        hidden: { 
-            opacity: 0, 
-            scale: 0.9,
-            y: 30
-        },
-        visible: { 
-            opacity: 1, 
-            scale: 1,
-            y: 0,
-        },
-    };
 
     const layoutClasses = reverseLayout
         ? "md:grid-cols-2 md:grid-flow-col-dense"
@@ -65,38 +29,47 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
     return (
         <section 
             className="relative py-24 md:py-48 bg-gradient-to-b from-gray-900 via-black to-gray-900 overflow-hidden border-t border-white/10" 
-            style={{ minHeight: '50vh' }}
         >
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-                <motion.div
-                     className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}
-                     variants={containerVariants}
-                     initial="hidden"
-                     whileInView="visible"
-                     viewport={{ once: true, amount: 0.2 }}
-                >
+                <div className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}>
                     {/* Text Content */}
                     <motion.div
                         className={`flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0 ${textOrderClass}`}
-                        variants={textVariants}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.3 }}
                     >
                          <div className="space-y-2 md:space-y-1">
-                            <h2 className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]">
+                            <motion.h2 
+                                className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
                                 {title}
-                            </h2>
+                            </motion.h2>
                         </div>
 
-                        <p className="text-[#868f97] text-sm md:text-[15px] leading-6">
+                        <motion.p 
+                            className="text-[#868f97] text-sm md:text-[15px] leading-6"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            viewport={{ once: true }}
+                        >
                             {description}
-                        </p>
+                        </motion.p>
                     </motion.div>
 
                     {/* App mockup/Image Content */}
                     <motion.div
                         className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
-                        variants={imageVariants}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                     >
                         {/* Decorative Background Element */}
                         <motion.div
@@ -109,22 +82,10 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                                 transform: reverseLayout ? 'translate(0, 0)' : 'translateY(10%)',
                                 filter: 'blur(2px)'
                             }}
-                            initial={{ 
-                                y: 20,
-                                opacity: 0,
-                                scale: 0.95
-                            }}
-                            whileInView={{ 
-                                y: reverseLayout ? -10 : -20,
-                                opacity: 0.7,
-                                scale: 1
-                            }}
-                            transition={{ 
-                                duration: 1.2, 
-                                delay: 0.5,
-                                ease: "easeOut"
-                            }}
-                            viewport={{ once: true, amount: 0.3 }}
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 0.7 }}
+                            transition={{ duration: 1.2, delay: 0.5 }}
+                            viewport={{ once: true }}
                         >
                             <div
                                 className="relative w-full h-full bg-cover bg-center rounded-[32px]"
@@ -137,22 +98,10 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         {/* Main Mockup Card */}
                         <motion.div
                             className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
-                            initial={{ 
-                                y: -10,
-                                opacity: 0,
-                                scale: 0.98
-                            }}
-                            whileInView={{ 
-                                y: reverseLayout ? 10 : 20,
-                                opacity: 1,
-                                scale: 1
-                            }}
-                            transition={{ 
-                                duration: 1, 
-                                delay: 0.3,
-                                ease: "easeOut"
-                            }}
-                            viewport={{ once: true, amount: 0.3 }}
+                            initial={{ y: 30, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                            viewport={{ once: true }}
                         >
                             <div className="p-0 h-full">
                                 <div
@@ -172,7 +121,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                             </div>
                         </motion.div>
                     </motion.div>
-                </motion.div>
+                </div>
             </div>
 
             {/* Decorative bottom gradient */}
