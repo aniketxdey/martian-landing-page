@@ -59,7 +59,7 @@ export function PricingCards({
                                 "rounded-2xl transition-all duration-500",
                                 tier.highlight
                                     ? "bg-gradient-to-b from-orange-600 to-orange-700"
-                                    : "bg-gradient-to-b from-orange-200 to-orange-300",
+                                    : "bg-gradient-to-b from-orange-300 to-orange-400",
                                 "border border-orange-300",
                                 "hover:border-orange-400",
                                 "hover:shadow-[0_8px_40px_-12px_rgba(251,146,60,0.3)]",
