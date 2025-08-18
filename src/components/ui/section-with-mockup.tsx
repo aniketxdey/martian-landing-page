@@ -75,27 +75,18 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full h-[200px] md:h-[280px] bg-[#ffffff0a] rounded-[16px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full bg-[#ffffff0a] rounded-[16px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
                             viewport={{ once: true }}
                         >
-                            <div className="p-0 h-full">
-                                <div
-                                    className="h-full relative"
-                                    style={{
-                                        backgroundSize: "100% 100%",
-                                    }}
-                                >
-                                    {/* Primary Image */}
-                                    <div
-                                        className="w-full h-full bg-contain bg-center bg-no-repeat"
-                                        style={{
-                                            backgroundImage: `url(${primaryImageSrc})`,
-                                        }}
-                                    />
-                                </div>
+                            <div className="p-0">
+                                <img 
+                                    src={primaryImageSrc}
+                                    alt="Infrastructure Dashboard"
+                                    className="w-full h-auto rounded-[16px]"
+                                />
                             </div>
                         </motion.div>
                     </motion.div>
