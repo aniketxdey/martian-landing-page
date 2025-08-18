@@ -75,7 +75,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full h-[400px] md:h-[570px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full h-[280px] md:h-[350px] bg-[#ffffff0a] rounded-[16px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
