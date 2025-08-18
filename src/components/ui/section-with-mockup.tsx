@@ -26,34 +26,32 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
             opacity: 1,
             transition: {
                 staggerChildren: 0.3,
-                delayChildren: 0.2,
+                delayChildren: 0.1,
             }
         },
     };
 
-    const itemVariants = {
+    const textVariants = {
         hidden: { 
             opacity: 0, 
-            y: 60,
-            scale: 0.9
+            y: 50,
         },
         visible: { 
             opacity: 1, 
             y: 0,
-            scale: 1
         },
     };
 
     const imageVariants = {
         hidden: { 
             opacity: 0, 
-            scale: 0.8,
-            rotateY: 15
+            scale: 0.9,
+            y: 30
         },
         visible: { 
             opacity: 1, 
             scale: 1,
-            rotateY: 0
+            y: 0,
         },
     };
 
@@ -63,7 +61,6 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
     const textOrderClass = reverseLayout ? "md:col-start-2" : "";
     const imageOrderClass = reverseLayout ? "md:col-start-1" : "";
-
 
     return (
         <section 
@@ -76,12 +73,13 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                      variants={containerVariants}
                      initial="hidden"
                      whileInView="visible"
-                     viewport={{ once: true, amount: 0.3, margin: "-100px" }}
+                     viewport={{ once: true, amount: 0.2 }}
                 >
                     {/* Text Content */}
                     <motion.div
                         className={`flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0 ${textOrderClass}`}
-                        variants={itemVariants}
+                        variants={textVariants}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                          <div className="space-y-2 md:space-y-1">
                             <h2 className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]">
@@ -92,16 +90,13 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         <p className="text-[#868f97] text-sm md:text-[15px] leading-6">
                             {description}
                         </p>
-                         {/* Optional: Add a button or link here */}
-                         {/* <div>
-                            <button className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-md">Learn More</button>
-                         </div> */}
                     </motion.div>
 
                     {/* App mockup/Image Content */}
                     <motion.div
                         className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
                         variants={imageVariants}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                     >
                         {/* Decorative Background Element */}
                         <motion.div
@@ -115,20 +110,21 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                                 filter: 'blur(2px)'
                             }}
                             initial={{ 
-                                y: reverseLayout ? 20 : 40,
+                                y: 20,
                                 opacity: 0,
-                                scale: 0.9
+                                scale: 0.95
                             }}
                             whileInView={{ 
-                                y: reverseLayout ? -20 : -30,
-                                opacity: 0.8,
+                                y: reverseLayout ? -10 : -20,
+                                opacity: 0.7,
                                 scale: 1
                             }}
                             transition={{ 
-                                duration: 1.5, 
-                                delay: 0.3
+                                duration: 1.2, 
+                                delay: 0.5,
+                                ease: "easeOut"
                             }}
-                            viewport={{ once: true, amount: 0.5 }}
+                            viewport={{ once: true, amount: 0.3 }}
                         >
                             <div
                                 className="relative w-full h-full bg-cover bg-center rounded-[32px]"
@@ -142,22 +138,21 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         <motion.div
                             className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ 
-                                y: reverseLayout ? -20 : -40,
+                                y: -10,
                                 opacity: 0,
-                                scale: 0.95,
-                                rotateX: 10
+                                scale: 0.98
                             }}
                             whileInView={{ 
-                                y: reverseLayout ? 20 : 30,
+                                y: reverseLayout ? 10 : 20,
                                 opacity: 1,
-                                scale: 1,
-                                rotateX: 0
+                                scale: 1
                             }}
                             transition={{ 
-                                duration: 1.2, 
-                                delay: 0.1 
+                                duration: 1, 
+                                delay: 0.3,
+                                ease: "easeOut"
                             }}
-                            viewport={{ once: true, amount: 0.5 }}
+                            viewport={{ once: true, amount: 0.3 }}
                         >
                             <div className="p-0 h-full">
                                 <div
