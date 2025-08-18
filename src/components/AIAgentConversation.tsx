@@ -45,7 +45,7 @@ const AIAgentConversation = () => {
                 {conversations.map((conversation, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-2">
                     <div className="w-full">
-                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-0.5">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-0">
                         <img 
                           src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
                           alt="Martian Logo" 
