@@ -27,9 +27,6 @@ const Hero = () => {
       
       <div className="section-container text-center relative z-10">
         <div className="animate-on-scroll mb-16">
-          <div className="pulse-chip mb-8 transition-all duration-500">
-            {chipMessages[currentChip]}
-          </div>
           
           <h1 className="section-title text-foreground mb-6">
             AI Agents to{" "}
