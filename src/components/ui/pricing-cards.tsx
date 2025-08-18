@@ -58,48 +58,28 @@ export function PricingCards({
                                 "relative group",
                                 "rounded-2xl transition-all duration-500",
                                 tier.highlight
-                                    ? "bg-gradient-to-b from-neutral-950 to-neutral-900 dark:from-neutral-900 dark:to-neutral-950"
-                                    : "bg-white dark:bg-neutral-900",
-                                "border border-neutral-200 dark:border-neutral-800",
-                                "hover:border-neutral-300 dark:hover:border-neutral-700",
-                                "hover:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.3)]",
+                                    ? "bg-gradient-to-b from-orange-600 to-orange-700"
+                                    : "bg-gradient-to-b from-orange-200 to-orange-300",
+                                "border border-orange-300",
+                                "hover:border-orange-400",
+                                "hover:shadow-[0_8px_40px_-12px_rgba(251,146,60,0.3)]",
                                 cardClassName
                             )}
                         >
                             <div className="p-10 flex flex-col h-full">
                                 <div className="space-y-4">
-                                    <h3 className={cn(
-                                        "text-lg uppercase tracking-wider font-medium",
-                                        tier.highlight
-                                            ? "text-white"
-                                            : "text-neutral-900 dark:text-white"
-                                    )}>
+                                    <h3 className="text-lg uppercase tracking-wider font-medium text-white">
                                         {tier.name}
                                     </h3>
                                     <div className="flex items-baseline gap-2">
-                                        <span className={cn(
-                                            "text-5xl font-light",
-                                            tier.highlight
-                                                ? "text-white"
-                                                : "text-neutral-900 dark:text-white"
-                                        )}>
+                                        <span className="text-5xl font-light text-white">
                                             ${tier.price}
                                         </span>
-                                        <span className={cn(
-                                            "text-sm",
-                                            tier.highlight
-                                                ? "text-neutral-400"
-                                                : "text-neutral-500 dark:text-neutral-400"
-                                        )}>
+                                        <span className="text-sm text-white/70">
                                             {tier.interval || "one-time"}
                                         </span>
                                     </div>
-                                    <p className={cn(
-                                        "text-sm pb-6 border-b",
-                                        tier.highlight
-                                            ? "text-neutral-400 border-neutral-800"
-                                            : "text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800"
-                                    )}>
+                                    <p className="text-sm pb-6 border-b text-white/80 border-white/30">
                                         {tier.description}
                                     </p>
                                 </div>
@@ -110,22 +90,10 @@ export function PricingCards({
                                             key={feature.name}
                                             className="flex items-center gap-3"
                                         >
-                                            <div className={cn(
-                                                "flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center",
-                                                feature.included
-                                                    ? tier.highlight
-                                                        ? "text-white"
-                                                        : "text-neutral-900 dark:text-white"
-                                                    : "text-neutral-300 dark:text-neutral-700"
-                                            )}>
+                                            <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white">
                                                 <CheckIcon className="w-3.5 h-3.5" />
                                             </div>
-                                            <span className={cn(
-                                                "text-sm",
-                                                tier.highlight
-                                                    ? "text-neutral-300"
-                                                    : "text-neutral-600 dark:text-neutral-300"
-                                            )}>
+                                            <span className="text-sm text-white/90">
                                                 {feature.name}
                                             </span>
                                         </div>
@@ -138,8 +106,8 @@ export function PricingCards({
                                             className={cn(
                                                 "w-full h-12 group relative",
                                                 tier.highlight
-                                                    ? "bg-white hover:bg-neutral-100 text-neutral-900"
-                                                    : "bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-100 dark:text-neutral-900",
+                                                    ? "bg-orange-200 hover:bg-orange-300 text-orange-800"
+                                                    : "bg-orange-600 hover:bg-orange-700 text-white",
                                                 "transition-all duration-300"
                                             )}
                                             onClick={tier.cta.onClick}
