@@ -28,7 +28,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
     return (
         <section 
-            className="relative py-24 md:py-48 bg-gradient-to-b from-gray-900 via-black to-gray-900 overflow-hidden border-t border-white/10" 
+            className="relative py-24 md:py-48 bg-background overflow-hidden" 
         >
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
                 <div className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}>
@@ -42,18 +42,20 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                          <div className="space-y-2 md:space-y-1">
                             <motion.h2 
-                                className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]"
+                                className="section-title text-foreground"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
                                 viewport={{ once: true }}
                             >
-                                {title}
+                                <span className="bg-hero-gradient bg-clip-text text-transparent font-display">
+                                    {title}
+                                </span>
                             </motion.h2>
                         </div>
 
                         <motion.p 
-                            className="text-[#868f97] text-sm md:text-[15px] leading-6"
+                            className="section-subtitle text-foreground/80"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
