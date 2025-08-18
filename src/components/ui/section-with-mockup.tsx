@@ -73,30 +73,6 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         transition={{ duration: 0.8, delay: 0.3 }}
                         viewport={{ once: true, amount: 0.3 }}
                     >
-                        {/* Decorative Background Element */}
-                        <motion.div
-                             className={`absolute w-[300px] h-[317px] md:w-[472px] md:h-[500px] bg-[#090909] rounded-[32px] z-0`}
-                             style={{
-                                top: reverseLayout ? 'auto' : '10%',
-                                bottom: reverseLayout ? '10%' : 'auto',
-                                left: reverseLayout ? 'auto' : '-20%',
-                                right: reverseLayout ? '-20%' : 'auto',
-                                transform: reverseLayout ? 'translate(0, 0)' : 'translateY(10%)',
-                                filter: 'blur(2px)'
-                            }}
-                            initial={{ y: 50, opacity: 0 }}
-                            whileInView={{ y: 0, opacity: 0.7 }}
-                            transition={{ duration: 1.2, delay: 0.5 }}
-                            viewport={{ once: true }}
-                        >
-                            <div
-                                className="relative w-full h-full bg-cover bg-center rounded-[32px]"
-                                style={{
-                                    backgroundImage: `url(${secondaryImageSrc})`,
-                                }}
-                            />
-                        </motion.div>
-
                         {/* Main Mockup Card */}
                         <motion.div
                             className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
