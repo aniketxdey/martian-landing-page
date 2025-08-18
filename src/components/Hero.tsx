@@ -23,7 +23,7 @@ const Hero = () => {
   return (
     <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
       {/* Large oval gradient bleeding into header */}
-      <div className="absolute top-0 left-1/2 w-[120%] h-[70%] transform -translate-x-1/2">
+      <div className="absolute top-[15%] left-1/2 w-[100%] h-[60%] transform -translate-x-1/2">
         <div className="w-full h-full bg-gradient-radial from-orange-500/20 via-orange-500/10 to-transparent rounded-full blur-xl" />
       </div>
       
