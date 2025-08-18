@@ -20,20 +20,41 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 }) => {
 
     const containerVariants = {
-        hidden: {},
+        hidden: { opacity: 0 },
         visible: {
-             transition: {
-                staggerChildren: 0.2,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                delayChildren: 0.2,
             }
         },
     };
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 },
+        hidden: { 
+            opacity: 0, 
+            y: 60,
+            scale: 0.9
+        },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            scale: 1
+        },
     };
-    
-    const itemTransition = { duration: 0.7 };
+
+    const imageVariants = {
+        hidden: { 
+            opacity: 0, 
+            scale: 0.8,
+            rotateY: 15
+        },
+        visible: { 
+            opacity: 1, 
+            scale: 1,
+            rotateY: 0
+        },
+    };
 
     const layoutClasses = reverseLayout
         ? "md:grid-cols-2 md:grid-flow-col-dense"
@@ -51,13 +72,12 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                      variants={containerVariants}
                      initial="hidden"
                      whileInView="visible"
-                     viewport={{ once: true, amount: 0.2 }}
+                     viewport={{ once: true, amount: 0.3, margin: "-100px" }}
                 >
                     {/* Text Content */}
                     <motion.div
                         className={`flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0 ${textOrderClass}`}
                         variants={itemVariants}
-                        transition={itemTransition}
                     >
                          <div className="space-y-2 md:space-y-1">
                             <h2 className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]">
@@ -77,8 +97,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     {/* App mockup/Image Content */}
                     <motion.div
                         className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
-                        variants={itemVariants}
-                        transition={itemTransition}
+                        variants={imageVariants}
                     >
                         {/* Decorative Background Element */}
                         <motion.div
@@ -91,9 +110,20 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                                 transform: reverseLayout ? 'translate(0, 0)' : 'translateY(10%)',
                                 filter: 'blur(2px)'
                             }}
-                            initial={{ y: reverseLayout ? 0 : 0 }}
-                            whileInView={{ y: reverseLayout ? -20 : -30 }}
-                            transition={{ duration: 1.2 }}
+                            initial={{ 
+                                y: reverseLayout ? 20 : 40,
+                                opacity: 0,
+                                scale: 0.9
+                            }}
+                            whileInView={{ 
+                                y: reverseLayout ? -20 : -30,
+                                opacity: 0.8,
+                                scale: 1
+                            }}
+                            transition={{ 
+                                duration: 1.5, 
+                                delay: 0.3
+                            }}
                             viewport={{ once: true, amount: 0.5 }}
                         >
                             <div
@@ -107,10 +137,23 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         {/* Main Mockup Card */}
                         <motion.div
                             className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
-                            initial={{ y: reverseLayout ? 0 : 0 }}
-                            whileInView={{ y: reverseLayout ? 20 : 30 }}
-                             transition={{ duration: 1.2, delay: 0.1 }}
-                             viewport={{ once: true, amount: 0.5 }}
+                            initial={{ 
+                                y: reverseLayout ? -20 : -40,
+                                opacity: 0,
+                                scale: 0.95,
+                                rotateX: 10
+                            }}
+                            whileInView={{ 
+                                y: reverseLayout ? 20 : 30,
+                                opacity: 1,
+                                scale: 1,
+                                rotateX: 0
+                            }}
+                            transition={{ 
+                                duration: 1.2, 
+                                delay: 0.1 
+                            }}
+                            viewport={{ once: true, amount: 0.5 }}
                         >
                             <div className="p-0 h-full">
                                 <div
