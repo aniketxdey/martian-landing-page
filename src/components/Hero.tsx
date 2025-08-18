@@ -26,7 +26,7 @@ const Hero = () => {
       <div className="absolute top-2/5 left-0 w-full h-96 bg-gradient-to-r from-transparent via-orange-500/30 to-transparent transform -translate-y-1/2 blur-xl" />
       
       <div className="section-container text-center relative z-10">
-        <div className="animate-on-scroll">
+        <div className="animate-on-scroll mb-16">
           <div className="pulse-chip mb-8 transition-all duration-500">
             {chipMessages[currentChip]}
           </div>
