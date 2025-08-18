@@ -1,168 +1,103 @@
-import { Check, Minus, MoveRight, PhoneCall } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import React from "react";
 import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
 
-function Pricing() {
+const Pricing = () => {
+  const plans = [
+    {
+      name: "Mid-Market",
+      price: "$1,000",
+      period: "/user/month",
+      description: "Perfect for growing companies",
+      features: [
+        "Up to 100TB storage optimization",
+        "1,000+ virtual machines",
+        "Cloud & on-premises support",
+        "24/7 AI agent monitoring",
+        "Average 10 users"
+      ],
+      cta: "Get Started",
+      popular: false
+    },
+    {
+      name: "Large Enterprise",
+      price: "$3,000",
+      period: "/user/month",
+      description: "For enterprise-scale infrastructure",
+      features: [
+        "Up to 1PB storage optimization",
+        "100,000+ virtual machines",
+        "Multi-cloud orchestration",
+        "Advanced analytics & reporting",
+        "Average 30 users",
+        "Dedicated success manager"
+      ],
+      cta: "Contact Sales",
+      popular: true
+    }
+  ];
+
   return (
-    <div className="w-full py-20 lg:py-40">
-      <div className="container mx-auto">
-        <div className="flex text-center justify-center items-center gap-4 flex-col">
-          <Badge>Pricing</Badge>
-          <div className="flex gap-2 flex-col">
-            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-regular">
-              Solutions for Every Enterprise
-            </h2>
-            <p className="text-lg leading-relaxed tracking-tight text-muted-foreground max-w-xl text-center">
-              Choose the plan that fits your infrastructure scale and optimization needs
-            </p>
-          </div>
-          <div className="grid text-left w-full grid-cols-3 lg:grid-cols-3 divide-x pt-20">
-            <div className="px-3 py-1 md:px-6 md:py-4  gap-2 flex flex-col">
-              <p className="text-2xl">Mid-Market</p>
-              <p className="text-sm text-muted-foreground">
-                Perfect for growing companies with expanding infrastructure needs
-              </p>
-              <p className="flex flex-col lg:flex-row lg:items-center gap-2 text-xl mt-8">
-                <span className="text-4xl">$1,000</span>
-                <span className="text-sm text-muted-foreground"> /user/month</span>
-              </p>
-              <Button variant="outline" className="gap-4 mt-8">
-                Get Started <MoveRight className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 gap-2 flex flex-col relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-pulse-500 text-white px-6 py-2 rounded-full text-sm font-medium">
-                  Most Popular
-                </span>
+    <section id="solutions" className="section bg-pulse-50">
+      <div className="section-container">
+        <div className="text-center mb-16">
+          <h2 className="section-title text-gray-900 mb-4">
+            Solutions for Every Enterprise
+          </h2>
+          <p className="section-subtitle mx-auto">
+            Choose the plan that fits your infrastructure scale and optimization needs
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {plans.map((plan, index) => (
+            <div 
+              key={index}
+              className={`relative p-8 rounded-3xl bg-white shadow-elegant hover:shadow-elegant-hover ${
+                plan.popular ? 'border-2 border-pulse-500 scale-105' : 'border border-gray-200'
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-pulse-500 text-white px-6 py-2 rounded-full text-sm font-medium">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                <div className="mb-4">
+                  <span className="text-4xl font-bold text-pulse-500">{plan.price}</span>
+                  <span className="text-gray-600">{plan.period}</span>
+                </div>
+                <p className="text-gray-600">{plan.description}</p>
               </div>
-              <p className="text-2xl">Large Enterprise</p>
-              <p className="text-sm text-muted-foreground">
-                For enterprise-scale infrastructure with advanced requirements
-              </p>
-              <p className="flex flex-col lg:flex-row lg:items-center gap-2 text-xl mt-8">
-                <span className="text-4xl">$3,000</span>
-                <span className="text-sm text-muted-foreground"> /user/month</span>
-              </p>
-              <Button className="gap-4 mt-8">
-                Contact Sales <PhoneCall className="w-4 h-4" />
+              
+              <ul className="space-y-4 mb-8">
+                {plan.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-start">
+                    <Check className="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Button 
+                className={`w-full py-3 rounded-full ${
+                  plan.popular 
+                    ? 'button-primary' 
+                    : 'bg-gray-900 hover:bg-gray-800 text-white'
+                }`}
+              >
+                {plan.cta}
               </Button>
             </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 gap-2 flex flex-col">
-              <p className="text-2xl">Custom</p>
-              <p className="text-sm text-muted-foreground">
-                Tailored solutions for unique enterprise requirements and scale
-              </p>
-              <p className="flex flex-col lg:flex-row lg:items-center gap-2 text-xl mt-8">
-                <span className="text-4xl">Custom</span>
-                <span className="text-sm text-muted-foreground"> pricing</span>
-              </p>
-              <Button variant="outline" className="gap-4 mt-8">
-                Contact us <PhoneCall className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              <b>Features</b>
-            </div>
-            <div></div>
-            <div></div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">Storage Optimization</div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Up to 100TB</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Up to 1PB</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Unlimited</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              Virtual Machines
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">1,000+</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">100,000+</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Unlimited</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">Cloud & On-Premises</div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              24/7 AI Agent Monitoring
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              Average Users
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">10 users</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">30 users</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Unlimited</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              Multi-Cloud Orchestration
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              Advanced Analytics & Reporting
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-3 py-4">
-              Dedicated Success Manager
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
 
 export { Pricing };
