@@ -74,7 +74,7 @@ const tiers = [{
 function Pricing() {
   return <div className="relative py-16 md:py-32 bg-background overflow-hidden">
       <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-        <motion.div className="flex text-center justify-center items-center gap-4 flex-col mb-16" initial={{
+        <motion.div className="flex text-center justify-center items-center gap-4 flex-col mb-8" initial={{
         opacity: 0,
         y: 50
       }} whileInView={{
@@ -104,18 +104,6 @@ function Pricing() {
                 Solutions for Every Enterprise
               </span>
             </h2>
-            <motion.p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-xl text-center mx-auto" initial={{
-            opacity: 0,
-            y: 20
-          }} whileInView={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6,
-            delay: 0.4
-          }} viewport={{
-            once: true
-          }}>Choose the plan that fits your infrastructure scale and optimization needs</motion.p>
           </motion.div>
         </motion.div>
         
