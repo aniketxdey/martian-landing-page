@@ -51,7 +51,7 @@ const AIAgentConversation = () => {
                           alt="Martian Logo" 
                           className="h-10 w-auto"
                         />
-                        <span className="bg-hero-gradient bg-clip-text text-transparent">
+                        <span className="bg-hero-gradient bg-clip-text text-transparent -ml-1">
                           {conversation.title}
                         </span>
                       </h3>
