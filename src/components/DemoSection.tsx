@@ -1,25 +1,56 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Youtube, Play } from "lucide-react";
+import { motion } from "framer-motion";
 
 const DemoSection = () => {
   return (
     <section id="demo" className="relative py-16 md:py-32 bg-background overflow-hidden">
       <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground mb-4">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold leading-tight text-foreground mb-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <span className="bg-hero-gradient bg-clip-text text-transparent font-display">
               See Martian in Action
             </span>
-          </h2>
-          <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-lg md:text-xl text-foreground/80 leading-relaxed mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             Experience how Martian agents automatically discover infrastructure dependencies, 
             analyze optimization opportunities, and remove wasted resources
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
-        <div className="max-w-4xl mx-auto">
-          <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black/20">
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div 
+            className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black/20"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             <iframe 
               src="https://www.youtube.com/embed/1yyZPRn243U" 
               className="absolute inset-0 w-full h-full"
@@ -27,9 +58,15 @@ const DemoSection = () => {
               allowFullScreen
               title="Martian AI Demo"
             />
-          </div>
+          </motion.div>
           
-          <div className="text-center mt-8">
+          <motion.div 
+            className="text-center mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
                 href="https://www.youtube.com/watch?v=1yyZPRn243U" 
@@ -48,8 +85,8 @@ const DemoSection = () => {
                 <Play className="ml-2 w-4 h-4" />
               </a>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
       
       {/* Decorative bottom gradient */}
