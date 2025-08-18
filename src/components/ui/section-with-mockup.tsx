@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface SectionWithMockupProps {
@@ -18,6 +18,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
     secondaryImageSrc,
     reverseLayout = false,
 }) => {
+    console.log('SectionWithMockup rendering:', { title, description });
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -65,7 +66,10 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
 
     return (
-        <section className="relative py-24 md:py-48 bg-black overflow-hidden">
+        <section 
+            className="relative py-24 md:py-48 bg-gradient-to-b from-gray-900 via-black to-gray-900 overflow-hidden border-t border-white/10" 
+            style={{ minHeight: '50vh' }}
+        >
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
                 <motion.div
                      className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}
