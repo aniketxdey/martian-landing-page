@@ -23,7 +23,7 @@ const Hero = () => {
   return (
     <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
       {/* Large transparent orange gradient centered on headline */}
-      <div className="absolute top-2/5 left-0 w-full h-96 bg-gradient-to-r from-transparent via-orange-500/60 to-transparent transform -translate-y-1/2 blur-xl" />
+      <div className="absolute top-2/5 left-0 w-full h-96 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent transform -translate-y-1/2 blur-xl" />
       
       <div className="section-container text-center relative z-10">
         <div className="animate-on-scroll">
@@ -43,11 +43,11 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <a href="#demo" className="button-primary px-10 py-4">
+            <a href="#demo" className="button-primary px-12 py-4 whitespace-nowrap">
               <Play className="mr-2 w-5 h-5" />
               Watch Demo
             </a>
-            <a href="#contact" className="button-secondary px-10 py-4">
+            <a href="#contact" className="button-secondary px-12 py-4 whitespace-nowrap">
               Get Started
               <ArrowRight className="ml-2 w-5 h-5" />
             </a>

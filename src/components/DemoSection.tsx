@@ -33,14 +33,14 @@ const DemoSection = () => {
                 href="https://www.youtube.com/watch?v=1yyZPRn243U" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 px-8 py-3 rounded-full transition-all duration-300"
+                className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 px-10 py-3 rounded-full transition-all duration-300 whitespace-nowrap"
               >
                 <Youtube className="mr-2 w-5 h-5" />
                 Watch on YouTube
               </a>
               <a 
                 href="#contact"
-                className="inline-flex items-center bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-full transition-all duration-300 font-medium"
+                className="inline-flex items-center bg-white text-primary hover:bg-gray-100 px-10 py-3 rounded-full transition-all duration-300 font-medium whitespace-nowrap"
               >
                 Request Private Demo
                 <Play className="ml-2 w-4 h-4" />
