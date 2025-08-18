@@ -86,11 +86,8 @@ const BookDemo = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Book a <span className="bg-hero-gradient bg-clip-text text-transparent font-display">See Martian for yourself</span>
+              <span className="bg-hero-gradient bg-clip-text text-transparent font-display">See Martian for yourself</span>
             </h1>
-            <p className="text-xl text-gray-600">
-              See how Martian can transform your business operations
-            </p>
           </div>
 
           <Card className="shadow-lg bg-gradient-to-br from-pulse-300 to-pulse-600">
