@@ -76,14 +76,19 @@ const BookDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Large oval gradient bleeding into header */}
+      <div className="absolute top-[5%] left-1/2 w-[100%] h-[60%] transform -translate-x-1/2">
+        <div className="w-full h-full bg-gradient-radial from-orange-500/20 via-orange-500/10 to-transparent rounded-full blur-xl" />
+      </div>
+      
       <Navbar />
       
-      <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Book a <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Demo</span>
+            <h1 className="text-4xl font-bold text-foreground mb-4">
+              Book a <span className="bg-hero-gradient bg-clip-text text-transparent font-display">Demo</span>
             </h1>
             <p className="text-xl text-gray-600">
               See how Martian can transform your business operations
