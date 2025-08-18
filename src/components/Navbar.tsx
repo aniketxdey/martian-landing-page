@@ -57,7 +57,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <a href="/book-demo" className="text-orange-600 hover:text-orange-700 font-medium transition-colors duration-200">Book a Demo</a>
+          <a href="/book-demo" className="bg-hero-gradient bg-clip-text text-transparent font-medium transition-all duration-200 hover:bg-red-500 hover:text-white px-4 py-2 rounded-md hover:bg-none">Book a Demo</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -78,7 +78,7 @@ const Navbar = () => {
         <nav className="flex flex-col space-y-8 items-center mt-8">
           <a 
             href="/book-demo" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg text-orange-600 hover:text-orange-700 hover:bg-orange-50 transition-colors duration-200" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg bg-hero-gradient bg-clip-text text-transparent hover:bg-red-500 hover:text-white hover:bg-none transition-all duration-200" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
