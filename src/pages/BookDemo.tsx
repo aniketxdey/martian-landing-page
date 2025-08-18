@@ -93,10 +93,10 @@ const BookDemo = () => {
             </p>
           </div>
 
-          <Card className="shadow-lg">
+          <Card className="shadow-lg bg-gradient-to-br from-pulse-300 to-pulse-600">
             <CardHeader>
-              <CardTitle>Request Your Personalized Demo</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-white">Request Your Personalized Demo</CardTitle>
+              <CardDescription className="text-white/90">
                 Fill out the form below and we'll contact you within 24 hours to schedule your demo.
               </CardDescription>
             </CardHeader>
@@ -104,30 +104,65 @@ const BookDemo = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder="John Doe" />
+                    <Label htmlFor="name" className="text-white">Full Name *</Label>
+                    <Input 
+                      id="name" 
+                      name="name" 
+                      type="text" 
+                      value={formData.name} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="John Doe" 
+                      className="bg-white text-gray-700 placeholder:text-gray-500"
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="john@company.com" />
+                    <Label htmlFor="email" className="text-white">Email *</Label>
+                    <Input 
+                      id="email" 
+                      name="email" 
+                      type="email" 
+                      value={formData.email} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="john@company.com" 
+                      className="bg-white text-gray-700 placeholder:text-gray-500"
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="company">Company *</Label>
-                    <Input id="company" name="company" type="text" value={formData.company} onChange={handleInputChange} required placeholder="Your Company" />
+                    <Label htmlFor="company" className="text-white">Company *</Label>
+                    <Input 
+                      id="company" 
+                      name="company" 
+                      type="text" 
+                      value={formData.company} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="Your Company" 
+                      className="bg-white text-gray-700 placeholder:text-gray-500"
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="jobTitle">Job Title</Label>
-                    <Input id="jobTitle" name="jobTitle" type="text" value={formData.jobTitle} onChange={handleInputChange} placeholder="CEO, CTO, etc." />
+                    <Label htmlFor="jobTitle" className="text-white">Job Title</Label>
+                    <Input 
+                      id="jobTitle" 
+                      name="jobTitle" 
+                      type="text" 
+                      value={formData.jobTitle} 
+                      onChange={handleInputChange} 
+                      placeholder="CEO, CTO, etc." 
+                      className="bg-white text-gray-700 placeholder:text-gray-500"
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="companySize">Company Size *</Label>
+                  <Label htmlFor="companySize" className="text-white">Company Size *</Label>
                   <Select value={formData.companySize} onValueChange={handleSelectChange} required>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-white text-gray-700">
                       <SelectValue placeholder="Select company size" />
                     </SelectTrigger>
                     <SelectContent>
@@ -138,8 +173,15 @@ const BookDemo = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Tell us about your specific needs or any questions you have..." className="min-h-[100px]" />
+                  <Label htmlFor="message" className="text-white">Message</Label>
+                  <Textarea 
+                    id="message" 
+                    name="message" 
+                    value={formData.message} 
+                    onChange={handleInputChange} 
+                    placeholder="Tell us about your specific needs or any questions you have..." 
+                    className="min-h-[100px] bg-white text-gray-700 placeholder:text-gray-500" 
+                  />
                 </div>
 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
