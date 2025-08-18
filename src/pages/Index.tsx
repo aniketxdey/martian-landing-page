@@ -5,8 +5,6 @@ import Hero from "@/components/Hero";
 import DemoSection from "@/components/DemoSection";
 import SectionWithMockup from "@/components/ui/section-with-mockup";
 import { Pricing } from "@/components/ui/pricing-section-with-comparison";
-import AboutSection from "@/components/AboutSection";
-import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -68,8 +66,6 @@ const Index = () => {
         secondaryImageSrc="https://via.placeholder.com/600x400/666/fff?text=Secondary+Image"
       />
         <Pricing />
-        <AboutSection />
-        <ContactSection />
       </main>
       <Footer />
     </div>
