@@ -5,19 +5,19 @@ const AIAgentConversation = () => {
   
   const conversations = [
     {
-      title: "👽 Martian Alpha",
+      title: "Martian Alpha",
       message: "I've discovered 847 idle VMs costing $1.2M annually. Would you like me to safely remove the unused resources?",
       savings: "$97,500",
       type: "Virtual Machine Optimization"
     },
     {
-      title: "👽 Martian Alpha", 
+      title: "Martian Beta", 
       message: "Found 2.3TB of duplicate files across storage arrays consuming $45K monthly. I can consolidate these while maintaining all access patterns.",
       savings: "$45,000",
       type: "Physical Storage Optimization"
     },
     {
-      title: "👽 Martian Alpha",
+      title: "Martian Gamma",
       message: "Detected 15 over-provisioned database instances with 80% idle capacity. Shall I optimize the resource allocation?",
       savings: "$76,200", 
       type: "Database Resource Optimization"
@@ -45,7 +45,12 @@ const AIAgentConversation = () => {
                 {conversations.map((conversation, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-2">
                     <div className="w-full">
-                      <h3 className="text-2xl font-bold mb-4">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <img 
+                          src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
+                          alt="Martian Logo" 
+                          className="h-6 w-auto"
+                        />
                         <span className="bg-hero-gradient bg-clip-text text-transparent">
                           {conversation.title}
                         </span>
