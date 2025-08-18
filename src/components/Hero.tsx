@@ -22,8 +22,10 @@ const Hero = () => {
   
   return (
     <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
-      {/* Large transparent orange gradient centered on headline */}
-      <div className="absolute top-2/5 left-0 w-full h-96 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent transform -translate-y-1/2 blur-xl" />
+      {/* Large oval gradient centered on headline */}
+      <div className="absolute top-1/3 left-1/2 w-[120%] h-[60%] transform -translate-x-1/2 -translate-y-1/2">
+        <div className="w-full h-full bg-gradient-radial from-orange-500/25 via-orange-500/15 to-transparent rounded-full blur-xl" />
+      </div>
       
       <div className="section-container text-center relative z-10">
         <div className="animate-on-scroll mb-32">
