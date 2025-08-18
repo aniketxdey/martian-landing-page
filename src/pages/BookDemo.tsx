@@ -181,7 +181,7 @@ const BookDemo = () => {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-gradient-to-br from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white border-0" disabled={isSubmitting}>
+                <Button type="submit" className="w-full bg-background hover:bg-background/90 text-foreground border border-white/20" disabled={isSubmitting}>
                   {isSubmitting ? 'Sending...' : 'Request Demo'}
                 </Button>
               </form>
