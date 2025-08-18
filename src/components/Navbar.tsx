@@ -36,14 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
-        isScrolled 
-          ? "bg-white/80 backdrop-blur-md shadow-sm" 
-          : "bg-transparent"
-      )}
-    >
+    <header className="relative top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 bg-transparent">
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
           href="#" 
@@ -69,9 +62,6 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a href="#product" className="nav-link">Product</a>
-          <a href="#solutions" className="nav-link">Solutions</a>
-          <a href="#about" className="nav-link">About</a>
           <a href="#contact" className="nav-link">Contact</a>
         </nav>
 
@@ -102,36 +92,6 @@ const Navbar = () => {
             }}
           >
             Home
-          </a>
-          <a 
-            href="#product" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            Product
-          </a>
-          <a 
-            href="#solutions" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            Solutions
-          </a>
-          <a 
-            href="#about" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            About
           </a>
           <a 
             href="#contact" 
