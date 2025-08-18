@@ -120,7 +120,7 @@ function Pricing() {
         once: true,
         amount: 0.3
       }}>
-          <PricingCards tiers={tiers} className="gap-6" sectionClassName="py-0" containerClassName="py-0" />
+          <PricingCards tiers={tiers} className="gap-6" sectionClassName="py-0 !pt-0" containerClassName="py-0" />
         </motion.div>
       </div>
       
