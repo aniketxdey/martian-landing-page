@@ -49,7 +49,7 @@ const AIAgentConversation = () => {
                         <img 
                           src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
                           alt="Martian Logo" 
-                          className="h-6 w-auto"
+                          className="h-10 w-auto"
                         />
                         <span className="bg-hero-gradient bg-clip-text text-transparent">
                           {conversation.title}
