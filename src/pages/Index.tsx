@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import DemoSection from "@/components/DemoSection";
 import SectionWithMockup from "@/components/ui/section-with-mockup";
-import SolutionsSection from "@/components/SolutionsSection";
+import { Pricing } from "@/components/ui/pricing-section-with-comparison";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -67,7 +67,7 @@ const Index = () => {
         primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Primary+Image"
         secondaryImageSrc="https://via.placeholder.com/600x400/666/fff?text=Secondary+Image"
       />
-        <SolutionsSection />
+        <Pricing />
         <AboutSection />
         <ContactSection />
       </main>
