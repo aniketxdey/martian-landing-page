@@ -52,17 +52,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <a 
-            href="#" 
-            className="nav-link"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-            }}
-          >
-            Home
-          </a>
-          <a href="#contact" className="nav-link">Contact</a>
+          <a href="#contact" className="text-orange-600 hover:text-orange-700 font-medium transition-colors duration-200">Contact</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -82,20 +72,8 @@ const Navbar = () => {
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">
           <a 
-            href="#" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
-          >
-            Home
-          </a>
-          <a 
             href="#contact" 
-            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg text-orange-600 hover:text-orange-700 hover:bg-orange-50 transition-colors duration-200" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
