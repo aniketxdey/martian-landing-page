@@ -67,7 +67,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[400px] md:max-w-[650px]`}
+                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[350px] md:max-w-[500px]`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
@@ -75,7 +75,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full h-[450px] md:h-[700px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full h-[400px] md:h-[570px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
@@ -90,7 +90,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                                 >
                                     {/* Primary Image */}
                                     <div
-                                        className="w-full h-full bg-cover bg-center"
+                                        className="w-full h-full bg-contain bg-center bg-no-repeat"
                                         style={{
                                             backgroundImage: `url(${primaryImageSrc})`,
                                         }}
