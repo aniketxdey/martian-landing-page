@@ -1,126 +1,99 @@
-import { Check, Minus, MoveRight, PhoneCall } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import React from "react";
+import { PricingCards } from "@/components/ui/pricing-cards";
+import { motion } from "framer-motion";
+
+const tiers = [
+  {
+    name: "MID-MARKET",
+    price: 1000,
+    interval: "/user/month",
+    description: "Perfect for growing companies with expanding infrastructure needs",
+    features: [
+      { name: "Up to 100TB storage optimization", included: true },
+      { name: "1,000+ virtual machines", included: true },
+      { name: "Cloud & on-premises support", included: true },
+      { name: "24/7 AI agent monitoring", included: true },
+      { name: "Average 10 users", included: true },
+      { name: "Multi-cloud orchestration", included: false },
+      { name: "Advanced analytics & reporting", included: false },
+      { name: "Dedicated success manager", included: false },
+    ],
+    cta: {
+      text: "Get Started",
+      href: "#contact",
+    }
+  },
+  {
+    name: "LARGE ENTERPRISE",
+    price: 3000,
+    interval: "/user/month",
+    description: "For enterprise-scale infrastructure with advanced requirements",
+    highlight: true,
+    features: [
+      { name: "Up to 1PB storage optimization", included: true },
+      { name: "100,000+ virtual machines", included: true },
+      { name: "Cloud & on-premises support", included: true },
+      { name: "24/7 AI agent monitoring", included: true },
+      { name: "Average 30 users", included: true },
+      { name: "Multi-cloud orchestration", included: true },
+      { name: "Advanced analytics & reporting", included: true },
+      { name: "Dedicated success manager", included: true },
+    ],
+    cta: {
+      text: "Contact Sales",
+      href: "#contact",
+    }
+  },
+];
 
 function Pricing() {
   return (
     <div className="relative py-16 md:py-32 bg-background overflow-hidden">
       <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-        <div className="flex text-center justify-center items-center gap-4 flex-col">
-          <Badge>Pricing</Badge>
-          <div className="flex gap-2 flex-col">
+        <motion.div 
+          className="flex text-center justify-center items-center gap-4 flex-col mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div 
+            className="flex gap-2 flex-col"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
               <span className="bg-hero-gradient bg-clip-text text-transparent font-display">
                 Solutions for Every Enterprise
               </span>
             </h2>
-            <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-xl text-center">
+            <motion.p 
+              className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-xl text-center mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               Choose the plan that fits your infrastructure scale and optimization needs
-            </p>
-          </div>
-          <div className="grid text-left w-full grid-cols-2 lg:grid-cols-3 divide-x pt-20">
-            <div className="col-span-2 lg:col-span-1"></div>
-            <div className="px-3 py-1 md:px-6 md:py-4  gap-2 flex flex-col">
-              <p className="text-2xl">Mid-Market</p>
-              <p className="text-sm text-muted-foreground">
-                Perfect for growing companies with expanding infrastructure needs
-              </p>
-              <p className="flex flex-col lg:flex-row lg:items-center gap-2 text-xl mt-8">
-                <span className="text-4xl">$1,000</span>
-                <span className="text-sm text-muted-foreground"> /user/month</span>
-              </p>
-              <Button variant="outline" className="gap-4 mt-8">
-                Get Started <MoveRight className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 gap-2 flex flex-col">
-              <p className="text-2xl">Large Enterprise</p>
-              <p className="text-sm text-muted-foreground">
-                For enterprise-scale infrastructure with advanced requirements
-              </p>
-              <p className="flex flex-col lg:flex-row lg:items-center gap-2 text-xl mt-8">
-                <span className="text-4xl">$3,000</span>
-                <span className="text-sm text-muted-foreground"> /user/month</span>
-              </p>
-              <Button className="gap-4 mt-8">
-                Contact Sales <PhoneCall className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1  py-4">
-              <b>Features</b>
-            </div>
-            <div></div>
-            <div></div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">Storage Optimization</div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Up to 100TB</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">Up to 1PB</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              Virtual Machines
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">1,000+</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">100,000+</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">Cloud & On-Premises Support</div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              24/7 AI Agent Monitoring
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              Average Users
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">10 users</p>
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <p className="text-muted-foreground text-sm">30 users</p>
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              Multi-Cloud Orchestration
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              Advanced Analytics & Reporting
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-            <div className="px-3 lg:px-6 col-span-2 lg:col-span-1 py-4">
-              Dedicated Success Manager
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Minus className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="px-3 py-1 md:px-6 md:py-4 flex justify-center">
-              <Check className="w-4 h-4 text-primary" />
-            </div>
-          </div>
-        </div>
+            </motion.p>
+          </motion.div>
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <PricingCards 
+            tiers={tiers}
+            className="gap-6"
+            sectionClassName="py-0"
+            containerClassName="py-0"
+          />
+        </motion.div>
       </div>
       
       {/* Decorative bottom gradient */}
