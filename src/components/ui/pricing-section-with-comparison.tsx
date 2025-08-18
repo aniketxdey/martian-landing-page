@@ -74,7 +74,7 @@ const tiers = [{
 function Pricing() {
   return <div className="relative py-16 md:py-32 bg-background overflow-hidden">
       <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-        <motion.div className="flex text-center justify-center items-center gap-4 flex-col mb-4" initial={{
+        <motion.div className="flex text-center justify-center items-center gap-4 flex-col mb-2" initial={{
         opacity: 0,
         y: 50
       }} whileInView={{
