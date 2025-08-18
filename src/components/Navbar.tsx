@@ -40,7 +40,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
           href="/" 
-          className="flex items-center gap-1"
+          className="flex items-center gap-0.5"
           aria-label="Martian Home"
         >
           <img 
