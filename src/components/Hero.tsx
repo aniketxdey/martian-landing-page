@@ -32,7 +32,7 @@ const Hero = () => {
           
           <h1 className="section-title text-foreground mb-6">
             AI Agents to{" "}
-            <span className="bg-hero-gradient bg-clip-text text-transparent font-display">
+            <span className="bg-hero-gradient-reversed bg-clip-text text-transparent font-display">
               Eliminate Infrastructure Waste
             </span>
           </h1>

@@ -86,7 +86,7 @@ const BookDemo = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              <span className="bg-hero-gradient bg-clip-text text-transparent font-display">See Martian for yourself</span>
+              <span className="bg-hero-gradient-reversed bg-clip-text text-transparent font-display">See Martian for yourself</span>
             </h1>
           </div>
 

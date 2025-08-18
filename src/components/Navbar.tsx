@@ -47,7 +47,12 @@ const Navbar = () => {
           }}
           aria-label="Martian"
         >
-          <span className="font-bold text-xl bg-hero-gradient bg-clip-text text-transparent">Martian</span>
+          <img 
+            src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
+            alt="Martian Logo" 
+            className="h-6 w-auto"
+          />
+          <span className="font-bold text-xl bg-hero-gradient-reversed bg-clip-text text-transparent">Martian</span>
         </a>
 
         {/* Desktop Navigation */}
