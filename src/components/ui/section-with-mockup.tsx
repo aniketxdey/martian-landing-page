@@ -67,7 +67,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[320px] md:max-w-[480px]`}
+                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[280px] md:max-w-[380px]`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
