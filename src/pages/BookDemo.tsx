@@ -92,67 +92,30 @@ const BookDemo = () => {
 
           <Card className="shadow-lg bg-gradient-to-br from-red-500 to-orange-500 border-0">
             <CardHeader>
-              <CardTitle className="text-white">Request Your Personalized Demo</CardTitle>
-              <CardDescription className="text-white/90">
-                Fill out the form below and we'll contact you within 24 hours to schedule your demo.
-              </CardDescription>
+              <CardTitle className="text-white">Request A Demo</CardTitle>
+              <CardDescription className="text-white/90">Fill out the form below and we'll contact you within 24 hours to schedule.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-white">Full Name *</Label>
-                    <Input 
-                      id="name" 
-                      name="name" 
-                      type="text" 
-                      value={formData.name} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="John Doe" 
-                      className="bg-white text-gray-700 placeholder:text-gray-500"
-                    />
+                    <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder="John Doe" className="bg-white text-gray-700 placeholder:text-gray-500" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-white">Email *</Label>
-                    <Input 
-                      id="email" 
-                      name="email" 
-                      type="email" 
-                      value={formData.email} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="john@company.com" 
-                      className="bg-white text-gray-700 placeholder:text-gray-500"
-                    />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="john@company.com" className="bg-white text-gray-700 placeholder:text-gray-500" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="company" className="text-white">Company *</Label>
-                    <Input 
-                      id="company" 
-                      name="company" 
-                      type="text" 
-                      value={formData.company} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="Your Company" 
-                      className="bg-white text-gray-700 placeholder:text-gray-500"
-                    />
+                    <Input id="company" name="company" type="text" value={formData.company} onChange={handleInputChange} required placeholder="Your Company" className="bg-white text-gray-700 placeholder:text-gray-500" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="jobTitle" className="text-white">Job Title</Label>
-                    <Input 
-                      id="jobTitle" 
-                      name="jobTitle" 
-                      type="text" 
-                      value={formData.jobTitle} 
-                      onChange={handleInputChange} 
-                      placeholder="CEO, CTO, etc." 
-                      className="bg-white text-gray-700 placeholder:text-gray-500"
-                    />
+                    <Input id="jobTitle" name="jobTitle" type="text" value={formData.jobTitle} onChange={handleInputChange} placeholder="CEO, CTO, etc." className="bg-white text-gray-700 placeholder:text-gray-500" />
                   </div>
                 </div>
 
@@ -171,14 +134,7 @@ const BookDemo = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-white">Message</Label>
-                  <Textarea 
-                    id="message" 
-                    name="message" 
-                    value={formData.message} 
-                    onChange={handleInputChange} 
-                    placeholder="Tell us about your specific needs or any questions you have..." 
-                    className="min-h-[100px] bg-white text-gray-700 placeholder:text-gray-500" 
-                  />
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Tell us about your specific needs or any questions you have..." className="min-h-[100px] bg-white text-gray-700 placeholder:text-gray-500" />
                 </div>
 
                 <Button type="submit" className="w-full bg-background hover:bg-background/90 text-foreground border border-white/20" disabled={isSubmitting}>
