@@ -67,7 +67,7 @@ const Index = () => {
         <SectionWithMockup
           title="Launch Immediate Optimizations"
           description="Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
-          primaryImageSrc="https://via.placeholder.com/600x400/444/fff?text=Optimization+Engine"
+          primaryImageSrc="/lovable-uploads/09a8b2cd-5102-40ac-a8be-3d66c05eae83.png"
           secondaryImageSrc=""
           reverseLayout={true}
         />
