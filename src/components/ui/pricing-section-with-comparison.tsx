@@ -4,15 +4,17 @@ import { Button } from "@/components/ui/button";
 
 function Pricing() {
   return (
-    <div className="w-full py-20 lg:py-40">
-      <div className="container mx-auto">
+    <div className="relative py-16 md:py-32 bg-background overflow-hidden">
+      <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
         <div className="flex text-center justify-center items-center gap-4 flex-col">
           <Badge>Pricing</Badge>
           <div className="flex gap-2 flex-col">
-            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-regular">
-              Solutions for Every Enterprise
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground">
+              <span className="bg-hero-gradient bg-clip-text text-transparent font-display">
+                Solutions for Every Enterprise
+              </span>
             </h2>
-            <p className="text-lg leading-relaxed tracking-tight text-muted-foreground max-w-xl text-center">
+            <p className="text-lg md:text-xl text-foreground/80 leading-relaxed max-w-xl text-center">
               Choose the plan that fits your infrastructure scale and optimization needs
             </p>
           </div>
@@ -120,6 +122,15 @@ function Pricing() {
           </div>
         </div>
       </div>
+      
+      {/* Decorative bottom gradient */}
+      <div
+        className="absolute w-full h-px bottom-0 left-0 z-0"
+        style={{
+          background:
+            "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0) 100%)",
+        }}
+      />
     </div>
   );
 }
