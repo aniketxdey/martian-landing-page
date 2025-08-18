@@ -1,48 +1,37 @@
 
 import React from "react";
-import { Linkedin, Twitter, Github } from "lucide-react";
+
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-8 mt-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <span className="text-xl font-bold bg-hero-gradient bg-clip-text text-transparent">Martian</span>
+            <div className="flex items-center gap-0.5 mb-4">
+              <img 
+                src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
+                alt="Martian Logo" 
+                className="h-6 w-auto"
+              />
+              <span className="text-xl font-bold bg-hero-gradient-reversed bg-clip-text text-transparent">Martian</span>
             </div>
-            <p className="text-gray-400 max-w-md mb-4">
+            <p className="text-gray-400 max-w-md">
               AI agents to eliminate infrastructure waste and transform enterprise cost optimization.
             </p>
-            <div className="flex space-x-4">
-              <Linkedin className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Github className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
-            </div>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4 text-pulse-500">Product</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#product" className="hover:text-white">AI Platform</a></li>
-              <li><a href="#solutions" className="hover:text-white">Pricing</a></li>
-              <li><a href="#demo" className="hover:text-white">Demo</a></li>
+              <li><a href="/book-demo" className="hover:text-white">Book a Demo</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4 text-pulse-500">Company</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#about" className="hover:text-white">About</a></li>
-              <li><a href="#contact" className="hover:text-white">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold mb-4 text-pulse-500">Resources</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">Documentation</a></li>
-              <li><a href="#" className="hover:text-white">Support</a></li>
+              <li><a href="/" className="hover:text-white">Home</a></li>
             </ul>
           </div>
         </div>
