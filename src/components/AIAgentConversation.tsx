@@ -32,30 +32,43 @@ const AIAgentConversation = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const currentConversation = conversations[currentSlide];
-
   return (
     <div className="mt-16 animate-on-scroll">
       <div className="relative max-w-4xl mx-auto">
-        <div className="glass-card bg-pulse-gradient p-8">
-          <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-8 text-left">
-            <h3 className="text-2xl font-bold mb-4 text-pulse-600">{currentConversation.title}</h3>
-            <div className="mb-2">
-              <span className="text-sm text-muted-foreground uppercase tracking-wide">
-                {currentConversation.type}
-              </span>
-            </div>
-            <p className="text-lg mb-4 text-card-foreground">
-              "{currentConversation.message}"
-            </p>
-            <div className="mt-6 flex justify-between items-center">
-              <span className="text-sm font-medium text-pulse-600">
-                Potential Monthly Savings: {currentConversation.savings}
-              </span>
-              <div className="flex gap-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <div className="w-3 h-3 bg-green-400/60 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
-                <div className="w-3 h-3 bg-green-400/30 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+        <div className="glass-card bg-hero-gradient p-8">
+          <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-8 text-left overflow-hidden">
+            <div className="relative w-full">
+              <div 
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {conversations.map((conversation, index) => (
+                  <div key={index} className="w-full flex-shrink-0">
+                    <h3 className="text-2xl font-bold mb-4">
+                      <span className="bg-hero-gradient bg-clip-text text-transparent">
+                        {conversation.title}
+                      </span>
+                    </h3>
+                    <div className="mb-2">
+                      <span className="text-sm text-muted-foreground uppercase tracking-wide">
+                        {conversation.type}
+                      </span>
+                    </div>
+                    <p className="text-lg mb-4 text-card-foreground">
+                      "{conversation.message}"
+                    </p>
+                    <div className="mt-6 flex justify-between items-center">
+                      <span className="text-sm font-medium bg-hero-gradient bg-clip-text text-transparent">
+                        Potential Monthly Savings: {conversation.savings}
+                      </span>
+                      <div className="flex gap-2">
+                        <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-400/60 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+                        <div className="w-3 h-3 bg-green-400/30 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
             
@@ -66,7 +79,7 @@ const AIAgentConversation = () => {
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'bg-pulse-500' : 'bg-muted'
+                    index === currentSlide ? 'bg-gradient-to-r from-orange-400 to-orange-600' : 'bg-muted'
                   }`}
                 />
               ))}
