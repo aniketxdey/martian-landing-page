@@ -58,13 +58,13 @@ const Index = () => {
       <Navbar />
       <main className="space-y-0">
         <Hero />
+        <SectionWithMockup
+          title="Intelligent Infrastructure Optimization"
+          description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities. Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
+          primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Primary+Image"
+          secondaryImageSrc="https://via.placeholder.com/600x400/666/fff?text=Secondary+Image"
+        />
         <DemoSection />
-      <SectionWithMockup
-        title="Intelligent Infrastructure Optimization"
-        description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities. Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
-        primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Primary+Image"
-        secondaryImageSrc="https://via.placeholder.com/600x400/666/fff?text=Secondary+Image"
-      />
         <Pricing />
       </main>
       <Footer />
