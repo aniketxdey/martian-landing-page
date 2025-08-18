@@ -33,7 +33,7 @@ const AIAgentConversation = () => {
   }, []);
 
   return (
-    <div className="mt-16 animate-on-scroll">
+    <div className="mt-8 animate-on-scroll">
       <div className="relative max-w-4xl mx-auto">
         <div className="glass-card bg-hero-gradient p-8">
           <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-8 text-left">
