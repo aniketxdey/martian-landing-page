@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import Navbar from '@/components/Navbar';
-
 const BookDemo = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,39 +18,40 @@ const BookDemo = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value
+    } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
-
   const handleSelectChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
       companySize: value
     }));
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
-      const { error } = await supabase.functions.invoke('send-demo-request', {
+      const {
+        error
+      } = await supabase.functions.invoke('send-demo-request', {
         body: formData
       });
-
       if (error) {
         throw error;
       }
-
       toast({
         title: "Demo request sent!",
-        description: "We'll get back to you within 24 hours to schedule your demo.",
+        description: "We'll get back to you within 24 hours to schedule your demo."
       });
 
       // Reset form
@@ -68,15 +68,13 @@ const BookDemo = () => {
       toast({
         title: "Error",
         description: "Failed to send demo request. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+  return <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Large oval gradient bleeding into header */}
       <div className="absolute top-[5%] left-1/2 w-[100%] h-[60%] transform -translate-x-1/2">
         <div className="w-full h-full bg-gradient-radial from-orange-500/20 via-orange-500/10 to-transparent rounded-full blur-xl" />
@@ -88,7 +86,7 @@ const BookDemo = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Book a <span className="bg-hero-gradient bg-clip-text text-transparent font-display">Demo</span>
+              Book a <span className="bg-hero-gradient bg-clip-text text-transparent font-display">See Martian for yourself</span>
             </h1>
             <p className="text-xl text-gray-600">
               See how Martian can transform your business operations
@@ -107,53 +105,22 @@ const BookDemo = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="John Doe"
-                    />
+                    <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder="John Doe" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="john@company.com"
-                    />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="john@company.com" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="company">Company *</Label>
-                    <Input
-                      id="company"
-                      name="company"
-                      type="text"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Your Company"
-                    />
+                    <Input id="company" name="company" type="text" value={formData.company} onChange={handleInputChange} required placeholder="Your Company" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="jobTitle">Job Title</Label>
-                    <Input
-                      id="jobTitle"
-                      name="jobTitle"
-                      type="text"
-                      value={formData.jobTitle}
-                      onChange={handleInputChange}
-                      placeholder="CEO, CTO, etc."
-                    />
+                    <Input id="jobTitle" name="jobTitle" type="text" value={formData.jobTitle} onChange={handleInputChange} placeholder="CEO, CTO, etc." />
                   </div>
                 </div>
 
@@ -172,21 +139,10 @@ const BookDemo = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Tell us about your specific needs or any questions you have..."
-                    className="min-h-[100px]"
-                  />
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Tell us about your specific needs or any questions you have..." className="min-h-[100px]" />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  disabled={isSubmitting}
-                >
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? 'Sending...' : 'Request Demo'}
                 </Button>
               </form>
@@ -194,8 +150,6 @@ const BookDemo = () => {
           </Card>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default BookDemo;
