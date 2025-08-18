@@ -61,7 +61,7 @@ const Index = () => {
         <SectionWithMockup
           title="Understand Your Infrastructure"
           description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities."
-          primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Infrastructure+Scan"
+          primaryImageSrc="/lovable-uploads/99f4e7cf-62df-4a31-b500-f4cffcaaceda.png"
           secondaryImageSrc=""
         />
         <SectionWithMockup
