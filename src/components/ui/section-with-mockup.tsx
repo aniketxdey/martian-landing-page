@@ -67,7 +67,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[250px] md:max-w-[380px]`}
+                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[320px] md:max-w-[500px]`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
@@ -75,7 +75,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full h-[320px] md:h-[480px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full h-[380px] md:h-[580px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
