@@ -59,10 +59,23 @@ const Index = () => {
       <main className="space-y-0">
         <Hero />
         <SectionWithMockup
-          title="Intelligent Infrastructure Optimization"
-          description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities. Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
-          primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Primary+Image"
-          secondaryImageSrc="https://via.placeholder.com/600x400/666/fff?text=Secondary+Image"
+          title="Understand Your Infrastructure"
+          description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities."
+          primaryImageSrc="https://via.placeholder.com/600x400/333/fff?text=Infrastructure+Scan"
+          secondaryImageSrc=""
+        />
+        <SectionWithMockup
+          title="Launch Immediate Optimizations"
+          description="Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
+          primaryImageSrc="https://via.placeholder.com/600x400/444/fff?text=Optimization+Engine"
+          secondaryImageSrc=""
+          reverseLayout={true}
+        />
+        <SectionWithMockup
+          title="Save Time Intelligently"
+          description="Monitor progress towards waste removal & optimization opportunities with agentic conversations tailored to non-technical teams."
+          primaryImageSrc="https://via.placeholder.com/600x400/555/fff?text=Progress+Monitor"
+          secondaryImageSrc=""
         />
         <DemoSection />
         <Pricing />

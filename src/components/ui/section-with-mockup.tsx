@@ -28,13 +28,13 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
     return (
         <section 
-            className="relative py-24 md:py-48 bg-background overflow-hidden" 
+            className="relative py-16 md:py-32 bg-background overflow-hidden" 
         >
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
                 <div className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}>
                     {/* Text Content */}
                     <motion.div
-                        className={`flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0 ${textOrderClass}`}
+                        className={`flex flex-col items-start gap-3 mt-8 md:mt-0 max-w-[480px] mx-auto md:mx-0 ${textOrderClass}`}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -42,7 +42,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                          <div className="space-y-2 md:space-y-1">
                             <motion.h2 
-                                className="section-title text-foreground"
+                                className="text-3xl md:text-4xl font-bold leading-tight text-foreground"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -55,7 +55,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                         </div>
 
                         <motion.p 
-                            className="section-subtitle text-foreground/80"
+                            className="text-lg md:text-xl text-foreground/80 leading-relaxed"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
@@ -67,7 +67,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
+                        className={`relative mt-8 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[250px] md:max-w-[380px]`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
@@ -75,7 +75,7 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full h-[320px] md:h-[480px] bg-[#ffffff0a] rounded-[24px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
