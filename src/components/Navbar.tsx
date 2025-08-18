@@ -39,13 +39,9 @@ const Navbar = () => {
     <header className="absolute top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 bg-transparent">
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
-          href="#" 
+          href="/" 
           className="flex items-center gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="Martian"
+          aria-label="Martian Home"
         >
           <img 
             src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
