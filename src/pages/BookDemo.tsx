@@ -90,7 +90,7 @@ const BookDemo = () => {
             </h1>
           </div>
 
-          <Card className="shadow-lg bg-gradient-to-br from-red-500 to-orange-300 border-0">
+          <Card className="shadow-lg bg-gradient-to-br from-red-500 to-orange-500 border-0">
             <CardHeader>
               <CardTitle className="text-white">Request Your Personalized Demo</CardTitle>
               <CardDescription className="text-white/90">
