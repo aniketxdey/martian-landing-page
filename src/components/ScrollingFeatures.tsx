@@ -52,7 +52,7 @@ const ScrollingFeatures = () => {
               <h3 className="text-3xl font-bold text-foreground transition-all duration-500">
                 {currentFeatureData.title}
               </h3>
-              <p className="text-xl text-foreground/80 leading-relaxed transition-all duration-500">
+              <p className="text-xl text-foreground/80 leading-relaxed transition-all duration-500 font-light">
                 {currentFeatureData.description}
               </p>
             </div>
