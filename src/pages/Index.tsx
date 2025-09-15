@@ -73,7 +73,7 @@ const Index = () => {
         />
         <SectionWithMockup
           title="Save Time Intelligently"
-          description="Monitor progress towards waste removal & optimization opportunities with agentic conversations tailored to non-technical teams."
+          description="Understand progress towards your ideal infrastructure through smooth conversations tailored for non-technical teams."
           primaryImageSrc="/lovable-uploads/09a8b2cd-5102-40ac-a8be-3d66c05eae83.png"
           secondaryImageSrc=""
         />
