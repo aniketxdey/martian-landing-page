@@ -21,7 +21,7 @@ const AboutSection = () => {
           <h2 className="section-title text-gray-900 mb-4">
             Meet the Founders
           </h2>
-          <p className="section-subtitle mx-auto">
+          <p className="section-subtitle mx-auto font-light">
             The team behind Martian's AI-powered infrastructure optimization
           </p>
         </div>
@@ -38,7 +38,7 @@ const AboutSection = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-2">
                 {founder.name}
               </h3>
-              <p className="text-gray-600 font-medium">
+              <p className="text-gray-600 font-light">
                 {founder.role}
               </p>
             </div>
@@ -50,7 +50,7 @@ const AboutSection = () => {
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
               Y Combinator W25 Applicants
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 font-light">
               Currently raising our seed round and building the future of infrastructure optimization with AI.
             </p>
           </div>

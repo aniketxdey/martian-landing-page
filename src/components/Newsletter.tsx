@@ -35,7 +35,7 @@ const Newsletter = () => {
           </div>
           
           <h2 className="text-5xl font-display font-bold mb-4 text-left">Subscribe to the newsletter</h2>
-          <p className="text-xl text-gray-700 mb-10 text-left">
+          <p className="text-xl text-gray-700 mb-10 text-left font-light">
             Be first to hear about breakthroughs, partnerships, and deployment opportunities
           </p>
           

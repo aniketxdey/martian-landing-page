@@ -35,7 +35,7 @@ const StepCard = ({ number, title, description, isActive, onClick }: StepCardPro
           )}>
             {title}
           </h3>
-          <p className="text-gray-600 text-sm">{description}</p>
+          <p className="text-gray-600 text-sm font-light">{description}</p>
         </div>
       </div>
     </div>
@@ -156,7 +156,7 @@ const HowItWorks = () => {
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <span className="text-pulse-400 font-medium mb-2 block">{step.number}</span>
                     <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-white/80">{step.description}</p>
+                    <p className="text-white/80 font-light">{step.description}</p>
                   </div>
                 </div>
               </div>

@@ -71,14 +71,14 @@ const SolutionsSection = () => {
                   <span className="text-4xl font-bold text-pulse-500">{plan.price}</span>
                   <span className="text-gray-600">{plan.period}</span>
                 </div>
-                <p className="text-gray-600">{plan.description}</p>
+                <p className="text-gray-600 font-light">{plan.description}</p>
               </div>
               
               <ul className="space-y-4 mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start">
                     <Check className="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">{feature}</span>
+                    <span className="text-gray-700 font-light">{feature}</span>
                   </li>
                 ))}
               </ul>

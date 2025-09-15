@@ -48,7 +48,7 @@ const CTA = () => {
             <span className="text-pulse-500">Experience Atlas</span>
           </h2>
           
-          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto font-light">
             We're accepting a limited number of early adopters. Submit your application today to secure your place in the future of robotics.
           </p>
           

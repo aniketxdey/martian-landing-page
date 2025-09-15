@@ -50,7 +50,7 @@ const TestimonialCard = ({
         <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
         <div>
           <h4 className="font-semibold text-xl">{author}</h4>
-          <p className="text-white/80">{role}</p>
+          <p className="text-white/80 font-light">{role}</p>
         </div>
       </div>
     </div>;

@@ -57,7 +57,7 @@ const DetailsSection = () => {
             backgroundColor: "#FFFFFF",
             border: "1px solid #ECECEC"
           }}>
-              <h3 className="text-lg sm:text-xl font-display mb-6 sm:mb-8">
+              <h3 className="text-lg sm:text-xl font-display mb-6 sm:mb-8 font-light">
                 Precision engineering meets adaptive intelligence
               </h3>
 
