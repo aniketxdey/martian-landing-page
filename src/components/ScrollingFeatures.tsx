@@ -13,8 +13,8 @@ const ScrollingFeatures = () => {
       description: "Identify and eliminate runaway VMs, duplicate files, and expensive unused cold storage with automated remediation that delivers results within hours."
     },
     {
-      title: "Universal Integration",
-      description: "Seamless integration with AWS, Azure, GCP, and major on-premises storage vendors through native APIs and enterprise connectors."
+      title: "Progress Monitoring",
+      description: "Monitor progress towards waste removal & optimization opportunities with agentic conversations tailored to non-technical teams."
     }
   ];
 
