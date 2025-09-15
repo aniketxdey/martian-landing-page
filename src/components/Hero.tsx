@@ -1,27 +1,16 @@
-
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import AIAgentConversation from "./AIAgentConversation";
-
 const Hero = () => {
   const [currentChip, setCurrentChip] = useState(0);
-  
-  const chipMessages = [
-    "Transform Infrastructure Costs",
-    "Optimize Immediately", 
-    "Technical Expertise Never Required"
-  ];
-
+  const chipMessages = ["Transform Infrastructure Costs", "Optimize Immediately", "Technical Expertise Never Required"];
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentChip((prev) => (prev + 1) % chipMessages.length);
+      setCurrentChip(prev => (prev + 1) % chipMessages.length);
     }, 3000);
-    
     return () => clearInterval(timer);
   }, []);
-  
-  return (
-    <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
+  return <section className="min-h-screen bg-background flex items-center justify-center pt-20 relative overflow-hidden" id="hero">
       {/* Large oval gradient bleeding into header */}
       <div className="absolute top-[5%] left-1/2 w-[100%] h-[60%] transform -translate-x-1/2">
         <div className="w-full h-full bg-gradient-radial from-orange-500/20 via-orange-500/10 to-transparent rounded-full blur-xl" />
@@ -37,15 +26,11 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">
-            Transform enterprise-scale cost optimization from complex operations into natural conversations that generate immediate savings
-          </p>
+          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">Transform cloud & on-prem storage optimization from a complex process into natural conversation,</p>
         </div>
         
         <AIAgentConversation />
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
