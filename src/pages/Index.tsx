@@ -60,7 +60,7 @@ const Index = () => {
         <Hero />
         <SectionWithMockup
           title="Understand Your Infrastructure"
-          description="Full topological scans of cloud and on-premises infrastructure with precise dependency mapping that reveals hidden connections and optimization opportunities."
+          description="Full scans of cloud and on-premise infrastructure with precise dependency mapping at the touch of a fingertip."
           primaryImageSrc="/lovable-uploads/99f4e7cf-62df-4a31-b500-f4cffcaaceda.png"
           secondaryImageSrc=""
         />
