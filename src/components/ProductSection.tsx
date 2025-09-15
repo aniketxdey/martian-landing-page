@@ -49,7 +49,7 @@ const ProductSection = () => {
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed font-light">
                 {feature.description}
               </p>
             </div>
