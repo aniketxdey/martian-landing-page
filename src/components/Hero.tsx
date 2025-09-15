@@ -26,7 +26,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">Transform cloud & on-prem storage optimization from a complex process into natural conversation,</p>
+          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">Transform hybrid storage optimization from complex operations into  natural conversation, designed for immediate savings.</p>
         </div>
         
         <AIAgentConversation />
