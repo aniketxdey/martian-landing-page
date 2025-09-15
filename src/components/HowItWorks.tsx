@@ -35,7 +35,7 @@ const StepCard = ({ number, title, description, isActive, onClick }: StepCardPro
           )}>
             {title}
           </h3>
-          <p className="text-gray-600 text-sm font-light">{description}</p>
+          <p className="text-gray-600 text-sm">{description}</p>
         </div>
       </div>
     </div>
