@@ -37,7 +37,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="section-subtitle text-foreground/80 mx-auto mb-20">
+          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-lg md:text-xl">
             Transform enterprise-scale cost optimization from complex operations into natural conversations that generate immediate savings
           </p>
         </div>

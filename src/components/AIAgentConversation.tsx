@@ -34,43 +34,43 @@ const AIAgentConversation = () => {
 
   return (
     <div className="mt-8 animate-on-scroll">
-      <div className="relative max-w-4xl mx-auto">
-        <div className="glass-card bg-hero-gradient p-8">
-          <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-8 text-left">
+      <div className="relative max-w-4xl mx-auto px-4">
+        <div className="glass-card bg-hero-gradient p-4 md:p-8">
+          <div className="bg-card/90 backdrop-blur-sm rounded-2xl p-4 md:p-8 text-left">
             <div className="relative w-full overflow-hidden">
               <div 
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
                 {conversations.map((conversation, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-2">
+                  <div key={index} className="w-full flex-shrink-0 px-1 md:px-2">
                     <div className="w-full">
-                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-0">
+                      <h3 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 flex items-center gap-0 flex-wrap">
                         <img 
                           src="/lovable-uploads/3c8cbbd6-d476-4cfa-9b2a-9c6eba7f4b19.png" 
                           alt="Martian Logo" 
-                          className="h-10 w-auto"
+                          className="h-6 md:h-10 w-auto"
                         />
                         <span className="bg-hero-gradient-reversed bg-clip-text text-transparent ml-0.5">
                           {conversation.title}
                         </span>
                       </h3>
                       <div className="mb-2">
-                        <span className="text-sm text-muted-foreground uppercase tracking-wide">
+                        <span className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
                           {conversation.type}
                         </span>
                       </div>
-                      <p className="text-lg mb-4 text-card-foreground">
+                      <p className="text-sm md:text-lg mb-3 md:mb-4 text-card-foreground leading-relaxed">
                         "{conversation.message}"
                       </p>
-                      <div className="mt-6 flex justify-between items-center">
-                        <span className="text-sm font-medium bg-hero-gradient bg-clip-text text-transparent">
+                      <div className="mt-4 md:mt-6 flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-0">
+                        <span className="text-xs md:text-sm font-medium bg-hero-gradient bg-clip-text text-transparent">
                           Potential Monthly Savings: {conversation.savings}
                         </span>
-                        <div className="flex gap-2">
-                          <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                          <div className="w-3 h-3 bg-green-400/60 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
-                          <div className="w-3 h-3 bg-green-400/30 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+                        <div className="flex gap-2 justify-center md:justify-end">
+                          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full animate-pulse"></div>
+                          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-400/60 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+                          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-400/30 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
                         </div>
                       </div>
                     </div>
