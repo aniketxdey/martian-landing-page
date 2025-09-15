@@ -71,7 +71,7 @@ export function PricingCards({
                                     <h3 className="text-lg uppercase tracking-wider font-medium text-white">
                                         {tier.name}
                                     </h3>
-                                    <div className="flex items-baseline gap-2">
+                                    <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                                         <span className="text-5xl font-light text-white">
                                             ${tier.price}
                                         </span>
