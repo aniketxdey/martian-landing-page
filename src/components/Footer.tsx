@@ -23,21 +23,15 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4 text-pulse-500">Product</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><Link to="/book-demo" className="hover:text-white">Book a Demo</Link></li>
-            </ul>
-          </div>
-          
-          <div>
             <h4 className="font-semibold mb-4 text-pulse-500">Company</h4>
             <ul className="space-y-2 text-gray-400">
               <li><Link to="/" className="hover:text-white">Home</Link></li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 space-y-2">
+          <p className="font-light tracking-wide">This idea is currently under research.</p>
           <p>&copy; 2025 Martian. All rights reserved.</p>
         </div>
       </div>
