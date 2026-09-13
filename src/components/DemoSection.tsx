@@ -77,13 +77,6 @@ const DemoSection = () => {
                 <Youtube className="mr-2 w-5 h-5" />
                 Watch on YouTube
               </a>
-              <a 
-                href="#contact"
-                className="inline-flex items-center bg-foreground text-background hover:bg-foreground/90 px-10 py-3 rounded-full transition-all duration-300 font-medium whitespace-nowrap"
-              >
-                Request Private Demo
-                <Play className="ml-2 w-4 h-4" />
-              </a>
             </div>
           </motion.div>
         </motion.div>
