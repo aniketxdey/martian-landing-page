@@ -84,7 +84,7 @@ const ScrollingFeatures = () => {
           </div>
           
           <div className="flex items-center justify-center">
-            <div className="w-full max-w-xl h-96 bg-muted/20 rounded-none flex items-center justify-center border border-border">
+            <div className="w-full max-w-2xl h-[28rem] bg-muted/20 rounded-none flex items-center justify-center border border-border">
               <span className="text-muted-foreground text-lg">Feature Visualization</span>
             </div>
           </div>
