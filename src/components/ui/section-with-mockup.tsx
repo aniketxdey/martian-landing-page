@@ -75,19 +75,17 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                     >
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full bg-[#ffffff0a] rounded-none backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            className="relative w-full bg-[#ffffff0a] rounded-lg backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
                             initial={{ y: 30, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, delay: 0.6 }}
                             viewport={{ once: true }}
-                            style={{ borderRadius: 0 }}
                         >
                             <div className="p-0">
                                 <img 
                                     src={primaryImageSrc}
                                     alt="Infrastructure Dashboard"
-                                    className="w-full h-auto rounded-none"
-                                    style={{ borderRadius: 0 }}
+                                    className="w-full h-auto rounded-lg"
                                 />
                             </div>
                         </motion.div>
