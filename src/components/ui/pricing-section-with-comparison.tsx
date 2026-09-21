@@ -131,7 +131,8 @@ function Pricing() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <DemoRequestDialog>
+        <motion.div 
+          className="flex justify-center mt-4"
             <button className="text-lg sm:text-xl font-semibold px-10 py-4 rounded-lg border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-clip-border hover:text-primary-foreground">
               Get a Demo
             </button>
