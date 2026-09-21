@@ -17,16 +17,16 @@ const Hero = () => {
       </div>
       
       <div className="section-container text-center relative z-10">
-        <div className="animate-on-scroll mb-32">
+        <div className="animate-on-scroll mb-6">
           
-          <h1 className="section-title text-foreground mb-6">
+          <h1 className="section-title text-foreground mb-4">
             AI Agents to{" "}
             <span className="bg-hero-gradient-reversed bg-clip-text text-transparent font-display">
               Eliminate Infrastructure Waste
             </span>
           </h1>
           
-          <p className="section-subtitle text-foreground/80 mx-auto mb-20 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">Transform enterprise-scale optimization from complex operations into natural conversation, designed for immediate savings.</p>
+          <p className="section-subtitle text-foreground/80 mx-auto mb-6 text-sm md:text-lg lg:text-xl px-6 max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl">Transform enterprise-scale optimization from complex operations into natural conversation, designed for immediate savings.</p>
         </div>
         
         <AIAgentConversation />
