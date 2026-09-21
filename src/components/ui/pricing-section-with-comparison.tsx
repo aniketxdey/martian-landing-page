@@ -1,6 +1,7 @@
 import React from "react";
 import { PricingCards } from "@/components/ui/pricing-cards";
 import { motion } from "framer-motion";
+import DemoRequestDialog from "@/components/DemoRequestDialog";
 const tiers = [{
   name: "MID-MARKET",
   price: 1000,
