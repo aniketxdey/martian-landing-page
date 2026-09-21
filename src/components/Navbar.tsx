@@ -21,7 +21,7 @@ const Navbar = () => {
         </Link>
 
         <DemoRequestDialog>
-          <button className="text-sm sm:text-base font-medium px-4 py-2 rounded-lg border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-none hover:bg-red-500 hover:text-white">
+          <button className="text-sm sm:text-base font-medium px-4 py-2 rounded-lg border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-clip-border hover:text-primary-foreground">
             Get a Demo
           </button>
         </DemoRequestDialog>
