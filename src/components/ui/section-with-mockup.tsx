@@ -28,10 +28,10 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
     return (
         <section 
-            className="relative py-16 md:py-32 bg-background overflow-hidden" 
+            className="relative py-12 md:py-20 bg-background overflow-hidden" 
         >
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
-                <div className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}>
+                <div className={`grid grid-cols-1 gap-10 md:gap-6 w-full items-center ${layoutClasses}`}>
                     {/* Text Content */}
                     <motion.div
                         className={`flex flex-col items-start gap-3 mt-8 md:mt-0 max-w-[480px] mx-auto md:mx-0 ${textOrderClass}`}

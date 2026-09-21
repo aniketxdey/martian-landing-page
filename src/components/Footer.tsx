@@ -3,7 +3,7 @@ import DemoRequestDialog from "./DemoRequestDialog";
 
 const Footer = () => {
   return (
-    <footer className="bg-background text-foreground py-8 mt-8">
+    <footer className="bg-background text-foreground py-6 mt-4">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center text-gray-400 space-y-4">
           <DemoRequestDialog>
