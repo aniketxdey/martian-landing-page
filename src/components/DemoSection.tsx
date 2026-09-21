@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 
 const DemoSection = () => {
   return (
-    <section id="demo" className="relative py-16 md:py-32 bg-background overflow-hidden">
+    <section id="demo" className="relative py-12 md:py-20 bg-background overflow-hidden">
       <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
