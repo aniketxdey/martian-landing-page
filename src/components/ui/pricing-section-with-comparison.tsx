@@ -1,6 +1,7 @@
 import React from "react";
 import { PricingCards } from "@/components/ui/pricing-cards";
 import { motion } from "framer-motion";
+import DemoRequestDialog from "@/components/DemoRequestDialog";
 const tiers = [{
   name: "MID-MARKET",
   price: 1000,
@@ -121,6 +122,20 @@ function Pricing() {
         amount: 0.3
       }}>
           <PricingCards tiers={tiers} className="gap-6" sectionClassName="py-0 !pt-0" containerClassName="py-0" />
+        </motion.div>
+
+        <motion.div 
+          className="flex justify-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <DemoRequestDialog>
+            <button className="text-lg sm:text-xl font-semibold px-10 py-4 rounded-lg border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-clip-border hover:text-primary-foreground">
+              Get a Demo
+            </button>
+          </DemoRequestDialog>
         </motion.div>
       </div>
       
