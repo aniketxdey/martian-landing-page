@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import DemoRequestDialog from "./DemoRequestDialog";
 
 
 const Footer = () => {
@@ -30,8 +31,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 space-y-2">
-          <p className="font-light tracking-wide">This idea is currently under research.</p>
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 space-y-4">
+          <DemoRequestDialog>
+            <button className="font-medium px-6 py-2.5 rounded-full border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-none hover:bg-red-500 hover:text-white">
+              Get a Demo
+            </button>
+          </DemoRequestDialog>
           <p>&copy; 2025 Martian. All rights reserved.</p>
         </div>
       </div>

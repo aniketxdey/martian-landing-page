@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import DemoRequestDialog from "./DemoRequestDialog";
 
 const Navbar = () => {
   return (
@@ -19,9 +20,11 @@ const Navbar = () => {
           <span className="font-bold text-xl bg-hero-gradient-reversed bg-clip-text text-transparent">Martian</span>
         </Link>
 
-        <span className="hidden md:inline text-sm font-light tracking-wide text-foreground/60">
-          Under research
-        </span>
+        <DemoRequestDialog>
+          <button className="text-sm sm:text-base font-medium px-4 py-2 rounded-lg border border-foreground/20 bg-hero-gradient bg-clip-text text-transparent transition-all duration-200 hover:bg-none hover:bg-red-500 hover:text-white">
+            Get a Demo
+          </button>
+        </DemoRequestDialog>
       </div>
     </header>
   );

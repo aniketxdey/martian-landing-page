@@ -1,0 +1,146 @@
+import React, { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader2, ArrowRight, CheckCircle2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+interface DemoRequestDialogProps {
+  children: React.ReactNode;
+}
+
+const initialForm = {
+  name: "",
+  email: "",
+  company: "",
+  jobTitle: "",
+  companySize: "",
+  message: "",
+};
+
+const DemoRequestDialog = ({ children }: DemoRequestDialogProps) => {
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const update = (field: keyof typeof initialForm, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.company || !form.companySize) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-demo-request", { body: form });
+      if (error) throw error;
+      setSubmitted(true);
+      toast.success("Thanks! We'll be in touch within 24 hours.");
+    } catch (err) {
+      console.error("Demo request failed:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next);
+    if (!next) {
+      setTimeout(() => {
+        setForm(initialForm);
+        setSubmitted(false);
+      }, 200);
+    }
+  };
+
+  const fieldClass =
+    "bg-white text-gray-800 border-0 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-white/70";
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto border-0 bg-gradient-to-br from-[hsl(12_90%_48%)] to-[hsl(32_95%_62%)] text-white">
+        {submitted ? (
+          <div className="py-10 text-center space-y-4">
+            <CheckCircle2 className="w-12 h-12 mx-auto" />
+            <DialogTitle className="text-2xl font-display">Request received</DialogTitle>
+            <DialogDescription className="text-white/90 font-light tracking-wide">
+              Our team will reach out within 24 hours to schedule your demo.
+            </DialogDescription>
+          </div>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-display">See Martian for yourself</DialogTitle>
+              <DialogDescription className="text-white/90 font-light tracking-wide">
+                Tell us a bit about your team and we'll set up a personalized walkthrough.
+              </DialogDescription>
+            </DialogHeader>
+
+            <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="demo-name" className="text-white">Full Name*</Label>
+                  <Input id="demo-name" className={fieldClass} value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Jane Doe" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="demo-email" className="text-white">Work Email*</Label>
+                  <Input id="demo-email" type="email" className={fieldClass} value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="jane@company.com" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="demo-company" className="text-white">Company*</Label>
+                  <Input id="demo-company" className={fieldClass} value={form.company} onChange={(e) => update("company", e.target.value)} placeholder="Company name" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="demo-title" className="text-white">Job Title</Label>
+                  <Input id="demo-title" className={fieldClass} value={form.jobTitle} onChange={(e) => update("jobTitle", e.target.value)} placeholder="Head of Platform" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-white">Company Size*</Label>
+                <Select value={form.companySize} onValueChange={(value) => update("companySize", value)}>
+                  <SelectTrigger className={fieldClass}>
+                    <SelectValue placeholder="Select company size" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="mid-market">Mid-market (50–1000 employees)</SelectItem>
+                    <SelectItem value="enterprise">Enterprise (1000+ employees)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="demo-message" className="text-white">What would you like to solve?</Label>
+                <Textarea id="demo-message" className={`${fieldClass} min-h-[90px]`} value={form.message} onChange={(e) => update("message", e.target.value)} placeholder="Current infrastructure spend, tooling, goals..." />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-background text-foreground border border-foreground/20 px-6 py-3 font-medium transition-all duration-300 hover:bg-background/80 disabled:opacity-60"
+              >
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                {isSubmitting ? "Sending..." : "Request Demo"}
+                {!isSubmitting && <ArrowRight className="w-4 h-4" />}
+              </button>
+              <p className="text-xs text-white/80 font-light text-center">
+                We'll only use your details to contact you about a demo.
+              </p>
+            </form>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default DemoRequestDialog;
