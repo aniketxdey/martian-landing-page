@@ -62,25 +62,26 @@ const DemoRequestDialog = ({ children }: DemoRequestDialogProps) => {
   };
 
   const fieldClass =
-    "bg-white text-gray-800 border-0 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-white/70";
+    "bg-white text-[#111214] border border-[#D4D4D0] placeholder:text-[#8E9198] focus-visible:ring-2 focus-visible:ring-[#D2401A]/40 focus-visible:border-[#D2401A]";
+  const labelClass = "text-[#2A2C30] font-medium";
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto border-0 bg-gradient-to-br from-[hsl(12_90%_48%)] to-[hsl(32_95%_62%)] text-white">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-[#E6E6E3] bg-white text-[#111214] font-[Geist,ui-sans-serif,system-ui,sans-serif]">
         {submitted ? (
           <div className="py-10 text-center space-y-4">
-            <CheckCircle2 className="w-12 h-12 mx-auto" />
-            <DialogTitle className="text-2xl font-display">Request received</DialogTitle>
-            <DialogDescription className="text-white/90 font-light tracking-wide">
+            <CheckCircle2 className="w-12 h-12 mx-auto text-[#D2401A]" />
+            <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">Request received</DialogTitle>
+            <DialogDescription className="text-[#45484E]">
               Our team will reach out within 24 hours to schedule your demo.
             </DialogDescription>
           </div>
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-2xl font-display">See Martian for yourself</DialogTitle>
-              <DialogDescription className="text-white/90 font-light tracking-wide">
+              <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">See Martian for yourself</DialogTitle>
+              <DialogDescription className="text-[#45484E]">
                 Tell us a bit about your team and we'll set up a personalized walkthrough.
               </DialogDescription>
             </DialogHeader>
@@ -88,25 +89,25 @@ const DemoRequestDialog = ({ children }: DemoRequestDialogProps) => {
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="demo-name" className="text-white">Full Name*</Label>
+                  <Label htmlFor="demo-name" className={labelClass}>Full Name*</Label>
                   <Input id="demo-name" className={fieldClass} value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Jane Doe" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="demo-email" className="text-white">Work Email*</Label>
+                  <Label htmlFor="demo-email" className={labelClass}>Work Email*</Label>
                   <Input id="demo-email" type="email" className={fieldClass} value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="jane@company.com" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="demo-company" className="text-white">Company*</Label>
+                  <Label htmlFor="demo-company" className={labelClass}>Company*</Label>
                   <Input id="demo-company" className={fieldClass} value={form.company} onChange={(e) => update("company", e.target.value)} placeholder="Company name" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="demo-title" className="text-white">Job Title</Label>
+                  <Label htmlFor="demo-title" className={labelClass}>Job Title</Label>
                   <Input id="demo-title" className={fieldClass} value={form.jobTitle} onChange={(e) => update("jobTitle", e.target.value)} placeholder="Head of Platform" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-white">Company Size*</Label>
+                <Label className={labelClass}>Company Size*</Label>
                 <Select value={form.companySize} onValueChange={(value) => update("companySize", value)}>
                   <SelectTrigger className={fieldClass}>
                     <SelectValue placeholder="Select company size" />
@@ -119,20 +120,20 @@ const DemoRequestDialog = ({ children }: DemoRequestDialogProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="demo-message" className="text-white">What would you like to solve?</Label>
+                <Label htmlFor="demo-message" className={labelClass}>What would you like to solve?</Label>
                 <Textarea id="demo-message" className={`${fieldClass} min-h-[90px]`} value={form.message} onChange={(e) => update("message", e.target.value)} placeholder="Current infrastructure spend, tooling, goals..." />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-background text-foreground border border-foreground/20 px-6 py-3 font-medium transition-all duration-300 hover:bg-background/80 disabled:opacity-60"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#D2401A] text-white px-6 py-3.5 font-semibold transition-colors hover:bg-[#B9361A] disabled:opacity-60"
               >
                 {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                 {isSubmitting ? "Sending..." : "Request Demo"}
                 {!isSubmitting && <ArrowRight className="w-4 h-4" />}
               </button>
-              <p className="text-xs text-white/80 font-light text-center">
+              <p className="text-xs text-[#5B5F66] text-center">
                 We'll only use your details to contact you about a demo.
               </p>
             </form>
