@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import { DemoRequestProvider } from "@/components/site/DemoRequest";
+import { LightboxProvider } from "@/components/site/Lightbox";
+import { CursorFollower } from "@/components/site/Cursor";
 import Index from "./pages/Index";
 import { DemoPage, NotFoundPage } from "./routes";
 
@@ -14,6 +16,7 @@ const RouteFallback = () => <div className="min-h-screen bg-[#0A0A0B]" aria-busy
 const App = () => (
   <BrowserRouter>
     <DemoRequestProvider>
+      <LightboxProvider>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route
@@ -34,7 +37,9 @@ const App = () => (
           }
         />
       </Routes>
+      </LightboxProvider>
     </DemoRequestProvider>
+    <CursorFollower />
     <Toaster position="bottom-right" />
   </BrowserRouter>
 );

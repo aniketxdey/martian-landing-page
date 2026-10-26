@@ -22,8 +22,9 @@ export const PlayIcon = ({ size = 16 }: { size?: number }) => (
   </svg>
 );
 
+/** Arrow for buttons and links; inside a .btn it nudges right on hover. */
 export const ArrowIcon = ({ size = 16 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg className="btn-arrow flex-none" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" />
   </svg>
 );

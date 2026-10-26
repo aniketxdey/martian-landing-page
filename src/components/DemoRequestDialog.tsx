@@ -37,7 +37,7 @@ const DemoRequestDialog = ({ open, onOpenChange, returnFocusTo }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.company || !form.companySize) {
-      toast.error("Fill in your name, work email, company and company size first.");
+      toast.error("Fill in the fields marked with * first.");
       return;
     }
 
@@ -141,11 +141,11 @@ const DemoRequestDialog = ({ open, onOpenChange, returnFocusTo }: Props) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#D2401A] text-white px-6 py-3.5 font-semibold transition-colors hover:bg-[#B9361A] disabled:opacity-60"
+                className="btn btn-accent w-full inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#D2401A] bg-[#D2401A] text-white px-6 py-3.5 font-semibold disabled:opacity-60"
               >
                 {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : null}
                 {isSubmitting ? "Sending…" : "Request a demo"}
-                {!isSubmitting && <ArrowRight className="w-4 h-4" aria-hidden="true" />}
+                {!isSubmitting && <ArrowRight className="btn-arrow w-4 h-4" aria-hidden="true" />}
               </button>
               <p className="text-xs text-[#5B5F66] text-center">
                 We only use these details to set up your demo.

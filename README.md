@@ -19,8 +19,19 @@ npm run build      # production build in dist/
 
 ## Writing copy
 
-Two writing skills sit in `.claude/skills/` (`rewrite-slop` and `anti-ai-slop-writing`). Any new copy on the site should follow them: no em dashes, no reflexive lists of three, contractions, specific numbers over adjectives, and nothing the product doesn't actually do. The one exception is the tagline, "Agents That Eliminate Your Infrastructure Waste", which stays exactly as written.
+New copy on the site follows the two writing skills in `.claude/skills/`. The banned words and phrases are in `anti-ai-slop-writing/references/banned-words.md`, and the sentence rules are in `rewrite-slop/references/voice-profile.md`. In practice, that means naming the one specific thing the product does in plain verbs. If a sentence needs a claim the platform can't back up, cut the sentence. The tagline, "Agents That Eliminate Your Infrastructure Waste", is the one line that stays exactly as written.
 
-## Motion
+## Motion and interaction
 
-Route changes use the View Transitions API (with a curtain fallback) and pass through the brand orange or black; sections reveal as they scroll in. All of it lives in `src/components/site/` and the bottom of `src/index.css`, and all of it switches off when someone has reduced motion turned on.
+Route changes use the View Transitions API, with a curtain for browsers that don't have it, and pass through the brand orange or black. Sections reveal as they scroll in.
+
+The hover states are shared with the platform, so the class names matter:
+
+- `.btn` turns any button orange (`#D2401A`) on hover, and `.btn-accent` gives buttons that are already orange a lift and a shadow instead.
+- `.link-u` draws the underline that grows out from the center.
+- `.card-lift` raises a card 2px and warms its border.
+- `data-cursor="Label"` marks a region where the orange cursor follower appears (`src/components/site/Cursor.tsx`).
+
+Every `MediaSlot` opens in the lightbox (`src/components/site/Lightbox.tsx`) when clicked.
+
+Everything lives in `src/components/site/` and the bottom of `src/index.css`. All of it switches off with reduced motion, and the cursor follower also stays off on touch screens.

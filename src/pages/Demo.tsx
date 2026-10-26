@@ -58,15 +58,15 @@ export default function Demo() {
           </span>
         </div>
         <div className="flex flex-none items-center gap-2.5">
-          <TransitionLink to="/" tone="dark" className="rounded-lg px-3 py-2 text-sm text-[#C9CBD0] transition-colors hover:text-white max-sm:hidden">
+          <TransitionLink to="/" tone="dark" className="link-u mx-2 text-sm text-[#C9CBD0] transition-colors duration-200 hover:text-white max-sm:hidden">
             Back to the site
           </TransitionLink>
           {state === "ready" && (
-            <a href={APP_URL} target="_blank" rel="noreferrer" className="rounded-lg border border-[#34363B] px-3 py-2 text-sm text-white transition-colors hover:border-[#6B6F76] max-md:hidden">
+            <a href={APP_URL} target="_blank" rel="noreferrer" className="btn rounded-lg border border-[#34363B] px-3 py-2 text-sm text-white max-md:hidden">
               Open full screen
             </a>
           )}
-          <DemoRequestButton className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-[#0A0A0B] transition-colors hover:bg-[#EDEEF0]">
+          <DemoRequestButton className="btn rounded-lg border border-white bg-white px-4 py-2 text-sm font-semibold text-[#0A0A0B]">
             Book a demo
           </DemoRequestButton>
         </div>
@@ -99,11 +99,11 @@ export default function Demo() {
                 You can still watch the recorded walkthrough, or book a demo and we'll take you through the real console with your own questions.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href={DEMO_VIDEO} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-full bg-white py-3 pl-3 pr-5 text-[15px] font-semibold text-[#0A0A0B] transition-colors hover:bg-[#EDEEF0]">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D2401A] text-white"><PlayIcon size={14} /></span>
+                <a href={DEMO_VIDEO} target="_blank" rel="noreferrer" className="btn inline-flex items-center gap-3 rounded-full border border-white bg-white py-3 pl-3 pr-5 text-[15px] font-semibold text-[#0A0A0B]">
+                  <span className="btn-disc flex h-8 w-8 items-center justify-center rounded-full bg-[#D2401A] text-white"><PlayIcon size={14} /></span>
                   Watch the walkthrough
                 </a>
-                <DemoRequestButton className="rounded-full border border-[#34363B] px-5 py-3 text-[15px] font-medium text-white transition-colors hover:border-[#FF6B3D]">
+                <DemoRequestButton className="btn rounded-full border border-[#34363B] px-5 py-3 text-[15px] font-medium text-white">
                   Book a demo
                 </DemoRequestButton>
               </div>

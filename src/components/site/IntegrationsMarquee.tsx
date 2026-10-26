@@ -27,10 +27,10 @@ export function IntegrationsMarquee() {
         {SERVICES.map((s, i) => <li key={`${s.name}-${i}`}>{s.env}: {s.name}</li>)}
       </ul>
 
-      <div className="marquee-group flex flex-col gap-2" {...(paused ? { "data-paused": "" } : {})}>
+      <div className="marquee-group flex flex-col gap-2" data-cursor={paused ? undefined : "Paused"} {...(paused ? { "data-paused": "" } : {})}>
         <Track duration={56} label="Environments">
           {ENVIRONMENTS.map((e) => (
-            <div key={e.name} className="mr-3 flex w-[300px] flex-none items-center gap-3.5 rounded-2xl border border-[#E6E6E3] bg-white px-4 py-3.5 shadow-[0_1px_2px_rgba(17,18,20,0.04)]">
+            <div key={e.name} className="card-lift mr-3 flex w-[300px] flex-none items-center gap-3.5 rounded-2xl border border-[#E6E6E3] bg-white px-4 py-3.5 shadow-[0_1px_2px_rgba(17,18,20,0.04)]">
               <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-[#EFEFEC] bg-[#FBFBFA]">
                 <img src={e.logo} alt="" width={30} height={30} loading="lazy" decoding="async" className="max-h-[30px] max-w-[30px] object-contain" />
               </span>
@@ -57,7 +57,7 @@ export function IntegrationsMarquee() {
           type="button"
           onClick={() => setPaused((p) => !p)}
           aria-pressed={paused}
-          className="rounded-full border border-[#D4D4D0] bg-white px-3 py-1.5 text-xs font-medium text-[#45484E] hover:border-[#111214] hover:text-[#111214]"
+          className="btn rounded-full border border-[#D4D4D0] bg-white px-3 py-1.5 text-xs font-medium text-[#45484E]"
         >
           {paused ? "Resume scrolling" : "Pause scrolling"}
         </button>

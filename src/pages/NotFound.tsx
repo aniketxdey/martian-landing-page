@@ -21,7 +21,7 @@ const NotFound = () => {
         <p className="m-0 max-w-[460px] text-[17px] leading-[1.6] text-[#B4B7BD]">
           The link might be old, or it might have a typo in it. The homepage has everything this site covers.
         </p>
-        <TransitionLink to="/" className="rounded-[10px] bg-[#D2401A] px-5 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#B9361A]">
+        <TransitionLink to="/" className="btn btn-accent rounded-[10px] border border-[#D2401A] bg-[#D2401A] px-5 py-3 text-[15px] font-semibold text-white">
           Go to the homepage
         </TransitionLink>
       </main>

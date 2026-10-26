@@ -28,7 +28,7 @@ const Dot = ({ state }: { state: Step["state"] }) =>
 
 export function AgentsPreview() {
   return (
-    <div className="flex flex-col gap-0 bg-white" role="img" aria-label="An agent run on the Agents page: Discovery and the utilization analyst have finished, the cost analyst is running, and the remediator is waiting for approval to stop 47 idle EC2 instances">
+    <div className="flex flex-col gap-0 bg-white" role="img" aria-label="An agent run on the Agents page, paused at its last step while the remediator waits for approval to stop 47 idle EC2 instances">
       <div className="flex items-center justify-between gap-3 border-b border-[#EFEFEC] px-5 py-4">
         <div className="flex min-w-0 flex-col gap-0.5">
           <span className="truncate text-[15px] font-semibold text-[#111214]">Investigate: idle EC2 instances</span>

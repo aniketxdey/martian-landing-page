@@ -1,7 +1,8 @@
 /* What the platform supports natively, from its MCP providers
  * (martian/mcp/src/providers: aws, azure, gcp, vcenter, ssh) plus custom MCP
- * servers. Every item here gets inventory, utilization and approved changes. Keep
- * this list honest: anything only shown in the demo catalog doesn't belong here. */
+ * servers. Martian can find waste in every item here and change it once someone
+ * approves. Keep this list honest: anything only shown in the demo catalog doesn't
+ * belong here. */
 
 export type Environment = { name: string; logo: string; detail: string };
 export type Service = { name: string; logo: string; env: string };
@@ -10,7 +11,7 @@ export const ENVIRONMENTS: Environment[] = [
   { name: "Amazon Web Services", logo: "/logos/aws.svg", detail: "Every account and region you grant a role in" },
   { name: "Microsoft Azure", logo: "/logos/azure.svg", detail: "Subscriptions, through a managed identity" },
   { name: "Google Cloud", logo: "/logos/gcp.svg", detail: "Projects, through workload identity" },
-  { name: "VMware vCenter", logo: "/logos/vmware.svg", detail: "Hosts, VMs and datastores in your data centers" },
+  { name: "VMware vCenter", logo: "/logos/vmware.svg", detail: "The clusters you run in your own data centers" },
   { name: "Linux and Unix servers", logo: "/logos/linux.svg", detail: "Over SSH, from a connector on your network" },
   { name: "Any MCP server", logo: "/logos/mcp.svg", detail: "Your own tools, over Streamable HTTP" },
 ];

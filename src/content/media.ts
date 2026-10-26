@@ -3,9 +3,11 @@
  * Each slot shows `poster` until it scrolls near the viewport. If `video` is set,
  * the slot then loads the clip and plays it muted on a loop while visible. Phase B
  * drops real recordings of the platform into public/media/ and fills in `video`.
+ * Every slot also opens in the lightbox, where a recording keeps playing.
  *
  * Recordings: 1600×1000 (16:10), H.264 MP4 + VP9 WebM, under ~2.5 MB each,
- * 8 to 14 seconds, seamless loop. Posters: the first frame as WebP, same size. */
+ * 8 to 14 seconds, with the last frame matching the first so the loop has no
+ * jump. Posters: the first frame as WebP, same size. */
 
 export type Media = {
   poster: string;
@@ -20,19 +22,19 @@ export const MEDIA: Record<"hero" | "discover" | "optimize" | "converse" | "agen
     poster: "/home/dashboard.webp",
     width: 2000,
     height: 1250,
-    alt: "Martian's overview: an infrastructure health score, monthly cost, waste found so far, and a list of findings ranked by savings",
+    alt: "Martian's overview page, with $47K of identified waste at the top and the findings behind it ranked by savings",
   },
   discover: {
     poster: "/home/topology.webp",
     width: 2000,
     height: 1250,
-    alt: "Topology view with cloud accounts, the primary data center, dev labs and edge sites grouped together, each showing its monthly cost",
+    alt: "Topology view that groups resources by where they run, with a monthly cost on each group",
   },
   optimize: {
     poster: "/home/optimizations.webp",
     width: 1920,
     height: 1104,
-    alt: "Findings list with idle EC2 instances, an oversized RDS fleet, unattached volumes and network costs, each with monthly savings and how long the fix takes",
+    alt: "Findings list led by idle EC2 instances, with each finding's monthly savings and how long the fix takes",
   },
   converse: {
     poster: "/home/chat.webp",
