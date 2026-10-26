@@ -1,69 +1,26 @@
-# Welcome to your Lovable project
+# martian-ai.com
 
-## Project info
+The marketing site for Martian. It's a Vite + React + Tailwind app that started as a Lovable project, and Lovable still syncs with this repo, so edits made there show up here as commits (and the other way around).
 
-**URL**: https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727
+## Pages
 
-## How can I edit this code?
+- `/` is the homepage (`src/pages/Index.tsx`). Product media lives in `src/content/media.ts` and the integrations list in `src/content/integrations.ts`.
+- `/demo` is the sandbox (`src/pages/Demo.tsx`). It frames a static build of the Martian console from `public/demo-app/`; `public/demo-app/README.md` explains how that bundle gets there.
 
-There are several ways of editing your application.
+"Get a demo" opens the request form in `src/components/DemoRequestDialog.tsx`, which posts to the Supabase edge function `send-demo-request` in `supabase/functions/`.
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Running it
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
+npm run dev        # http://localhost:8080
+npm run build      # production build in dist/
 ```
 
-**Edit a file directly in GitHub**
+## Writing copy
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Two writing skills sit in `.claude/skills/` (`rewrite-slop` and `anti-ai-slop-writing`). Any new copy on the site should follow them: no em dashes, no reflexive lists of three, contractions, specific numbers over adjectives, and nothing the product doesn't actually do. The one exception is the tagline, "Agents That Eliminate Your Infrastructure Waste", which stays exactly as written.
 
-**Use GitHub Codespaces**
+## Motion
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Route changes use the View Transitions API (with a curtain fallback) and pass through the brand orange or black; sections reveal as they scroll in. All of it lives in `src/components/site/` and the bottom of `src/index.css`, and all of it switches off when someone has reduced motion turned on.

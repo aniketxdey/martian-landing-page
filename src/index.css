@@ -1,16 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-@font-face {
-  font-family: 'Brockmann';
-  src: url('/brockmann-medium-webfont.ttf') format('truetype'),
-       url('/brockmann-medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+/* Geist and Geist Mono load from index.html (preconnected, non-blocking). */
 
 @tailwind base;
 @tailwind components;
@@ -221,4 +210,150 @@
 .parallax {
   transform: translateY(var(--parallax-y, 0));
   transition: transform 0.1s ease-out;
+}
+
+/* ---------------------------------------------------------------------------
+ * Motion. Everything here turns off under prefers-reduced-motion.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --brand: #d2401a;
+}
+
+/* Route changes: View Transitions API. The old page fades and settles back, the
+ * screen passes through a brand color (orange or near-black), then the new page
+ * rises in. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition {
+    background: #0a0a0b;
+  }
+  html[data-vt="orange"]::view-transition {
+    background: radial-gradient(120% 90% at 50% 35%, #ff6b3d 0%, #d2401a 48%, #8a2a10 100%);
+  }
+  ::view-transition-old(root) {
+    animation: vt-out 260ms var(--ease-in-out) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 520ms var(--ease-out) 200ms both;
+  }
+  html[data-vt="orange"]::view-transition-new(root) {
+    animation-delay: 280ms;
+  }
+}
+@keyframes vt-out {
+  to { opacity: 0; transform: scale(0.985); filter: blur(3px); }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translate3d(0, 16px, 0) scale(1.01); }
+}
+
+/* Fallback for browsers without view transitions: a curtain fades in, the route
+ * swaps underneath it, then it fades out. */
+.route-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background: #0a0a0b;
+  transition: opacity 240ms var(--ease-in-out);
+}
+.route-curtain[data-tone="orange"] {
+  background: radial-gradient(120% 90% at 50% 35%, #ff6b3d 0%, #d2401a 48%, #8a2a10 100%);
+}
+.route-curtain.on {
+  opacity: 1;
+}
+
+/* Scroll reveals (see components/site/Reveal.tsx). */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  transition: opacity 760ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal:not([data-shown]) {
+  will-change: opacity, transform;
+}
+.reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+.reveal-fade {
+  transform: none;
+}
+
+/* Hero copy comes in on first paint, staggered. */
+.rise {
+  animation: rise 800ms var(--ease-out) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+}
+
+/* Slow orange light behind the hero product shot. */
+.hero-glow {
+  position: absolute;
+  inset: -12% 8% auto;
+  height: 70%;
+  background: radial-gradient(50% 60% at 50% 50%, rgba(210, 64, 26, 0.32), rgba(210, 64, 26, 0) 70%);
+  filter: blur(40px);
+  animation: glow 9s var(--ease-in-out) infinite alternate;
+  pointer-events: none;
+}
+@keyframes glow {
+  from { transform: translate3d(-6%, 0, 0) scale(0.95); opacity: 0.75; }
+  to { transform: translate3d(6%, 4%, 0) scale(1.05); opacity: 1; }
+}
+
+/* A live dot on agent cards and statuses. */
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+
+/* Integrations marquee (see components/site/IntegrationsMarquee.tsx). */
+.marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 48s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+[data-paused] .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Running trace line in the agents preview. */
+.trace-run {
+  background: linear-gradient(90deg, rgba(210, 64, 26, 0) 0%, rgba(210, 64, 26, 0.9) 50%, rgba(210, 64, 26, 0) 100%);
+  background-size: 200% 100%;
+  animation: trace-run 1.6s linear infinite;
+}
+@keyframes trace-run {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal[data-shown] { opacity: 1; transform: none; transition: none; }
+  .rise, .hero-glow, .pulse-dot, .trace-run { animation: none; }
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquee { mask-image: none; -webkit-mask-image: none; }
+  .route-curtain { transition: none; }
 }

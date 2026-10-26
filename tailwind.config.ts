@@ -144,10 +144,8 @@ export default {
 				'gradient-radial': 'radial-gradient(ellipse at center, var(--tw-gradient-stops))',
 			},
 			fontFamily: {
-				'sans': ['Inter', 'sans-serif'],
-				'display': ['Brockmann', 'SF Pro Display', 'Inter', 'sans-serif'],
-				'brockmann': ['Brockmann', 'serif'],
-				'playfair': ['"Playfair Display"', 'serif'],
+				'sans': ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				'mono': ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
 			},
 			boxShadow: {
 				'elegant': '0 4px 20px rgba(0, 0, 0, 0.08)',
