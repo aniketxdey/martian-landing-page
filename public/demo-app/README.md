@@ -18,3 +18,4 @@ would otherwise come back as this site's own `index.html`.
 
 The bundle has to work from a sub-path, so build it with a relative base, and it
 must not need sign-in or an API: `?embed=1` starts it on fixed sample data.
+Copying the bundle in deletes this README, so put it back afterwards.

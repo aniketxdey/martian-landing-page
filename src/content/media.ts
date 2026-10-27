@@ -1,13 +1,14 @@
 /* Product media for the homepage, one entry per slot.
  *
  * Each slot shows `poster` until it scrolls near the viewport. If `video` is set,
- * the slot then loads the clip and plays it muted on a loop while visible. Phase B
- * drops real recordings of the platform into public/media/ and fills in `video`.
- * Every slot also opens in the lightbox, where a recording keeps playing.
+ * the slot then loads the clip and plays it muted on a loop while visible. Every
+ * slot also opens in the lightbox, where the clip keeps playing.
  *
- * Recordings: 1600×1000 (16:10), H.264 MP4 + VP9 WebM, under ~2.5 MB each,
- * 8 to 14 seconds, with the last frame matching the first so the loop has no
- * jump. Posters: the first frame as WebP, same size. */
+ * The clips are scripted recordings of the platform's sandbox build (the same
+ * bundle /demo serves, seed 20261026, Northwind Commerce), so every number in
+ * them matches what a visitor sees when they try it. 1600×1000, H.264 MP4 and
+ * VP9 WebM, about 1 MB each, 11 to 14 seconds, and each one fades back into its
+ * first frame so the loop has no jump. Posters are that first frame as WebP. */
 
 export type Media = {
   poster: string;
@@ -17,31 +18,33 @@ export type Media = {
   video?: { webm?: string; mp4?: string };
 };
 
-export const MEDIA: Record<"hero" | "discover" | "optimize" | "converse" | "agents", Media | null> = {
-  hero: {
-    poster: "/home/dashboard.webp",
-    width: 2000,
-    height: 1250,
-    alt: "Martian's overview page, with $47K of identified waste at the top and the findings behind it ranked by savings",
-  },
-  discover: {
-    poster: "/home/topology.webp",
-    width: 2000,
-    height: 1250,
-    alt: "Topology view that groups resources by where they run, with a monthly cost on each group",
-  },
-  optimize: {
-    poster: "/home/optimizations.webp",
-    width: 1920,
-    height: 1104,
-    alt: "Findings list led by idle EC2 instances, with each finding's monthly savings and how long the fix takes",
-  },
-  converse: {
-    poster: "/home/chat.webp",
-    width: 1920,
-    height: 1527,
-    alt: "A chat with Martian running a performance check, with a side panel listing each agent step and what it found",
-  },
-  // No screenshot yet: the homepage shows an HTML preview until Phase B records it.
-  agents: null,
+const clip = (name: string, alt: string): Media => ({
+  poster: `/media/${name}.webp`,
+  width: 1600,
+  height: 1000,
+  alt,
+  video: { webm: `/media/${name}.webm`, mp4: `/media/${name}.mp4` },
+});
+
+export const MEDIA: Record<"hero" | "discover" | "optimize" | "converse" | "agents", Media> = {
+  hero: clip(
+    "hero",
+    "The Overview page for Northwind Commerce: $9,312 a month of open waste, then reviewing and approving the idle developer environments finding",
+  ),
+  discover: clip(
+    "discover",
+    "The Infrastructure map zooming in on a cluster, then a click on one node that opens its cost and utilization",
+  ),
+  optimize: clip(
+    "optimize",
+    "Approving the cold data finding from Overview, then watching the change run on the Agents page while an auditor checks it",
+  ),
+  converse: clip(
+    "converse",
+    "Quick Chat answering which servers are idle and what stopping them would save, with each tool call listed beside the answer",
+  ),
+  agents: clip(
+    "agents",
+    "One agent run opened from the Agents page: the map of every integration it touched, then the step-by-step trace underneath",
+  ),
 };

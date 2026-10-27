@@ -4,7 +4,6 @@ import { TransitionLink } from "@/components/site/transitions";
 import { Reveal } from "@/components/site/Reveal";
 import { MediaSlot } from "@/components/site/MediaSlot";
 import { IntegrationsMarquee } from "@/components/site/IntegrationsMarquee";
-import { AgentsPreview } from "@/components/site/AgentsPreview";
 import { ArrowIcon, CheckIcon, DEMO_VIDEO, eyebrow, h2, Logo, PlayIcon, TAGLINE, Tick } from "@/components/site/brand";
 import { MEDIA, type Media } from "@/content/media";
 import { preloadRoute } from "@/routes";
@@ -187,14 +186,14 @@ function Hero() {
           </div>
 
           <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-3">
-            <AgentCard tone={0} delay={260} label="Idle EC2 instances" amount="$7,297/mo" quote="47 instances in us-east-1 have stayed under 5% CPU for two weeks. Want me to stop them? I'll snapshot their volumes first.">
+            <AgentCard tone={0} delay={260} label="Idle developer environments" amount="$3,815/mo" quote="60 dev instances in us-west-2 have stayed under 5% CPU for 14 days. Want me to stop them? I'll snapshot their volumes first.">
               <div className="mt-1 flex flex-wrap gap-2" aria-hidden="true">
                 <span className="inline-flex min-h-[44px] items-center rounded-lg bg-white px-3.5 text-sm font-semibold text-[#0A0A0B]">Review and approve</span>
                 <span className="inline-flex min-h-[44px] items-center rounded-lg border border-[#34363B] px-3.5 text-sm text-[#EDEEF0]">Show the evidence</span>
               </div>
             </AgentCard>
-            <AgentCard tone={1} delay={340} label="Unattached EBS volumes" amount="$945/mo" quote="23 volumes have sat detached for more than a week. I'll take a final snapshot of each one before I delete it." />
-            <AgentCard tone={2} delay={420} label="Oversized RDS" amount="Needs review" quote="8 RDS instances never get past 15% capacity. Resizing a database is your call, so I've written up the change and left it for you." />
+            <AgentCard tone={1} delay={340} label="Cold data in product media" amount="$996/mo" quote="61 TB of product media hasn't been read in 90 days and still sits on a hot tier. I'll add a lifecycle rule that moves it to infrequent access. Nothing gets deleted." />
+            <AgentCard tone={2} delay={420} label="Warehouse management servers" amount="Needs review" quote="The Reno servers run under 20% CPU. Rebalancing would free 3 of them, but powering hosts down in your own racks is your call, so I've written up the plan and left it for you." />
             <p className="rise m-0 mt-1 text-xs text-[#7C7F86]" style={rise(500)}>Example findings from Martian's sandbox.</p>
           </div>
         </div>
@@ -206,7 +205,7 @@ function Hero() {
               {[0, 1, 2].map((i) => <span key={i} className="h-2.5 w-2.5 rounded-full bg-[#3A3C41]" />)}
             </div>
             <div className="overflow-hidden rounded-t-lg">
-              <MediaSlot media={MEDIA.hero!} priority />
+              <MediaSlot media={MEDIA.hero} priority />
             </div>
           </div>
         </Reveal>
@@ -240,7 +239,7 @@ function Integrations() {
 
 /* ---------- feature rows ---------- */
 
-type Feature = { n: string; tag: string; title: string; body: string; bullets: string[]; media: Media | null; flip?: boolean };
+type Feature = { n: string; tag: string; title: string; body: string; bullets: string[]; media: Media; flip?: boolean };
 
 const FEATURES: Feature[] = [
   {
@@ -288,13 +287,7 @@ function FeatureRow({ f }: { f: Feature }) {
         )}
       </Reveal>
       <Reveal delay={120} className="card-lift min-w-0 flex-[1.4_1_520px] overflow-hidden rounded-[14px] border border-[#E6E6E3] bg-white shadow-[0_24px_60px_rgba(17,18,20,0.08)]">
-        {f.media ? (
-          <MediaSlot media={f.media} />
-        ) : (
-          <TransitionLink to="/demo" tone="orange" data-cursor="Try it" aria-label="Try the Agents page in the sandbox" className="block focus-visible:outline-offset-[-3px]">
-            <AgentsPreview />
-          </TransitionLink>
-        )}
+        <MediaSlot media={f.media} />
       </Reveal>
     </div>
   );
@@ -404,7 +397,7 @@ function DemoVideo() {
           aria-label="Play the walkthrough on YouTube (opens in a new tab)"
           className="card-lift group relative block overflow-hidden rounded-2xl border border-[#2A2C30] bg-[#161719]"
         >
-          <img src="/home/chat.webp" alt="" width={1920} height={1527} loading="lazy" decoding="async" className="block aspect-[16/10] w-full object-cover object-top opacity-60 transition-[opacity,transform] duration-500 group-hover:scale-[1.015] group-hover:opacity-75" />
+          <img src="/media/agents.webp" alt="" width={1600} height={1000} loading="lazy" decoding="async" className="block aspect-[16/10] w-full object-cover object-top opacity-60 transition-[opacity,transform] duration-500 group-hover:scale-[1.015] group-hover:opacity-75" />
           <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,11,0.1)_0%,rgba(10,10,11,0.25)_50%,rgba(10,10,11,0.94)_100%)]" />
           <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D2401A] text-white shadow-[0_0_0_10px_rgba(210,64,26,0.18)] transition-transform duration-300 group-hover:scale-105">
