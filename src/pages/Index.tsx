@@ -20,7 +20,6 @@ import { preloadRoute } from "@/routes";
 const btn = "btn inline-flex items-center justify-center gap-2 rounded-[10px] px-[22px] py-[15px] text-base";
 const accentBtn = `${btn} btn-accent border border-[#D2401A] bg-[#D2401A] px-6 font-semibold text-white`;
 const ghostDark = `${btn} gap-2.5 border border-[#34363B] font-medium text-white`;
-const ghostLight = `${btn} border border-[#D4D4D0] font-medium text-[#111214]`;
 
 const reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
@@ -76,7 +75,7 @@ function Nav() {
           ))}
         </div>
         <div className="flex items-center gap-2.5 max-[420px]:gap-2">
-          <TransitionLink to="/demo" tone="orange" className="btn inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
+          <TransitionLink to="/demo" tone="orange" className="btn btn-fill inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
             Try it yourself<span className="max-[420px]:hidden"><ArrowIcon size={14} /></span>
           </TransitionLink>
           <DemoRequestButton className="btn whitespace-nowrap rounded-lg border border-white bg-white px-[18px] py-2.5 text-sm font-semibold text-[#0A0A0B] max-[420px]:px-3 max-[420px]:text-[13px]">
@@ -137,6 +136,78 @@ function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefOb
   }, [section, glow]);
 }
 
+/** The hero grid. A faint grid covers the top of the hero, and a brighter,
+ * orange-tinted copy shows only in a soft circle around the pointer. That copy is
+ * one small layer moved with a transform, with its pattern shifted the opposite
+ * way so its lines sit exactly on the faint grid's. Off for touch and reduced
+ * motion, which keep just the faint grid. */
+const GRID = 56;
+function useGridSpotlight(section: React.RefObject<HTMLElement>, lit: React.RefObject<HTMLDivElement>) {
+  useEffect(() => {
+    const host = section.current;
+    const el = lit.current;
+    if (!host || !el) return;
+    // A grid line runs down the middle of the hero at any width.
+    let gx = 0;
+    const align = () => {
+      gx = Math.round((host.clientWidth / 2) % GRID);
+      host.style.setProperty("--gx", `${gx}px`);
+    };
+    align();
+    const ro = new ResizeObserver(align);
+    ro.observe(host);
+    const pointerOk = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
+    if (reducedMotion() || !pointerOk) return () => ro.disconnect();
+
+    const R = el.offsetWidth / 2;
+    let x = 0;
+    let y = 0;
+    let tx = 0;
+    let ty = 0;
+    let raf = 0;
+    let inside = false;
+    const place = () => {
+      // Whole pixels keep the 1px lines crisp and on the faint grid.
+      const left = Math.round(x - R);
+      const top = Math.round(y - R);
+      el.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+      el.style.backgroundPosition = `${gx - left}px ${-top}px`;
+    };
+    const tick = () => {
+      x += (tx - x) * 0.2;
+      y += (ty - y) * 0.2;
+      place();
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.4 ? requestAnimationFrame(tick) : 0;
+    };
+    const onMove = (e: PointerEvent) => {
+      const r = host.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (!inside) {
+        // Appear where the pointer is instead of sliding in from the last spot.
+        inside = true;
+        x = tx;
+        y = ty;
+        place();
+        el.dataset.on = "";
+      }
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const onLeave = () => {
+      inside = false;
+      delete el.dataset.on;
+    };
+    host.addEventListener("pointermove", onMove, { passive: true });
+    host.addEventListener("pointerleave", onLeave);
+    return () => {
+      ro.disconnect();
+      host.removeEventListener("pointermove", onMove);
+      host.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, [section, lit]);
+}
+
 function AgentCard({ label, amount, quote, tone, delay, children }: { label: string; amount: string; quote: string; tone: 0 | 1 | 2; delay: number; children?: React.ReactNode }) {
   const styles = [
     "bg-[#141517] border-[#26282C] py-5 text-base text-[#EDEEF0]",
@@ -159,33 +230,38 @@ function AgentCard({ label, amount, quote, tone, delay, children }: { label: str
 function Hero() {
   const section = useRef<HTMLElement>(null);
   const glow = useRef<HTMLDivElement>(null);
+  const lit = useRef<HTMLDivElement>(null);
   useAmbientGlow(section, glow);
+  useGridSpotlight(section, lit);
   const rise = (ms: number) => ({ ["--rise-delay" as string]: `${ms}ms` }) as React.CSSProperties;
   return (
     <section ref={section} id="top" className="relative overflow-hidden bg-[#0A0A0B] px-6 pt-[88px] text-white max-md:pt-14">
       <div ref={glow} className="hero-ambient" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true" />
+      <div ref={lit} className="hero-grid-lit" aria-hidden="true" />
       <div className="relative mx-auto flex max-w-[1200px] flex-col gap-16">
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
-            <div className="rise inline-flex items-center gap-2 self-start rounded-full border border-[#2A2C30] px-3.5 py-1.5 text-[13px] text-[#C9CBD0]" style={rise(0)}>
-              <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[#4ADE80]" />
-              Works across your cloud accounts and your own data centers
-            </div>
             <h1 className="rise m-0 text-[clamp(38px,4.4vw,60px)] font-semibold leading-[1.04] tracking-[-0.025em] [text-wrap:balance]" style={rise(70)}>
-              Agents That Eliminate <span className="text-[#FF6B3D]">Your Infrastructure Waste</span>
+              Infrastructure Intelligence <span className="text-[#FF6B3D]">From Another World</span>
             </h1>
-            <p className="rise m-0 max-w-[560px] text-[19px] leading-[1.6] text-[#B4B7BD]" style={rise(140)}>
-              Martian optimizes the machines and disks that you don't use, whether they sit in an AWS account or in a VMware cluster in your own racks. You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.
-            </p>
+            <div className="rise flex max-w-[560px] flex-col gap-3 text-[19px] leading-[1.6] text-[#B4B7BD]" style={rise(140)}>
+              <p className="m-0">Martian uses agents to optimize machines and disks that you don't use, whether they sit in an AWS account or in a VMware cluster in your own racks.</p>
+              <p className="m-0">You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.</p>
+            </div>
             <div className="rise flex flex-wrap gap-3" style={rise(210)}>
               <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
-              <TransitionLink to="/demo" tone="orange" className={ghostDark}>
+              <TransitionLink to="/demo" tone="orange" className={`${ghostDark} btn-fill`}>
                 Try it yourself <ArrowIcon />
               </TransitionLink>
             </div>
           </div>
 
           <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-3">
+            <div className="rise mb-1 inline-flex items-center gap-2 self-start rounded-full border border-[#2A2C30] px-3.5 py-1.5 text-[13px] text-[#C9CBD0] max-[420px]:px-3 max-[420px]:text-[12px]" style={rise(200)}>
+              <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[#4ADE80]" />
+              Working across cloud accounts and data centers
+            </div>
             <AgentCard tone={0} delay={260} label="Idle developer environments" amount="$3,815/mo" quote="60 dev instances in us-west-2 have stayed under 5% CPU for 14 days. Want me to stop them? I'll snapshot their volumes first.">
               <div className="mt-1 flex flex-wrap gap-2" aria-hidden="true">
                 <span className="inline-flex min-h-[44px] items-center rounded-lg bg-white px-3.5 text-sm font-semibold text-[#0A0A0B]">Review and approve</span>
@@ -194,7 +270,6 @@ function Hero() {
             </AgentCard>
             <AgentCard tone={1} delay={340} label="Cold data in product media" amount="$996/mo" quote="61 TB of product media hasn't been read in 90 days and still sits on a hot tier. I'll add a lifecycle rule that moves it to infrequent access. Nothing gets deleted." />
             <AgentCard tone={2} delay={420} label="Warehouse management servers" amount="Needs review" quote="The Reno servers run under 20% CPU. Rebalancing would free 3 of them, but powering hosts down in your own racks is your call, so I've written up the plan and left it for you." />
-            <p className="rise m-0 mt-1 text-xs text-[#7C7F86]" style={rise(500)}>Example findings from Martian's sandbox.</p>
           </div>
         </div>
 
@@ -500,10 +575,9 @@ function FinalCta() {
     <section id="demo" className="scroll-mt-20 px-6 py-28">
       <Reveal stagger className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
         <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting</h2>
-        <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change. Or open the sandbox and click around on your own first.</p>
+        <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change.</p>
         <div className="mt-2 flex flex-wrap justify-center gap-3">
           <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
-          <TransitionLink to="/demo" tone="orange" className={ghostLight}>Try it yourself <ArrowIcon /></TransitionLink>
         </div>
       </Reveal>
     </section>
