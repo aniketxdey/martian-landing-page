@@ -326,12 +326,14 @@
   scale: 0.98;
 }
 
-/* "Try it yourself" at the top: on hover an orange gradient grows out from the
- * button's center behind the label, and shrinks back to it on the way out. */
+/* The grey buttons at the top (Get a demo, Try it yourself): a solid grey fill
+ * so the grid never shows through, and on hover an orange gradient grows out
+ * from the button's center behind the label, shrinking back on the way out. */
 .btn-fill {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  background-color: #1a1b1e;
 }
 .btn-fill::before {
   content: "";
@@ -346,7 +348,7 @@
 }
 @media (hover: hover) {
   .btn-fill:hover {
-    background-color: transparent;
+    background-color: #1a1b1e;
     border-color: #e9592b;
     box-shadow: 0 10px 24px -10px rgba(210, 64, 26, 0.75), 0 2px 6px -2px rgba(210, 64, 26, 0.35);
   }
@@ -491,23 +493,11 @@ html.has-cursor [data-cursor] * {
 
 /* Ambient light behind the hero copy that drifts a little toward the pointer
  * (moved with transforms only). */
-.hero-ambient {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 980px;
-  height: 980px;
-  margin: -490px 0 0 -490px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(210, 64, 26, 0.17), rgba(210, 64, 26, 0.05) 55%, rgba(210, 64, 26, 0));
-  pointer-events: none;
-  will-change: transform;
-}
 
-/* Hero grid (useGridCells in pages/Index.tsx). The dim grid fades out toward
- * the edges and the product shot; the canvas on top lights individual squares
- * around the pointer. */
-.hero-grid {
+/* Cursor grid (CellGrid in pages/Index.tsx): a dim grid that fades out toward
+ * the section's edges, and a canvas on top that lights the outlines of a few
+ * squares around the pointer. */
+.grid-lines {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -516,10 +506,16 @@ html.has-cursor [data-cursor] * {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 56px 56px;
   background-position: var(--gx, 0px) 0;
+}
+.grid-lines--hero {
   -webkit-mask-image: radial-gradient(ellipse 80% 62% at 42% 28%, #000 0%, rgba(0, 0, 0, 0.55) 48%, transparent 88%);
   mask-image: radial-gradient(ellipse 80% 62% at 42% 28%, #000 0%, rgba(0, 0, 0, 0.55) 48%, transparent 88%);
 }
-.hero-cells {
+.grid-lines--watch {
+  -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, #000 0%, rgba(0, 0, 0, 0.55) 50%, transparent 92%);
+  mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, #000 0%, rgba(0, 0, 0, 0.55) 50%, transparent 92%);
+}
+.grid-cells {
   position: absolute;
   left: 0;
   top: 0;
@@ -542,7 +538,12 @@ html.has-cursor [data-cursor] * {
   translate: 0 12px;
   transition: opacity 560ms var(--ease-out) 260ms, translate 800ms var(--ease-out) 260ms;
 }
+.xfade-follow {
+  opacity: 0;
+  transition: opacity 620ms var(--ease-out);
+}
 [data-dark] > .xfade-layer,
+[data-dark] > .xfade-follow,
 [data-dark] .xfade-content {
   opacity: 1;
   translate: 0 0;
@@ -558,8 +559,7 @@ html.has-cursor [data-cursor] * {
   .btn, .btn .btn-arrow, .btn .btn-disc, .card-lift, .reveal.card-lift, .link-u::after { transition: none; }
   .btn:hover, .btn:active, .card-lift:hover { translate: 0 0; scale: 1; }
   .btn:hover .btn-arrow { transform: none; }
-  .xfade-layer, .xfade-content { opacity: 1; translate: 0 0; transition: none; }
-  .hero-ambient { will-change: auto; }
-  .hero-cells { display: none; }
+  .xfade-layer, .xfade-follow, .xfade-content { opacity: 1; translate: 0 0; transition: none; }
+  .grid-cells { display: none; }
   .btn-fill::before { transition: none; }
 }
