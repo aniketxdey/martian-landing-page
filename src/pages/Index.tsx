@@ -78,7 +78,7 @@ function Nav() {
           <TransitionLink to="/demo" tone="orange" className="btn btn-fill inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
             Try it yourself<span className="max-[420px]:hidden"><ArrowIcon size={14} /></span>
           </TransitionLink>
-          <DemoRequestButton className="btn whitespace-nowrap rounded-lg border border-white bg-white px-[18px] py-2.5 text-sm font-semibold text-[#0A0A0B] max-[420px]:px-3 max-[420px]:text-[13px]">
+          <DemoRequestButton className="btn btn-fill whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
             Get a demo
           </DemoRequestButton>
         </div>
@@ -89,99 +89,25 @@ function Nav() {
 
 /* ---------- hero ---------- */
 
-/** A faint orange light behind the hero copy that drifts toward the pointer.
- * Near its resting spot it follows only part of the way; toward the far corners
- * it follows further and stretches into an ellipse pointing at the pointer.
- * Moved with transforms on a single layer, so it stays cheap. */
-function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefObject<HTMLDivElement>) {
-  useEffect(() => {
-    const host = section.current;
-    const light = glow.current;
-    if (!host || !light) return;
-    const home = () => ({ x: host.clientWidth * 0.3, y: Math.min(320, host.clientHeight * 0.3) });
-    let { x, y } = home();
-    let tx = x;
-    let ty = y;
-    // Stretch as a vector (direction × amount) so it eases smoothly.
-    let sx = 0;
-    let sy = 0;
-    let tsx = 0;
-    let tsy = 0;
-    let raf = 0;
-    const place = () => {
-      const amount = Math.hypot(sx, sy);
-      const angle = Math.atan2(sy, sx);
-      light.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${angle}rad) scale(${1 + 0.75 * amount}, ${1 - 0.12 * amount})`;
-    };
-    place();
-    const pointerOk = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
-    if (reducedMotion() || !pointerOk) return;
-
-    const tick = () => {
-      x += (tx - x) * 0.05;
-      y += (ty - y) * 0.05;
-      sx += (tsx - sx) * 0.05;
-      sy += (tsy - sy) * 0.05;
-      place();
-      const moving = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 || Math.abs(tsx - sx) + Math.abs(tsy - sy) > 0.002;
-      raf = moving ? requestAnimationFrame(tick) : 0;
-    };
-    const aim = (px: number, py: number) => {
-      const h = home();
-      const vx = px - h.x;
-      const vy = py - h.y;
-      const w = host.clientWidth;
-      const hh = host.clientHeight;
-      // How far out the pointer is, 0 at the resting spot and 1 at the farthest corner.
-      const far = Math.max(Math.hypot(h.x, h.y), Math.hypot(w - h.x, h.y), Math.hypot(h.x, hh - h.y), Math.hypot(w - h.x, hh - h.y));
-      const n = Math.min(1, Math.hypot(vx, vy) / far);
-      const follow = 0.35 + 0.3 * n * n;
-      tx = h.x + vx * follow;
-      ty = h.y + vy * follow;
-      const len = Math.hypot(vx, vy) || 1;
-      const stretch = n * n;
-      tsx = (vx / len) * stretch;
-      tsy = (vy / len) * stretch;
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-    const onMove = (e: PointerEvent) => {
-      const r = host.getBoundingClientRect();
-      aim(e.clientX - r.left, e.clientY - r.top);
-    };
-    const onLeave = () => {
-      const h = home();
-      aim(h.x, h.y);
-    };
-    host.addEventListener("pointermove", onMove, { passive: true });
-    host.addEventListener("pointerleave", onLeave);
-    return () => {
-      host.removeEventListener("pointermove", onMove);
-      host.removeEventListener("pointerleave", onLeave);
-      cancelAnimationFrame(raf);
-    };
-  }, [section, glow]);
-}
-
-/** The hero grid. A dim 56px grid sits behind the hero (CSS), and a canvas on top
- * lights individual squares:
- * - moving the pointer builds up "activity" (faster moves build more);
- * - while there's activity, random squares inside a radius around the pointer
- *   flare at random strengths every frame, and the radius grows with activity,
- *   so a quick sweep lights up a loose, flickering patch rather than a neat shape;
- * - activity drains over about four seconds once the pointer rests. The radius
- *   shrinks and far squares fade faster than near ones, so the patch collapses
- *   onto the one square under the pointer, which stays lit.
- * The loop only runs while something is changing. Off for touch and reduced
- * motion, which keep just the dim grid. */
+/** A dim 56px grid (CSS) with a canvas on top that lights the outlines of a few
+ * squares around the pointer. It attaches to whatever section it's placed in.
+ * - Each time the pointer crosses into a new square, a random connected group
+ *   of 3 to 7 squares within two squares of it lights up, fading in.
+ * - Lit groups fade out over about two seconds, so moving through an area
+ *   leaves a loose trail of lit squares behind the pointer.
+ * - The square under the pointer stays lit, so once the pointer rests the rest
+ *   fades away and only that square's outline remains.
+ * Lines only, no fills. The loop runs only while something is changing. Touch
+ * screens and reduced motion get just the dim grid. */
 const GRID = 56;
 const LINE = "255, 118, 78";
-const FILL = "255, 107, 61";
-function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefObject<HTMLCanvasElement>) {
+const STEPS: [number, number][] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+function useCellGrid(canvas: React.RefObject<HTMLCanvasElement>) {
   useEffect(() => {
-    const host = section.current;
     const cv = canvas.current;
+    const host = cv?.parentElement;
     const ctx = cv?.getContext("2d");
-    if (!host || !cv || !ctx) return;
+    if (!cv || !host || !ctx) return;
     const live = !reducedMotion() && !!window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
 
     let W = 0;
@@ -190,89 +116,87 @@ function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefOb
     let cols = 0;
     let rows = 0;
     let dpr = 1;
-    let E = new Float32Array(0); // brightness per square, 0..1
-    let px = 0;
-    let py = 0;
-    let inside = false;
-    let activity = 0;
+    let level = new Float32Array(0); // where each square is heading, 0..1
+    let shown = new Float32Array(0); // what's drawn, easing toward level
+    let cc = -1;
+    let cr = -1;
     let raf = 0;
 
     // Square (c, r) has its left edge at gx + (c - 1) * GRID, so c = 0 is the
     // partial square left of the first line. Lines match the CSS grid exactly.
     const colOf = (x: number) => Math.floor((x - gx) / GRID) + 1;
     const rowOf = (y: number) => Math.floor(y / GRID);
+    const inGrid = (c: number, r: number) => c >= 0 && r >= 0 && c < cols && r < rows;
 
     const draw = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      const at = (c: number, r: number) => (c < 0 || r < 0 || c >= cols || r >= rows ? 0 : E[r * cols + c]);
+      const at = (c: number, r: number) => (inGrid(c, r) ? shown[r * cols + c] : 0);
+      const line = (a: number) => `rgba(${LINE}, ${(0.5 * a).toFixed(3)})`;
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const e = E[r * cols + c];
+          const e = shown[r * cols + c];
+          // An edge is as bright as the brighter of the two squares it borders.
           const top = Math.max(e, at(c, r - 1));
           const left = Math.max(e, at(c - 1, r));
-          const node = Math.max(top, left, at(c - 1, r - 1));
-          if (node < 0.004) continue;
+          const corner = Math.max(top, left, at(c - 1, r - 1));
+          if (corner < 0.004) continue;
           const x = gx + (c - 1) * GRID;
           const y = r * GRID;
-          if (e > 0.004) {
-            ctx.fillStyle = `rgba(${FILL}, ${(0.12 * e).toFixed(3)})`;
-            ctx.fillRect(x + 1, y + 1, GRID - 1, GRID - 1);
-          }
           if (top > 0.004) {
-            ctx.fillStyle = `rgba(${LINE}, ${(0.75 * top).toFixed(3)})`;
+            ctx.fillStyle = line(top);
             ctx.fillRect(x + 1, y, GRID - 1, 1);
           }
           if (left > 0.004) {
-            ctx.fillStyle = `rgba(${LINE}, ${(0.75 * left).toFixed(3)})`;
+            ctx.fillStyle = line(left);
             ctx.fillRect(x, y + 1, 1, GRID - 1);
           }
-          ctx.fillStyle = `rgba(255, 168, 136, ${(0.9 * node).toFixed(3)})`;
-          ctx.fillRect(x - 0.5, y - 0.5, 2, 2);
+          ctx.fillStyle = line(corner);
+          ctx.fillRect(x, y, 1, 1);
         }
       }
     };
 
+    // A random connected group of squares, grown one neighbour at a time from
+    // the pointer's square and kept within two squares of it.
+    const lightAround = (c0: number, r0: number) => {
+      const size = 3 + Math.floor(Math.random() * 5);
+      const group: [number, number][] = [[c0, r0]];
+      const seen = new Set([`${c0},${r0}`]);
+      for (let tries = 0; group.length < size && tries < 60; tries++) {
+        const [c, r] = group[Math.floor(Math.random() * group.length)];
+        const [dc, dr] = STEPS[Math.floor(Math.random() * 4)];
+        const nc = c + dc;
+        const nr = r + dr;
+        const key = `${nc},${nr}`;
+        if (seen.has(key) || !inGrid(nc, nr) || Math.max(Math.abs(nc - c0), Math.abs(nr - r0)) > 2) continue;
+        seen.add(key);
+        group.push([nc, nr]);
+      }
+      for (const [c, r] of group) level[r * cols + c] = 1;
+    };
+
     const step = () => {
       raf = 0;
-      const cc = colOf(px);
-      const cr = rowOf(py);
-      // Flare random squares around the pointer while there's activity.
-      if (inside && activity > 0.015) {
-        const radius = GRID * (0.7 + 5 * activity);
-        const sparks = 1 + Math.round(activity * 7);
-        for (let k = 0; k < sparks; k++) {
-          const a = Math.random() * Math.PI * 2;
-          const d = radius * Math.sqrt(Math.random());
-          const c = colOf(px + Math.cos(a) * d);
-          const r = rowOf(py + Math.sin(a) * d);
-          if (c < 0 || r < 0 || c >= cols || r >= rows) continue;
-          const s = (0.25 + 0.75 * Math.random()) * (0.4 + 0.6 * activity) * Math.pow(1 - d / radius, 0.35);
-          const i = r * cols + c;
-          if (s > E[i]) E[i] = s;
-        }
-      }
-      // Fade: far squares go first, so a resting patch shrinks onto the pointer.
+      const cur = inGrid(cc, cr) ? cr * cols + cc : -1;
       let busy = false;
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const i = r * cols + c;
-          if (inside && c === cc && r === cr) {
-            E[i] += (1 - E[i]) * 0.16;
-            if (E[i] < 0.995) busy = true;
-            continue;
-          }
-          if (E[i] === 0) continue;
-          const dist = Math.hypot(c - cc, r - cr);
-          E[i] *= inside ? 0.9 + 0.085 * Math.max(0, 1 - dist / 8) : 0.92;
-          if (E[i] < 0.004) E[i] = 0;
-          else busy = true;
+      for (let i = 0; i < level.length; i++) {
+        if (i === cur) level[i] = 1;
+        else if (level[i] > 0) {
+          level[i] *= 0.972;
+          if (level[i] < 0.004) level[i] = 0;
+          busy = true;
+        }
+        const d = level[i] - shown[i];
+        if (Math.abs(d) < 0.003) shown[i] = level[i];
+        else {
+          // Fade in over about a sixth of a second; fade out with the level.
+          shown[i] += d * (d > 0 ? 0.2 : 0.5);
+          busy = true;
         }
       }
-      activity *= 0.986;
-      if (activity < 0.004) activity = 0;
       draw();
-      if (busy || activity > 0) raf = requestAnimationFrame(step);
+      if (busy) raf = requestAnimationFrame(step);
     };
     const kick = () => {
       if (!raf) raf = requestAnimationFrame(step);
@@ -281,7 +205,7 @@ function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefOb
     const resize = () => {
       W = host.clientWidth;
       H = host.clientHeight;
-      // A grid line runs down the middle of the hero at any width.
+      // A grid line runs down the middle of the section at any width.
       gx = Math.round((W / 2) % GRID);
       host.style.setProperty("--gx", `${gx}px`);
       dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -291,28 +215,28 @@ function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefOb
       cv.style.height = `${H}px`;
       cols = Math.ceil((W - gx) / GRID) + 2;
       rows = Math.ceil(H / GRID) + 1;
-      E = new Float32Array(cols * rows);
-      if (live) kick();
+      level = new Float32Array(cols * rows);
+      shown = new Float32Array(cols * rows);
+      cc = cr = -1;
+      if (live) draw();
     };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(host);
     if (!live) return () => ro.disconnect();
 
-    let lx = 0;
-    let ly = 0;
     const onMove = (e: PointerEvent) => {
       const b = host.getBoundingClientRect();
-      const x = e.clientX - b.left;
-      const y = e.clientY - b.top;
-      if (inside) activity = Math.min(1, activity + Math.hypot(x - lx, y - ly) / 300);
-      inside = true;
-      lx = px = x;
-      ly = py = y;
+      const c = colOf(e.clientX - b.left);
+      const r = rowOf(e.clientY - b.top);
+      if (c === cc && r === cr) return;
+      cc = c;
+      cr = r;
+      if (inGrid(c, r)) lightAround(c, r);
       kick();
     };
     const onLeave = () => {
-      inside = false;
+      cc = cr = -1;
       kick();
     };
     host.addEventListener("pointermove", onMove, { passive: true });
@@ -323,7 +247,19 @@ function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefOb
       host.removeEventListener("pointerleave", onLeave);
       cancelAnimationFrame(raf);
     };
-  }, [section, canvas]);
+  }, [canvas]);
+}
+
+/** The grid for a dark section: drop it in as the section's first children. */
+function CellGrid({ variant, className = "" }: { variant: "hero" | "watch"; className?: string }) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  useCellGrid(canvas);
+  return (
+    <>
+      <div className={`grid-lines grid-lines--${variant} ${className}`} aria-hidden="true" />
+      <canvas ref={canvas} className={`grid-cells ${className}`} aria-hidden="true" />
+    </>
+  );
 }
 
 function AgentCard({ label, amount, quote, tone, delay, children }: { label: string; amount: string; quote: string; tone: 0 | 1 | 2; delay: number; children?: React.ReactNode }) {
@@ -347,16 +283,10 @@ function AgentCard({ label, amount, quote, tone, delay, children }: { label: str
 
 function Hero() {
   const section = useRef<HTMLElement>(null);
-  const glow = useRef<HTMLDivElement>(null);
-  const cells = useRef<HTMLCanvasElement>(null);
-  useAmbientGlow(section, glow);
-  useGridCells(section, cells);
   const rise = (ms: number) => ({ ["--rise-delay" as string]: `${ms}ms` }) as React.CSSProperties;
   return (
     <section ref={section} id="top" className="relative overflow-hidden bg-[#0A0A0B] px-6 pt-[88px] text-white max-md:pt-14">
-      <div ref={glow} className="hero-ambient" aria-hidden="true" />
-      <div className="hero-grid" aria-hidden="true" />
-      <canvas ref={cells} className="hero-cells" aria-hidden="true" />
+      <CellGrid variant="hero" />
       <div className="relative mx-auto flex max-w-[1200px] flex-col gap-16">
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
@@ -368,7 +298,7 @@ function Hero() {
               <p className="m-0">You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.</p>
             </div>
             <div className="rise flex flex-wrap gap-3" style={rise(210)}>
-              <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
+              <DemoRequestButton className={`${ghostDark} btn-fill`}>Get a demo</DemoRequestButton>
               <TransitionLink to="/demo" tone="orange" className={`${ghostDark} btn-fill`}>
                 Try it yourself <ArrowIcon />
               </TransitionLink>
@@ -571,6 +501,7 @@ function DemoVideo() {
       className="relative overflow-hidden bg-[linear-gradient(#F7F7F5,#ffffff)] px-6 py-24 text-white"
     >
       <div className="xfade-layer" aria-hidden="true" />
+      <CellGrid variant="watch" className="xfade-follow" />
       <div className="xfade-content relative mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(210,64,26,0.28),rgba(210,64,26,0))]" />
         <Reveal stagger className="relative flex min-w-0 flex-col gap-4">
@@ -583,7 +514,7 @@ function DemoVideo() {
               <span className="btn-disc flex h-10 w-10 items-center justify-center rounded-full bg-[#D2401A] text-white"><PlayIcon /></span>
               Watch on YouTube
             </a>
-            <TransitionLink to="/demo" tone="orange" className="btn inline-flex items-center gap-2.5 rounded-full border border-[#34363B] py-3.5 pl-5 pr-6 text-base font-medium text-white">
+            <TransitionLink to="/demo" tone="orange" className="btn inline-flex items-center gap-2.5 rounded-full border border-[#34363B] bg-[#1a1b1e] py-3.5 pl-5 pr-6 text-base font-medium text-white">
               Try the live demo <ArrowIcon />
             </TransitionLink>
           </div>
