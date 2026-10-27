@@ -243,11 +243,12 @@ function Hero() {
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
             <h1 className="rise m-0 text-[clamp(38px,4.4vw,60px)] font-semibold leading-[1.04] tracking-[-0.025em] [text-wrap:balance]" style={rise(70)}>
-              Agents That Eliminate <span className="text-[#FF6B3D]">Your Infrastructure Waste</span>
+              Infrastructure Intelligence <span className="text-[#FF6B3D]">From Another World</span>
             </h1>
-            <p className="rise m-0 max-w-[560px] text-[19px] leading-[1.6] text-[#B4B7BD]" style={rise(140)}>
-              Martian optimizes the machines and disks that you don't use, whether they sit in an AWS account or in a VMware cluster in your own racks. You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.
-            </p>
+            <div className="rise flex max-w-[560px] flex-col gap-3 text-[19px] leading-[1.6] text-[#B4B7BD]" style={rise(140)}>
+              <p className="m-0">Martian uses agents to optimize machines and disks that you don't use, whether they sit in an AWS account or in a VMware cluster in your own racks.</p>
+              <p className="m-0">You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.</p>
+            </div>
             <div className="rise flex flex-wrap gap-3" style={rise(210)}>
               <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
               <TransitionLink to="/demo" tone="orange" className={`${ghostDark} btn-fill`}>
@@ -573,7 +574,7 @@ function FinalCta() {
   return (
     <section id="demo" className="scroll-mt-20 px-6 py-28">
       <Reveal stagger className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
-        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Infrastructure intelligence from another world</h2>
+        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting</h2>
         <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change.</p>
         <div className="mt-2 flex flex-wrap justify-center gap-3">
           <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
