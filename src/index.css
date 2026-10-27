@@ -325,6 +325,39 @@
   translate: 0 0;
   scale: 0.98;
 }
+
+/* "Try it yourself" at the top: on hover an orange gradient grows out from the
+ * button's center behind the label, and shrinks back to it on the way out. */
+.btn-fill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, #ff8a55 0%, #f0602f 42%, #d2401a 100%);
+  clip-path: circle(0% at 50% 50%);
+  /* A gentler curve than --ease-out, so the growth from the center is visible. */
+  transition: clip-path 380ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+@media (hover: hover) {
+  .btn-fill:hover {
+    background-color: transparent;
+    border-color: #e9592b;
+    box-shadow: 0 10px 24px -10px rgba(210, 64, 26, 0.75), 0 2px 6px -2px rgba(210, 64, 26, 0.35);
+  }
+  .btn-fill:hover::before {
+    clip-path: circle(80% at 50% 50%);
+    transition-duration: 560ms;
+  }
+}
+.btn-fill:focus-visible::before {
+  clip-path: circle(80% at 50% 50%);
+}
 .btn:disabled {
   translate: 0 0;
   box-shadow: none;
@@ -544,4 +577,5 @@ html.has-cursor [data-cursor] * {
   .xfade-layer, .xfade-content { opacity: 1; translate: 0 0; transition: none; }
   .hero-ambient { will-change: auto; }
   .hero-grid-lit { display: none; }
+  .btn-fill::before { transition: none; }
 }

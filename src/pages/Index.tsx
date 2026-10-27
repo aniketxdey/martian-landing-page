@@ -76,7 +76,7 @@ function Nav() {
           ))}
         </div>
         <div className="flex items-center gap-2.5 max-[420px]:gap-2">
-          <TransitionLink to="/demo" tone="orange" className="btn inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
+          <TransitionLink to="/demo" tone="orange" className="btn btn-fill inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#34363B] px-3.5 py-2.5 text-sm font-medium text-white max-[420px]:px-2.5 max-[420px]:text-[13px]">
             Try it yourself<span className="max-[420px]:hidden"><ArrowIcon size={14} /></span>
           </TransitionLink>
           <DemoRequestButton className="btn whitespace-nowrap rounded-lg border border-white bg-white px-[18px] py-2.5 text-sm font-semibold text-[#0A0A0B] max-[420px]:px-3 max-[420px]:text-[13px]">
@@ -255,7 +255,7 @@ function Hero() {
             </p>
             <div className="rise flex flex-wrap gap-3" style={rise(210)}>
               <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
-              <TransitionLink to="/demo" tone="orange" className={ghostDark}>
+              <TransitionLink to="/demo" tone="orange" className={`${ghostDark} btn-fill`}>
                 Try it yourself <ArrowIcon />
               </TransitionLink>
             </div>
