@@ -171,11 +171,11 @@ function Hero() {
               <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[#4ADE80]" />
               Works across your cloud accounts and your own data centers
             </div>
-            <h1 className="rise m-0 text-[clamp(38px,4.4vw,60px)] font-semibold leading-[1.04] tracking-[-0.035em] [text-wrap:balance]" style={rise(70)}>
+            <h1 className="rise m-0 text-[clamp(38px,4.4vw,60px)] font-semibold leading-[1.04] tracking-[-0.025em] [text-wrap:balance]" style={rise(70)}>
               Agents That Eliminate <span className="text-[#FF6B3D]">Your Infrastructure Waste</span>
             </h1>
             <p className="rise m-0 max-w-[560px] text-[19px] leading-[1.6] text-[#B4B7BD]" style={rise(140)}>
-              Martian's agents find the machines and disks you pay for but don't use, whether they sit in an AWS account or in the VMware cluster in your own racks. You see what each one costs before anything happens, because nothing gets stopped or deleted until someone on your team approves it.
+              Martian optimizes the machines and disks that you don't use, whether they sit in an AWS account or in a VMware cluster in your own racks. You see what each one costs before anything happens; nothing gets stopped or deleted until someone on your team approves it.
             </p>
             <div className="rise flex flex-wrap gap-3" style={rise(210)}>
               <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
@@ -205,7 +205,7 @@ function Hero() {
               {[0, 1, 2].map((i) => <span key={i} className="h-2.5 w-2.5 rounded-full bg-[#3A3C41]" />)}
             </div>
             <div className="overflow-hidden rounded-t-lg">
-              <MediaSlot media={MEDIA.hero} priority />
+              <MediaSlot media={MEDIA.hero} priority cursor={false} />
             </div>
           </div>
         </Reveal>
@@ -226,7 +226,7 @@ function Integrations() {
             <h2 id="integrations-title" className={`${h2} text-[clamp(28px,3vw,36px)]`}>Supported end to end</h2>
           </div>
           <p className="m-0 max-w-[460px] text-[16px] leading-[1.6] text-[#45484E]">
-            Everything in these rows works all the way through, so Martian can find the waste and then make the change once someone approves it. If a tool you rely on isn't listed, you can still plug in its MCP server.
+            Don't see a tool you rely on? No worries, just plug in its MCP and you're good to go.
           </p>
         </Reveal>
         <Reveal delay={120} fade>
@@ -243,14 +243,14 @@ type Feature = { n: string; tag: string; title: string; body: string; bullets: s
 
 const FEATURES: Feature[] = [
   {
-    n: "01", tag: "Discover", title: "Every resource, with its cost next to it.",
-    body: "Agents go through every account and data center you connect, down to single volumes and snapshots. Each resource comes back with its monthly cost and 14 days of utilization, grouped by where it runs, so you can see which environment is expensive before you start asking why.",
+    n: "01", tag: "Discover", title: "Telemetry across every resource you have",
+    body: "Agents search through every account and data center you connect, down to single volumes and snapshots. Each resource comes back with its monthly cost and 14 days of utilization, so you can see which environment is expensive before you start asking why.",
     bullets: ["A 100-point health score that drops as waste piles up", "CPU history for every machine and database it finds"],
     media: MEDIA.discover,
   },
   {
-    n: "02", tag: "Clean up", title: "Findings ranked by what they save.", flip: true,
-    body: "Martian checks that inventory against rules you can read. An instance that stays under 5% CPU for two weeks counts as idle, for example, and a volume nobody has attached in seven days counts as waste. Each finding shows what it saves per month and how long the fix takes, which makes the easy ones obvious. Approve one and Martian makes the change itself.",
+    n: "02", tag: "Clean up", title: "Findings ranked by what they save", flip: true,
+    body: "Martian checks inventory against rules you can read. Each finding shows what it saves per month and how long the fix takes, making the easy ones obvious. Approve one and Martian makes the change itself, no hands-on work in the cloud required.",
     bullets: [
       "You choose, per integration, whether low-risk fixes can run without a person",
       "Martian measures the savings after the change instead of estimating them",
@@ -258,15 +258,21 @@ const FEATURES: Feature[] = [
     media: MEDIA.optimize,
   },
   {
-    n: "03", tag: "Quick Chat", title: "Ask your infrastructure a question in plain English.",
-    body: "Quick Chat runs on Claude and calls the same tools the agents use, so asking “which VMs are idle?” gets you the actual instances along with what stopping them would save. Engineers can read the trace, while finance gets a straight answer without learning what an EBS volume is. If an answer involves changing something, the chat stops and asks you first.",
-    bullets: ["Every answer shows the tool calls behind it"],
+    n: "03", tag: "Quick Chat", title: "Ask your infrastructure a question in plain English",
+    body: "Martian's memory evolves with your topology, so asking “which VMs are idle?” gets you actual instances along with what stopping them would save. Engineers can read the trace, while finance gets a straight answer without learning what an EBS volume is.",
+    bullets: [
+      "Every answer shows the tool calls behind it",
+      "Answers that call tools also show up on the Agents page as runs you can reopen",
+    ],
     media: MEDIA.converse,
   },
   {
-    n: "04", tag: "Agents", title: "See what each agent did and why.", flip: true,
+    n: "04", tag: "Agents", title: "See what each agent did and why", flip: true,
     body: "Every run shows up on the Agents page with a map of what it touched, and underneath it a trace that pairs each tool call with its result. If something looks off, open the run and keep asking questions about it.",
-    bullets: [],
+    bullets: [
+      "Filter by scheduled scans, chat requests, approved changes or failures",
+      "Ask a run's chat to start a follow-up workflow or run it again",
+    ],
     media: MEDIA.agents,
   },
 ];
@@ -324,7 +330,7 @@ function HowItWorks() {
           {steps.map(([n, title, body], i) => (
             <Reveal as="li" key={n} delay={i * 90} className="card-lift flex flex-col gap-3.5 rounded-[14px] border border-[#E6E6E3] bg-white p-7">
               <span className="font-mono text-sm text-[#D2401A]">{n}</span>
-              <h3 className="m-0 text-[20px] font-semibold tracking-[-0.02em]">{title}</h3>
+              <h3 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">{title}</h3>
               <p className="m-0 text-[15px] leading-[1.6] text-[#45484E]">{body}</p>
             </Reveal>
           ))}
@@ -393,7 +399,6 @@ function DemoVideo() {
           href={DEMO_VIDEO}
           target="_blank"
           rel="noreferrer"
-          data-cursor="Play"
           aria-label="Play the walkthrough on YouTube (opens in a new tab)"
           className="card-lift group relative block overflow-hidden rounded-2xl border border-[#2A2C30] bg-[#161719]"
         >
@@ -492,7 +497,7 @@ function FinalCta() {
   return (
     <section id="demo" className="scroll-mt-20 px-6 py-28">
       <Reveal className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
-        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.035em]">Find out what your infrastructure is wasting.</h2>
+        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting.</h2>
         <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change. Or open the sandbox and click around on your own first.</p>
         <div className="mt-2 flex flex-wrap justify-center gap-3">
           <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>

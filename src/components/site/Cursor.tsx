@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 
-/* An orange ring that follows the pointer over the parts of the page you can
- * click into, with a word for what the click does ("Zoom", "Play", "Try it").
- * Regions opt in with data-cursor="Label" and the native cursor hides only inside
- * them. It only runs for a mouse-like pointer with motion allowed, so touch
- * screens and reduced-motion setups keep the normal cursor everywhere. */
-
-const FOLLOW = 0.3; // share of the remaining distance covered each frame
+/* An orange circle that replaces the pointer over the parts of the page you can
+ * click into, with a word for what the click does ("Zoom", "Close"). Regions opt
+ * in with data-cursor="Label" and the native cursor hides only inside them. The
+ * circle sits exactly on the pointer (no easing, so it never trails or slides in
+ * from somewhere else) and fades in where the pointer already is. It only runs
+ * for a mouse-like pointer with motion allowed, so touch screens and
+ * reduced-motion setups keep the normal cursor everywhere. */
 
 export function CursorFollower() {
   const dot = useRef<HTMLDivElement>(null);
@@ -26,21 +26,17 @@ export function CursorFollower() {
 
       const root = document.documentElement;
       root.classList.add("has-cursor");
-      let x = 0;
-      let y = 0;
       let tx = 0;
       let ty = 0;
       let raf = 0;
       let current = "";
 
       const place = () => {
-        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      };
-      const tick = () => {
-        x += (tx - x) * FOLLOW;
-        y += (ty - y) * FOLLOW;
-        place();
-        raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.25 ? requestAnimationFrame(tick) : 0;
+        raf = 0;
+        // The `translate` property, not `transform`: the scale-in is applied before
+        // `transform`, so it would scale the offset too and sweep the circle in from
+        // the top-left corner. With `translate` it grows in place under the pointer.
+        el.style.translate = `${tx}px ${ty}px`;
       };
       const show = (name: string) => {
         if (!name) {
@@ -51,9 +47,8 @@ export function CursorFollower() {
           return;
         }
         if (!current) {
-          // Appear where the pointer is instead of sliding in from the last spot.
-          x = tx;
-          y = ty;
+          // Move first, then fade in, so it shows up under the pointer.
+          cancelAnimationFrame(raf);
           place();
           el.dataset.on = "";
         }
@@ -77,7 +72,8 @@ export function CursorFollower() {
         tx = e.clientX;
         ty = e.clientY;
         show(regionAt(e.target));
-        if (current && !raf) raf = requestAnimationFrame(tick);
+        // Keep following while it fades out too, so it never leaves a ghost behind.
+        if (!raf) raf = requestAnimationFrame(place);
       };
       // Content can scroll under a resting pointer, so check again after scrolling.
       const onScroll = () => {

@@ -14,7 +14,8 @@ import { useLightbox } from "@/components/site/Lightbox";
 
 const reduced = () => typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-export function MediaSlot({ media, priority = false, zoom = true, className = "" }: { media: Media; priority?: boolean; zoom?: boolean; className?: string }) {
+/** `cursor={false}` keeps the native zoom-in pointer instead of the orange circle. */
+export function MediaSlot({ media, priority = false, zoom = true, cursor = true, className = "" }: { media: Media; priority?: boolean; zoom?: boolean; cursor?: boolean; className?: string }) {
   const lightbox = useLightbox();
   const id = useId();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -108,7 +109,7 @@ export function MediaSlot({ media, priority = false, zoom = true, className = ""
           onClick={() => lightbox?.open(id)}
           aria-haspopup="dialog"
           aria-label={`Enlarge: ${media.alt}`}
-          data-cursor="Zoom"
+          data-cursor={cursor ? "Zoom" : undefined}
           className="zoom-trigger block w-full p-0 text-left"
         >
           {visual}

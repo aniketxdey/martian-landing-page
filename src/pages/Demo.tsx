@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DemoRequestButton } from "@/components/site/DemoRequest";
 import { TransitionLink } from "@/components/site/transitions";
-import { DEMO_VIDEO, Logo, PlayIcon } from "@/components/site/brand";
+import { DEMO_VIDEO, PlayIcon } from "@/components/site/brand";
 
 /* The sandbox: the real Martian console, built as a static bundle that runs on
  * sample data with no sign-in (see public/demo-app/README.md for how it gets
@@ -47,29 +47,15 @@ export default function Demo() {
         Skip to the sandbox
       </a>
 
-      <header className="flex flex-none items-center justify-between gap-4 border-b border-[#1E1F22] px-5 py-3">
-        <div className="flex min-w-0 items-center gap-5">
-          <TransitionLink to="/" tone="dark" aria-label="Martian home">
-            <Logo dark size={26} />
-          </TransitionLink>
-          <span className="hidden min-w-0 items-center gap-2 rounded-full border border-[#2A2C30] px-3 py-1 text-[13px] text-[#C9CBD0] lg:inline-flex">
-            <span className="pulse-dot h-[7px] w-[7px] flex-none rounded-full bg-[#4ADE80]" />
-            <span className="truncate">Sandbox: a made-up company with sample data. Nothing here touches real infrastructure.</span>
-          </span>
-        </div>
-        <div className="flex flex-none items-center gap-2.5">
-          <TransitionLink to="/" tone="dark" className="link-u mx-2 text-sm text-[#C9CBD0] transition-colors duration-200 hover:text-white max-sm:hidden">
-            Back to the site
-          </TransitionLink>
-          {state === "ready" && (
-            <a href={APP_URL} target="_blank" rel="noreferrer" className="btn rounded-lg border border-[#34363B] px-3 py-2 text-sm text-white max-md:hidden">
-              Open full screen
-            </a>
-          )}
-          <DemoRequestButton className="btn rounded-lg border border-white bg-white px-4 py-2 text-sm font-semibold text-[#0A0A0B]">
-            Book a demo
-          </DemoRequestButton>
-        </div>
+      <header className="flex flex-none items-center justify-center gap-2.5 border-b border-[#1E1F22] px-5 py-2.5">
+        <TransitionLink to="/" tone="dark" className="btn inline-flex items-center gap-2 rounded-lg border border-[#34363B] px-3.5 py-2 text-sm text-white">
+          <span aria-hidden="true">←</span> Back to the site
+        </TransitionLink>
+        {state === "ready" && (
+          <a href={APP_URL} target="_blank" rel="noreferrer" className="btn inline-flex items-center gap-2 rounded-lg border border-[#34363B] px-3.5 py-2 text-sm text-white">
+            Open full screen <span aria-hidden="true">↗</span>
+          </a>
+        )}
       </header>
 
       <main id="sandbox" className="relative min-h-0 flex-1 bg-[#F7F7F5]">
@@ -94,7 +80,7 @@ export default function Demo() {
         {state === "missing" && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#0A0A0B] px-6">
             <div className="flex max-w-[520px] flex-col items-start gap-5">
-              <h1 className="m-0 text-[clamp(28px,3vw,36px)] font-semibold leading-[1.15] tracking-[-0.03em]">The sandbox isn't available right now.</h1>
+              <h1 className="m-0 text-[clamp(28px,3vw,36px)] font-semibold leading-[1.15] tracking-[-0.02em]">The sandbox isn't available right now.</h1>
               <p className="m-0 text-[17px] leading-[1.6] text-[#B4B7BD]">
                 You can still watch the recorded walkthrough, or book a demo and we'll take you through the real console with your own questions.
               </p>

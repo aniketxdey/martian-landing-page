@@ -237,8 +237,7 @@
   animation-direction: var(--marquee-direction, normal);
 }
 .marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track,
-[data-paused] .marquee-track {
+.marquee:focus-within .marquee-track {
   animation-play-state: paused;
 }
 @keyframes marquee {
@@ -379,31 +378,31 @@ html.has-cursor [data-cursor] * {
   left: 0;
   top: 0;
   z-index: 10000;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(210, 64, 26, 0.88);
+  background: rgba(210, 64, 26, 0.86);
   color: #fff;
-  font: 600 10px/1 Geist, ui-sans-serif, system-ui, sans-serif;
+  font: 600 9px/1 Geist, ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.02em;
   white-space: nowrap;
-  box-shadow: 0 0 0 7px rgba(210, 64, 26, 0.14), 0 10px 26px -10px rgba(210, 64, 26, 0.7);
+  box-shadow: 0 0 0 5px rgba(210, 64, 26, 0.12), 0 8px 20px -10px rgba(210, 64, 26, 0.6);
   pointer-events: none;
   opacity: 0;
-  scale: 0.35;
-  transition: opacity 160ms var(--ease-out), scale 240ms var(--ease-out);
-  will-change: transform;
+  scale: 0.7;
+  transition: opacity 220ms var(--ease-out), scale 280ms var(--ease-out);
+  will-change: transform, opacity;
 }
 .cursor-dot[data-on] {
   opacity: 1;
   scale: 1;
 }
 .cursor-dot[data-on][data-down] {
-  scale: 0.86;
+  scale: 0.9;
 }
 
 /* Lightbox (components/site/Lightbox.tsx). */

@@ -7,7 +7,7 @@ export const TAGLINE = "Agents That Eliminate Your Infrastructure Waste";
 
 export const mono = "font-mono";
 export const eyebrow = "m-0 font-mono text-[13px] uppercase tracking-[0.04em] text-[#D2401A]";
-export const h2 = "m-0 font-semibold leading-[1.1] tracking-[-0.03em]";
+export const h2 = "m-0 font-semibold leading-[1.1] tracking-[-0.02em]";
 
 export const Logo = ({ dark = false, size = 30 }: { dark?: boolean; size?: number }) => (
   <span className={`flex items-center gap-2 font-semibold tracking-[-0.01em] ${dark ? "text-white text-[19px]" : "text-[#111214] text-[17px]"}`}>

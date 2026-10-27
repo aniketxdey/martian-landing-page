@@ -86,7 +86,7 @@ const DemoRequestDialog = ({ open, onOpenChange, returnFocusTo }: Props) => {
         {submitted ? (
           <div className="py-10 text-center space-y-4">
             <CheckCircle2 className="w-12 h-12 mx-auto text-[#D2401A]" aria-hidden="true" />
-            <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">Request received</DialogTitle>
+            <DialogTitle className="text-2xl font-semibold tracking-[-0.01em]">Request received</DialogTitle>
             <DialogDescription className="text-[#45484E]">
               We'll email you within 24 hours to find a time that works for your team.
             </DialogDescription>
@@ -94,7 +94,7 @@ const DemoRequestDialog = ({ open, onOpenChange, returnFocusTo }: Props) => {
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold tracking-[-0.02em]">Book a demo</DialogTitle>
+              <DialogTitle className="text-2xl font-semibold tracking-[-0.01em]">Book a demo</DialogTitle>
               <DialogDescription className="text-[#45484E]">
                 Tell us a little about your infrastructure and we'll put together a walkthrough for your team.
               </DialogDescription>
