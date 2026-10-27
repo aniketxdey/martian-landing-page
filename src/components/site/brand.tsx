@@ -3,7 +3,7 @@ import React from "react";
 /* Small brand pieces shared by every page. */
 
 export const DEMO_VIDEO = "https://www.youtube.com/watch?v=1yyZPRn243U";
-export const TAGLINE = "Agents That Eliminate Your Infrastructure Waste";
+export const TAGLINE = "Infrastructure Intelligence From Another World";
 
 export const mono = "font-mono";
 export const eyebrow = "m-0 font-mono text-[13px] uppercase tracking-[0.04em] text-[#D2401A]";
