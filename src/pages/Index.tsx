@@ -243,10 +243,6 @@ function Hero() {
       <div className="relative mx-auto flex max-w-[1200px] flex-col gap-16">
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
-            <div className="rise inline-flex items-center gap-2 self-start rounded-full border border-[#2A2C30] px-3.5 py-1.5 text-[13px] text-[#C9CBD0]" style={rise(0)}>
-              <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[#4ADE80]" />
-              Works across your cloud accounts and your own data centers
-            </div>
             <h1 className="rise m-0 text-[clamp(38px,4.4vw,60px)] font-semibold leading-[1.04] tracking-[-0.025em] [text-wrap:balance]" style={rise(70)}>
               Agents That Eliminate <span className="text-[#FF6B3D]">Your Infrastructure Waste</span>
             </h1>
@@ -262,6 +258,10 @@ function Hero() {
           </div>
 
           <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-3">
+            <div className="rise mb-1 inline-flex items-center gap-2 self-start rounded-full border border-[#2A2C30] px-3.5 py-1.5 text-[13px] text-[#C9CBD0] max-[420px]:px-3 max-[420px]:text-[12px]" style={rise(200)}>
+              <span className="pulse-dot h-[7px] w-[7px] rounded-full bg-[#4ADE80]" />
+              Working across cloud accounts and data centers
+            </div>
             <AgentCard tone={0} delay={260} label="Idle developer environments" amount="$3,815/mo" quote="60 dev instances in us-west-2 have stayed under 5% CPU for 14 days. Want me to stop them? I'll snapshot their volumes first.">
               <div className="mt-1 flex flex-wrap gap-2" aria-hidden="true">
                 <span className="inline-flex min-h-[44px] items-center rounded-lg bg-white px-3.5 text-sm font-semibold text-[#0A0A0B]">Review and approve</span>
@@ -270,7 +270,6 @@ function Hero() {
             </AgentCard>
             <AgentCard tone={1} delay={340} label="Cold data in product media" amount="$996/mo" quote="61 TB of product media hasn't been read in 90 days and still sits on a hot tier. I'll add a lifecycle rule that moves it to infrequent access. Nothing gets deleted." />
             <AgentCard tone={2} delay={420} label="Warehouse management servers" amount="Needs review" quote="The Reno servers run under 20% CPU. Rebalancing would free 3 of them, but powering hosts down in your own racks is your call, so I've written up the plan and left it for you." />
-            <p className="rise m-0 mt-1 text-xs text-[#7C7F86]" style={rise(500)}>Example findings from Martian's sandbox.</p>
           </div>
         </div>
 
