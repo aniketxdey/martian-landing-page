@@ -11,7 +11,8 @@ export const h2 = "m-0 font-semibold leading-[1.1] tracking-[-0.02em]";
 
 export const Logo = ({ dark = false, size = 30 }: { dark?: boolean; size?: number }) => (
   <span className={`flex items-center gap-2 font-semibold tracking-[-0.01em] ${dark ? "text-white text-[19px]" : "text-[#111214] text-[17px]"}`}>
-    <img src="/home/martian-mark.png" alt="" width={size} height={size} className="block flex-none" decoding="async" />
+    {/* The whole head at the given height (229×278 viewBox, nothing cropped). */}
+    <img src="/brand/martian-mark.svg" alt="" width={Math.round((size * 229) / 278)} height={size} className="block flex-none" decoding="async" />
     Martian
   </span>
 );
