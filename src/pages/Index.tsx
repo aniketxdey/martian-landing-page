@@ -20,7 +20,6 @@ import { preloadRoute } from "@/routes";
 const btn = "btn inline-flex items-center justify-center gap-2 rounded-[10px] px-[22px] py-[15px] text-base";
 const accentBtn = `${btn} btn-accent border border-[#D2401A] bg-[#D2401A] px-6 font-semibold text-white`;
 const ghostDark = `${btn} gap-2.5 border border-[#34363B] font-medium text-white`;
-const ghostLight = `${btn} border border-[#D4D4D0] font-medium text-[#111214]`;
 
 const reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
@@ -574,11 +573,10 @@ function FinalCta() {
   return (
     <section id="demo" className="scroll-mt-20 px-6 py-28">
       <Reveal stagger className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
-        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting</h2>
-        <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change. Or open the sandbox and click around on your own first.</p>
+        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Infrastructure intelligence from another world</h2>
+        <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change.</p>
         <div className="mt-2 flex flex-wrap justify-center gap-3">
           <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
-          <TransitionLink to="/demo" tone="orange" className={ghostLight}>Try it yourself <ArrowIcon /></TransitionLink>
         </div>
       </Reveal>
     </section>
