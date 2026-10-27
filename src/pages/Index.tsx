@@ -137,6 +137,78 @@ function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefOb
   }, [section, glow]);
 }
 
+/** The hero grid. A faint grid covers the top of the hero, and a brighter,
+ * orange-tinted copy shows only in a soft circle around the pointer. That copy is
+ * one small layer moved with a transform, with its pattern shifted the opposite
+ * way so its lines sit exactly on the faint grid's. Off for touch and reduced
+ * motion, which keep just the faint grid. */
+const GRID = 56;
+function useGridSpotlight(section: React.RefObject<HTMLElement>, lit: React.RefObject<HTMLDivElement>) {
+  useEffect(() => {
+    const host = section.current;
+    const el = lit.current;
+    if (!host || !el) return;
+    // A grid line runs down the middle of the hero at any width.
+    let gx = 0;
+    const align = () => {
+      gx = Math.round((host.clientWidth / 2) % GRID);
+      host.style.setProperty("--gx", `${gx}px`);
+    };
+    align();
+    const ro = new ResizeObserver(align);
+    ro.observe(host);
+    const pointerOk = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
+    if (reducedMotion() || !pointerOk) return () => ro.disconnect();
+
+    const R = el.offsetWidth / 2;
+    let x = 0;
+    let y = 0;
+    let tx = 0;
+    let ty = 0;
+    let raf = 0;
+    let inside = false;
+    const place = () => {
+      // Whole pixels keep the 1px lines crisp and on the faint grid.
+      const left = Math.round(x - R);
+      const top = Math.round(y - R);
+      el.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+      el.style.backgroundPosition = `${gx - left}px ${-top}px`;
+    };
+    const tick = () => {
+      x += (tx - x) * 0.2;
+      y += (ty - y) * 0.2;
+      place();
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.4 ? requestAnimationFrame(tick) : 0;
+    };
+    const onMove = (e: PointerEvent) => {
+      const r = host.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (!inside) {
+        // Appear where the pointer is instead of sliding in from the last spot.
+        inside = true;
+        x = tx;
+        y = ty;
+        place();
+        el.dataset.on = "";
+      }
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const onLeave = () => {
+      inside = false;
+      delete el.dataset.on;
+    };
+    host.addEventListener("pointermove", onMove, { passive: true });
+    host.addEventListener("pointerleave", onLeave);
+    return () => {
+      ro.disconnect();
+      host.removeEventListener("pointermove", onMove);
+      host.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, [section, lit]);
+}
+
 function AgentCard({ label, amount, quote, tone, delay, children }: { label: string; amount: string; quote: string; tone: 0 | 1 | 2; delay: number; children?: React.ReactNode }) {
   const styles = [
     "bg-[#141517] border-[#26282C] py-5 text-base text-[#EDEEF0]",
@@ -159,11 +231,15 @@ function AgentCard({ label, amount, quote, tone, delay, children }: { label: str
 function Hero() {
   const section = useRef<HTMLElement>(null);
   const glow = useRef<HTMLDivElement>(null);
+  const lit = useRef<HTMLDivElement>(null);
   useAmbientGlow(section, glow);
+  useGridSpotlight(section, lit);
   const rise = (ms: number) => ({ ["--rise-delay" as string]: `${ms}ms` }) as React.CSSProperties;
   return (
     <section ref={section} id="top" className="relative overflow-hidden bg-[#0A0A0B] px-6 pt-[88px] text-white max-md:pt-14">
       <div ref={glow} className="hero-ambient" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true" />
+      <div ref={lit} className="hero-grid-lit" aria-hidden="true" />
       <div className="relative mx-auto flex max-w-[1200px] flex-col gap-16">
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
