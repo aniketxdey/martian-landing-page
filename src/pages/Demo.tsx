@@ -30,7 +30,7 @@ export default function Demo() {
       .catch(() => alive && setState("missing"));
     return () => {
       alive = false;
-      document.title = "Martian | Agents That Eliminate Your Infrastructure Waste";
+      document.title = "Martian: Infrastructure Intelligence From Another World";
     };
   }, []);
 
