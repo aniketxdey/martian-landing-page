@@ -6,9 +6,11 @@
  *
  * The clips are scripted recordings of the platform's sandbox build (the same
  * bundle /demo serves, seed 20261026, Northwind Commerce), so every number in
- * them matches what a visitor sees when they try it. 1600×1000, H.264 MP4 and
- * VP9 WebM, about 1 MB each, 11 to 14 seconds, and each one fades back into its
- * first frame so the loop has no jump. Posters are that first frame as WebP. */
+ * them matches what a visitor sees when they try it. They're captured at 2x
+ * (2560×1600) so they stay sharp full width and in the lightbox, run 15 to 22
+ * seconds, hold about a second after the last click, then fade back into their
+ * first frame. H.264 MP4 and VP9 WebM, about 1 to 2.3 MB each. Posters are the
+ * first frame as WebP. */
 
 export type Media = {
   poster: string;
@@ -20,8 +22,8 @@ export type Media = {
 
 const clip = (name: string, alt: string): Media => ({
   poster: `/media/${name}.webp`,
-  width: 1600,
-  height: 1000,
+  width: 2560,
+  height: 1600,
   alt,
   video: { webm: `/media/${name}.webm`, mp4: `/media/${name}.mp4` },
 });

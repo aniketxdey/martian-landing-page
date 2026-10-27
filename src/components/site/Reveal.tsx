@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
 /* Fades and lifts content into place the first time it scrolls into view.
- * One shared IntersectionObserver serves every instance on the page. */
+ * With `stagger`, the block itself stays put and its direct children (eyebrow,
+ * heading, paragraph, list...) come in one after another, each lifting and
+ * un-blurring. One shared IntersectionObserver serves every instance. */
 
 let observer: IntersectionObserver | null = null;
 
@@ -27,17 +29,20 @@ type Props<T extends React.ElementType> = {
   delay?: number;
   /** Fade only, no lift. */
   fade?: boolean;
+  /** Bring the direct children in one after another instead of as one block. */
+  stagger?: boolean;
   className?: string;
   children?: React.ReactNode;
 } & Omit<React.ComponentPropsWithoutRef<T>, "as" | "className" | "children">;
 
-export function Reveal<T extends React.ElementType = "div">({ as, delay = 0, fade, className = "", style, children, ...rest }: Props<T>) {
+export function Reveal<T extends React.ElementType = "div">({ as, delay = 0, fade, stagger, className = "", style, children, ...rest }: Props<T>) {
   const Tag = (as ?? "div") as React.ElementType;
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (stagger) Array.from(el.children).forEach((c, i) => (c as HTMLElement).style.setProperty("--i", String(i)));
     const io = getObserver();
     if (!io) {
       el.dataset.shown = "";
@@ -45,12 +50,12 @@ export function Reveal<T extends React.ElementType = "div">({ as, delay = 0, fad
     }
     io.observe(el);
     return () => io.unobserve(el);
-  }, []);
+  }, [stagger]);
 
   return (
     <Tag
       ref={ref}
-      className={`reveal ${fade ? "reveal-fade" : ""} ${className}`}
+      className={`reveal ${stagger ? "reveal-stagger" : fade ? "reveal-fade" : ""} ${className}`}
       style={{ ...(style as React.CSSProperties), ["--reveal-delay" as string]: `${delay}ms` }}
       {...rest}
     >
