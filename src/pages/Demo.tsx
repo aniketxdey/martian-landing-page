@@ -51,11 +51,6 @@ export default function Demo() {
         <TransitionLink to="/" tone="dark" className="btn inline-flex items-center gap-2 rounded-lg border border-[#34363B] px-3.5 py-2 text-sm text-white">
           <span aria-hidden="true">←</span> Back to the site
         </TransitionLink>
-        {state === "ready" && (
-          <a href={APP_URL} target="_blank" rel="noreferrer" className="btn inline-flex items-center gap-2 rounded-lg border border-[#34363B] px-3.5 py-2 text-sm text-white">
-            Open full screen <span aria-hidden="true">↗</span>
-          </a>
-        )}
       </header>
 
       <main id="sandbox" className="relative min-h-0 flex-1 bg-[#F7F7F5]">
@@ -80,7 +75,7 @@ export default function Demo() {
         {state === "missing" && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#0A0A0B] px-6">
             <div className="flex max-w-[520px] flex-col items-start gap-5">
-              <h1 className="m-0 text-[clamp(28px,3vw,36px)] font-semibold leading-[1.15] tracking-[-0.02em]">The sandbox isn't available right now.</h1>
+              <h1 className="m-0 text-[clamp(28px,3vw,36px)] font-semibold leading-[1.15] tracking-[-0.02em]">The sandbox isn't available right now</h1>
               <p className="m-0 text-[17px] leading-[1.6] text-[#B4B7BD]">
                 You can still watch the recorded walkthrough, or book a demo and we'll take you through the real console with your own questions.
               </p>

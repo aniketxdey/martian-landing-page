@@ -205,7 +205,7 @@ function Hero() {
               {[0, 1, 2].map((i) => <span key={i} className="h-2.5 w-2.5 rounded-full bg-[#3A3C41]" />)}
             </div>
             <div className="overflow-hidden rounded-t-lg">
-              <MediaSlot media={MEDIA.hero} priority cursor={false} />
+              <MediaSlot media={MEDIA.hero} priority />
             </div>
           </div>
         </Reveal>
@@ -220,7 +220,7 @@ function Integrations() {
   return (
     <section aria-labelledby="integrations-title" className="border-b border-[#ECECE9] px-6 pb-14 pt-20">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-10">
-        <Reveal className="flex flex-wrap items-end justify-between gap-6">
+        <Reveal stagger className="flex flex-wrap items-end justify-between gap-6">
           <div className="flex max-w-[620px] flex-col gap-3">
             <p className={eyebrow}>Integrations</p>
             <h2 id="integrations-title" className={`${h2} text-[clamp(28px,3vw,36px)]`}>Supported end to end</h2>
@@ -280,7 +280,7 @@ const FEATURES: Feature[] = [
 function FeatureRow({ f }: { f: Feature }) {
   return (
     <div className={`flex flex-wrap items-center gap-14 ${f.flip ? "flex-row-reverse" : ""}`}>
-      <Reveal className="flex min-w-0 flex-[1_1_380px] flex-col gap-4">
+      <Reveal stagger className="flex min-w-0 flex-[1_1_380px] flex-col gap-4">
         <p className={eyebrow}>{f.n} · {f.tag}</p>
         <h2 className={`${h2} text-[clamp(30px,3.2vw,40px)]`}>{f.title}</h2>
         <p className="m-0 text-[17px] leading-[1.65] text-[#45484E]">{f.body}</p>
@@ -321,9 +321,9 @@ function HowItWorks() {
   return (
     <section id="how" className="mt-[72px] scroll-mt-20 bg-[#F7F7F5] px-6 py-28">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
-        <Reveal className="max-w-[720px]">
+        <Reveal stagger className="max-w-[720px]">
           <p className={`${eyebrow} mb-4`}>How it works</p>
-          <h2 className={`${h2} mb-4 text-[clamp(32px,3.6vw,44px)]`}>Nothing to migrate.</h2>
+          <h2 className={`${h2} mb-4 text-[clamp(32px,3.6vw,44px)]`}>Nothing to migrate</h2>
           <p className="m-0 text-[17px] leading-[1.65] text-[#45484E]">Martian connects to what you already run and starts by reading it.</p>
         </Reveal>
         <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(250px,100%),1fr))] gap-5 p-0">
@@ -380,8 +380,8 @@ function DemoVideo() {
       <div className="xfade-layer" aria-hidden="true" />
       <div className="xfade-content relative mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(210,64,26,0.28),rgba(210,64,26,0))]" />
-        <div className="relative flex min-w-0 flex-col gap-4">
-          <h2 id="watch-title" className={`${h2} text-[clamp(30px,3.4vw,42px)]`}>Watch it run.</h2>
+        <Reveal stagger className="relative flex min-w-0 flex-col gap-4">
+          <h2 id="watch-title" className={`${h2} text-[clamp(30px,3.4vw,42px)]`}>Watch it run</h2>
           <p className="m-0 max-w-[520px] text-[17px] leading-[1.65] text-[#B4B7BD]">
             A recorded walkthrough of one scan: the agents map a running environment, then clean up what they found once someone approves it. If you'd rather click around yourself, the sandbox needs no sign-up.
           </p>
@@ -394,7 +394,8 @@ function DemoVideo() {
               Try the live demo <ArrowIcon />
             </TransitionLink>
           </div>
-        </div>
+        </Reveal>
+        <Reveal delay={140}>
         <a
           href={DEMO_VIDEO}
           target="_blank"
@@ -402,7 +403,7 @@ function DemoVideo() {
           aria-label="Play the walkthrough on YouTube (opens in a new tab)"
           className="card-lift group relative block overflow-hidden rounded-2xl border border-[#2A2C30] bg-[#161719]"
         >
-          <img src="/media/agents.webp" alt="" width={1600} height={1000} loading="lazy" decoding="async" className="block aspect-[16/10] w-full object-cover object-top opacity-60 transition-[opacity,transform] duration-500 group-hover:scale-[1.015] group-hover:opacity-75" />
+          <img src="/media/agents.webp" alt="" width={2560} height={1600} loading="lazy" decoding="async" className="block aspect-[16/10] w-full object-cover object-top opacity-60 transition-[opacity,transform] duration-500 group-hover:scale-[1.015] group-hover:opacity-75" />
           <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,11,0.1)_0%,rgba(10,10,11,0.25)_50%,rgba(10,10,11,0.94)_100%)]" />
           <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D2401A] text-white shadow-[0_0_0_10px_rgba(210,64,26,0.18)] transition-transform duration-300 group-hover:scale-105">
@@ -411,6 +412,7 @@ function DemoVideo() {
           </span>
           <span aria-hidden="true" className="absolute bottom-4 left-5 font-mono text-xs uppercase tracking-[0.05em] text-[#C9CBD0]">Recorded walkthrough · YouTube</span>
         </a>
+        </Reveal>
       </div>
     </section>
   );
@@ -428,9 +430,9 @@ function Security() {
   return (
     <section id="security" className="scroll-mt-20 px-6 py-28">
       <div className="mx-auto flex max-w-[1200px] flex-wrap items-start gap-14">
-        <Reveal className="min-w-0 flex-[1_1_400px]">
+        <Reveal stagger className="min-w-0 flex-[1_1_400px]">
           <p className={`${eyebrow} mb-4`}>Security and control</p>
-          <h2 className={`${h2} mb-4 text-[clamp(32px,3.6vw,44px)]`}>Agents do the work, and your team signs off.</h2>
+          <h2 className={`${h2} mb-4 text-[clamp(32px,3.6vw,44px)]`}>Agents do the work, and your team signs off</h2>
           <p className="m-0 text-[17px] leading-[1.65] text-[#45484E]">Martian can read everything you connect to it, but it doesn't change a thing until someone approves.</p>
         </Reveal>
         <ul className="m-0 flex min-w-0 flex-[1_1_440px] list-none flex-col p-0">
@@ -455,9 +457,9 @@ function Pricing() {
   return (
     <section id="pricing" className="scroll-mt-20 bg-[#F7F7F5] px-6 py-28">
       <div className="mx-auto flex max-w-[1000px] flex-col gap-12">
-        <Reveal className="flex flex-col items-center gap-3 text-center">
+        <Reveal stagger className="flex flex-col items-center gap-3 text-center">
           <p className={eyebrow}>Pricing</p>
-          <h2 className={`${h2} text-[clamp(32px,3.6vw,44px)]`}>Two plans, priced per user.</h2>
+          <h2 className={`${h2} text-[clamp(32px,3.6vw,44px)]`}>Two plans, priced per user</h2>
         </Reveal>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-5">
           <Reveal className="card-lift flex flex-col gap-[22px] rounded-2xl border border-[#E6E6E3] bg-white p-9">
@@ -496,8 +498,8 @@ function Pricing() {
 function FinalCta() {
   return (
     <section id="demo" className="scroll-mt-20 px-6 py-28">
-      <Reveal className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
-        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting.</h2>
+      <Reveal stagger className="mx-auto flex max-w-[1200px] flex-col items-center gap-5 text-center">
+        <h2 className="m-0 max-w-[780px] text-[clamp(34px,4vw,52px)] font-semibold leading-[1.06] tracking-[-0.025em]">Find out what your infrastructure is wasting</h2>
         <p className="m-0 max-w-[600px] text-lg leading-[1.6] text-[#45484E]">Book a demo and we'll walk your team through a full scan, up to the moment someone approves the first change. Or open the sandbox and click around on your own first.</p>
         <div className="mt-2 flex flex-wrap justify-center gap-3">
           <DemoRequestButton className={accentBtn}>Get a demo</DemoRequestButton>
