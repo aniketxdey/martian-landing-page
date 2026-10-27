@@ -504,42 +504,26 @@ html.has-cursor [data-cursor] * {
   will-change: transform;
 }
 
-/* Hero grid (useGridSpotlight in pages/Index.tsx). The faint grid fades out
- * toward the edges and the product shot; the lit copy is a 560px circle that
- * follows the pointer, with brighter orange lines and a dot on each crossing. */
-.hero-grid,
-.hero-grid-lit {
-  position: absolute;
-  pointer-events: none;
-  background-size: 56px 56px;
-}
+/* Hero grid (useGridCells in pages/Index.tsx). The dim grid fades out toward
+ * the edges and the product shot; the canvas on top lights individual squares
+ * around the pointer. */
 .hero-grid {
+  position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
   background-position: var(--gx, 0px) 0;
   -webkit-mask-image: radial-gradient(ellipse 80% 62% at 42% 28%, #000 0%, rgba(0, 0, 0, 0.55) 48%, transparent 88%);
   mask-image: radial-gradient(ellipse 80% 62% at 42% 28%, #000 0%, rgba(0, 0, 0, 0.55) 48%, transparent 88%);
 }
-.hero-grid-lit {
+.hero-cells {
+  position: absolute;
   left: 0;
   top: 0;
-  width: 560px;
-  height: 560px;
-  background-image:
-    radial-gradient(circle at 0.5px 0.5px, rgba(255, 170, 140, 0.95) 1.25px, transparent 1.75px),
-    linear-gradient(to right, rgba(255, 112, 72, 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 112, 72, 0.5) 1px, transparent 1px);
-  -webkit-mask-image: radial-gradient(circle closest-side, #000 0%, rgba(0, 0, 0, 0.5) 42%, transparent 100%);
-  mask-image: radial-gradient(circle closest-side, #000 0%, rgba(0, 0, 0, 0.5) 42%, transparent 100%);
-  opacity: 0;
-  transition: opacity 600ms var(--ease-out);
-  will-change: transform, opacity;
-}
-.hero-grid-lit[data-on] {
-  opacity: 1;
-  transition-duration: 280ms;
+  pointer-events: none;
 }
 
 /* Light-to-dark crossfade for the video section: it arrives in the light color
@@ -576,6 +560,6 @@ html.has-cursor [data-cursor] * {
   .btn:hover .btn-arrow { transform: none; }
   .xfade-layer, .xfade-content { opacity: 1; translate: 0 0; transition: none; }
   .hero-ambient { will-change: auto; }
-  .hero-grid-lit { display: none; }
+  .hero-cells { display: none; }
   .btn-fill::before { transition: none; }
 }
