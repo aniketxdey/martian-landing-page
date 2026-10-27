@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ENVIRONMENTS, SERVICES } from "@/content/integrations";
 
-/* Two rows of logos drifting in opposite directions. Each track holds the list
- * twice and slides by half its width, so the loop never shows a seam. Hover or
- * keyboard focus pauses it, there's an explicit pause button, and with reduced
- * motion the rows just wrap and sit still. Screen readers get one plain list; the
- * moving copies are hidden from them. */
+/* Two rows of logos drifting slowly in opposite directions. Each track holds the
+ * list twice and slides by half its width, so the loop never shows a seam. Hover
+ * or keyboard focus pauses a row, and with reduced motion the rows just wrap and
+ * sit still. Screen readers get one plain list; the moving copies are hidden from
+ * them. */
 
 function Track({ children, duration, reverse, label }: { children: React.ReactNode; duration: number; reverse?: boolean; label: string }) {
   return (
@@ -19,7 +19,6 @@ function Track({ children, duration, reverse, label }: { children: React.ReactNo
 }
 
 export function IntegrationsMarquee() {
-  const [paused, setPaused] = useState(false);
   return (
     <div className="flex flex-col gap-2">
       <ul className="sr-only">
@@ -27,8 +26,8 @@ export function IntegrationsMarquee() {
         {SERVICES.map((s, i) => <li key={`${s.name}-${i}`}>{s.env}: {s.name}</li>)}
       </ul>
 
-      <div className="marquee-group flex flex-col gap-2" data-cursor={paused ? undefined : "Paused"} {...(paused ? { "data-paused": "" } : {})}>
-        <Track duration={56} label="Environments">
+      <div className="marquee-group flex flex-col gap-2">
+        <Track duration={84} label="Environments">
           {ENVIRONMENTS.map((e) => (
             <div key={e.name} className="card-lift mr-3 flex w-[300px] flex-none items-center gap-3.5 rounded-2xl border border-[#E6E6E3] bg-white px-4 py-3.5 shadow-[0_1px_2px_rgba(17,18,20,0.04)]">
               <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-[#EFEFEC] bg-[#FBFBFA]">
@@ -41,7 +40,7 @@ export function IntegrationsMarquee() {
             </div>
           ))}
         </Track>
-        <Track duration={72} reverse label="Services">
+        <Track duration={110} reverse label="Services">
           {SERVICES.map((s, i) => (
             <div key={`${s.name}-${i}`} className="mr-2.5 flex flex-none items-center gap-2.5 rounded-full border border-[#E6E6E3] bg-white py-2 pl-2 pr-4">
               <img src={s.logo} alt="" width={22} height={22} loading="lazy" decoding="async" className="h-[22px] w-[22px] object-contain" />
@@ -50,17 +49,6 @@ export function IntegrationsMarquee() {
             </div>
           ))}
         </Track>
-      </div>
-
-      <div className="mt-2 flex justify-end">
-        <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          aria-pressed={paused}
-          className="btn rounded-full border border-[#D4D4D0] bg-white px-3 py-1.5 text-xs font-medium text-[#45484E]"
-        >
-          {paused ? "Resume scrolling" : "Pause scrolling"}
-        </button>
       </div>
     </div>
   );

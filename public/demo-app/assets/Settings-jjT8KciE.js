@@ -1,4 +1,4 @@
-import{y as E,j as e,z,d as x,u as C,b as $,P as U,c as L,O as B,a as P,r as b,L as W,B as g,h as H,C as m,Q as V,U as Y,o as G,M as p,N as f,D as Q,V as q,X,g as D,Y as Z,Z as M,_ as k,$ as I,T as S,I as R,a0 as A,a1 as _,f as T,a2 as J,a3 as K,a4 as ee}from"./index-Dt27FFrW.js";import{A as se,M as ae}from"./ChatPanel-D_p0vprS.js";const te=`Three idle VMs in **AWS prod** cost **$1,840/mo**. All three sat under 3% CPU for 14 days.
+import{y as E,j as e,z,d as x,u as C,b as $,P as U,c as L,O as B,a as P,r as b,L as W,B as g,h as H,C as m,Q as V,U as Y,o as G,M as p,N as f,D as Q,V as q,X,g as D,Y as Z,Z as M,_ as k,$ as I,T as S,I as R,a0 as A,a1 as _,f as T,a2 as J,a3 as K,a4 as ee}from"./index-DqZPpD04.js";import{A as se,M as ae}from"./ChatPanel-B_7e82Cx.js";const te=`Three idle VMs in **AWS prod** cost **$1,840/mo**. All three sat under 3% CPU for 14 days.
 
 | Instance | Avg CPU | Monthly |
 |---|--:|--:|
