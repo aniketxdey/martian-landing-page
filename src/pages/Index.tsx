@@ -3,6 +3,7 @@ import { DemoRequestButton } from "@/components/site/DemoRequest";
 import { TransitionLink } from "@/components/site/transitions";
 import { Reveal } from "@/components/site/Reveal";
 import { MediaSlot } from "@/components/site/MediaSlot";
+import { ApproveScene, ConnectorScene, FindingsScene, ReadOnlyScene, StepSceneDefs } from "@/components/site/StepScenes";
 import { IntegrationsMarquee } from "@/components/site/IntegrationsMarquee";
 import { ArrowIcon, CheckIcon, DEMO_VIDEO, eyebrow, h2, Logo, PlayIcon, TAGLINE, Tick } from "@/components/site/brand";
 import { MEDIA, type Media } from "@/content/media";
@@ -434,30 +435,129 @@ function Features() {
 
 /* ---------- how it works ---------- */
 
+type Seg = { d: string; a: [number, number]; b: [number, number] };
+
+/** Paths between consecutive step cards, from the cards' layout boxes (offsets,
+ * so the reveal animation's transforms don't skew them). On the same row the line
+ * runs at the step numbers' height, from one number to the next; when the grid wraps, the line
+ * drops from the bottom of one card, across the gap, into the top of the next. */
+function useStepChain(list: React.RefObject<HTMLOListElement>) {
+  const [geo, setGeo] = useState<{ w: number; h: number; segs: Seg[] }>({ w: 0, h: 0, segs: [] });
+  useEffect(() => {
+    const ol = list.current;
+    if (!ol) return;
+    const measure = () => {
+      const cards = Array.from(ol.children) as HTMLElement[];
+      const box = cards.map((c) => ({ l: c.offsetLeft, t: c.offsetTop, r: c.offsetLeft + c.offsetWidth, b: c.offsetTop + c.offsetHeight }));
+      const segs: Seg[] = [];
+      for (let i = 0; i + 1 < box.length; i++) {
+        const p = box[i];
+        const q = box[i + 1];
+        if (Math.abs(p.t - q.t) < 4) {
+          // From just after this card's step number to just before the next one's
+          // (28px padding + 1px border, then the ~17px number).
+          const y = p.t + 39;
+          const x1 = p.l + 56;
+          const x2 = q.l + 20;
+          segs.push({ d: `M${x1} ${y}H${x2}`, a: [x1, y], b: [x2, y] });
+        } else {
+          const px = (p.l + p.r) / 2;
+          const qx = (q.l + q.r) / 2;
+          const mid = (p.b + q.t) / 2;
+          segs.push({ d: `M${px} ${p.b}V${mid}H${qx}V${q.t}`, a: [px, p.b], b: [qx, q.t] });
+        }
+      }
+      setGeo({ w: ol.offsetWidth, h: ol.offsetHeight, segs });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(ol);
+    return () => ro.disconnect();
+  }, [list]);
+  return geo;
+}
+
+const CHAIN_STEP = 190; // ms between one link being drawn and the next
+const STEP_SCENES = [ConnectorScene, ReadOnlyScene, FindingsScene, ApproveScene];
+
 function HowItWorks() {
   const steps = [
     ["01", "Install the connector", "A small service runs inside your network and dials out to Martian over TLS, so you don't open inbound ports and your cloud credentials stay on your side."],
-    ["02", "Connect accounts read‑only","Start with a read-only role in each cloud account, plus vCenter credentials for the hardware you run yourself. At this point Martian can see everything and change nothing."],
+    ["02", "Connect accounts read‑only", "Start with a read-only role in each cloud account, plus vCenter credentials for the hardware you run yourself. At this point Martian can see everything and change nothing."],
     ["03", "Review what they found", "Scans repeat every six hours by default. Each finding carries the evidence behind it and a savings estimate you can check."],
     ["04", "Approve the changes you want", "Martian makes the change, then reads the resources again to confirm it worked. Your approval goes in the audit log with your name on it."],
   ];
+  const list = useRef<HTMLOListElement>(null);
+  const geo = useStepChain(list);
+  const [active, setActive] = useState(-1);
+  const prev = useRef(-1);
+  const from = prev.current;
+  useEffect(() => {
+    prev.current = active;
+  }, [active]);
+
+  // Stagger so the chain grows (or shrinks) one link at a time, in order.
+  const base = Math.max(from, 0);
+  const segDelay = (i: number) => {
+    const on = i < active;
+    const was = i < from;
+    if (on && !was) return (i - base) * CHAIN_STEP;
+    if (!on && was) return (from - 1 - i) * 70;
+    return 0;
+  };
+  const cardDelay = (j: number) => {
+    const on = j <= active;
+    const was = j <= from;
+    if (on && !was) return j === 0 ? 0 : (j - 1 - base) * CHAIN_STEP + 180;
+    if (!on && was) return (from - j) * 70;
+    return 0;
+  };
+
   return (
     <section id="how" className="mt-[72px] scroll-mt-20 bg-[#F7F7F5] px-6 py-28">
+      <StepSceneDefs />
       <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
         <Reveal stagger className="max-w-[720px]">
           <p className={`${eyebrow} mb-4`}>How it works</p>
           <h2 className={`${h2} mb-4 text-[clamp(32px,3.6vw,44px)]`}>Nothing to migrate</h2>
           <p className="m-0 text-[17px] leading-[1.65] text-[#45484E]">Martian connects to what you already run and starts by reading it.</p>
         </Reveal>
-        <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(250px,100%),1fr))] gap-5 p-0">
-          {steps.map(([n, title, body], i) => (
-            <Reveal as="li" key={n} delay={i * 90} className="card-lift flex flex-col gap-3.5 rounded-[14px] border border-[#E6E6E3] bg-white p-7">
-              <span className="font-mono text-sm text-[#D2401A]">{n}</span>
-              <h3 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">{title}</h3>
-              <p className="m-0 text-[15px] leading-[1.6] text-[#45484E]">{body}</p>
-            </Reveal>
-          ))}
-        </ol>
+        <div className="relative">
+          <ol ref={list} onPointerLeave={() => setActive(-1)} className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(250px,100%),1fr))] gap-5 p-0">
+            {steps.map(([n, title, body], i) => {
+              const Scene = STEP_SCENES[i];
+              return (
+                <Reveal
+                  as="li"
+                  key={n}
+                  delay={i * 90}
+                  onPointerEnter={() => setActive(i)}
+                  {...(i <= active ? { "data-on": "" } : {})}
+                  style={{ ["--chain-delay" as string]: `${cardDelay(i)}ms` }}
+                  className="step-card flex flex-col gap-3.5 rounded-[14px] border border-[#E6E6E3] bg-white p-7"
+                >
+                  <span className="font-mono text-sm text-[#D2401A]">{n}</span>
+                  <h3 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">{title}</h3>
+                  <p className="sr-only">{body}</p>
+                  <Scene />
+                </Reveal>
+              );
+            })}
+          </ol>
+          <svg className="step-chain-svg" width={geo.w} height={geo.h} aria-hidden="true">
+            {geo.segs.map((s, i) => {
+              const on = i < active ? { "data-on": "" } : {};
+              const delay = { transitionDelay: `${segDelay(i)}ms` };
+              return (
+                <g key={i}>
+                  <path className="step-seg" d={s.d} pathLength={1} style={delay} {...on} />
+                  <circle className="step-dot" cx={s.a[0]} cy={s.a[1]} r="2.5" style={delay} {...on} />
+                  <circle className="step-dot" cx={s.b[0]} cy={s.b[1]} r="2.5" style={{ transitionDelay: `${segDelay(i) + 200}ms` }} {...on} />
+                </g>
+              );
+            })}
+          </svg>
+        </div>
       </div>
     </section>
   );

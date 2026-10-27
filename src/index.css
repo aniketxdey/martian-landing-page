@@ -522,6 +522,118 @@ html.has-cursor [data-cursor] * {
   pointer-events: none;
 }
 
+/* How it works: step scenes (components/site/StepScenes.tsx). Each element's
+ * resting style is the scene's last frame; the keyframes run only while the
+ * scene is on screen ([data-play]). */
+.scene {
+  margin-top: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0e0f11;
+  border: 1px solid #1f2023;
+}
+.scene svg { display: block; width: 100%; height: auto; }
+.scene text { font-family: "Geist Mono", ui-monospace, monospace; }
+.scene .sc-label { font-size: 7px; letter-spacing: 0.06em; }
+.scene .sc-label:not([fill]) { fill: #8e9198; }
+.scene .sc-tiny { font-size: 6px; letter-spacing: 0.05em; }
+.scene .sc-name { font-family: Geist, ui-sans-serif, sans-serif; font-size: 8.5px; font-weight: 500; }
+.scene .sc-name:not([fill]) { fill: #c9cbd0; }
+.scene .sc-amount { font-size: 8px; fill: #7fd1a8; }
+.scene:not([data-play]) * { animation-play-state: paused !important; }
+
+/* 01 connector */
+.s1-node { transform-box: fill-box; transform-origin: center; animation: s1-node 6s var(--ease-out) infinite both; }
+@keyframes s1-node { 0% { opacity: 0; transform: scale(0.6); } 8%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
+.s1-ring { opacity: 0; stroke-dasharray: 1; animation: s1-ring 6s linear infinite both; }
+@keyframes s1-ring { 0% { stroke-dashoffset: 1; opacity: 1; } 15% { stroke-dashoffset: 0; opacity: 1; } 20%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+.s1-link { stroke-dasharray: 1; stroke-dashoffset: 0; animation: s1-link 6s var(--ease-out) infinite both; }
+@keyframes s1-link { 0%, 16% { stroke-dashoffset: 1; opacity: 1; } 28%, 92% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.s1-badge { animation: s1-badge 6s infinite both; }
+@keyframes s1-badge { 0%, 22% { opacity: 0; } 30%, 92% { opacity: 1; } 100% { opacity: 0; } }
+.s1-flow, .s1-chip { animation: s1-flow 6s infinite both; }
+@keyframes s1-flow { 0%, 28% { opacity: 0; } 34%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+.s1-pkt { animation: s1-pkt 1.4s linear infinite; }
+@keyframes s1-pkt { 0% { transform: translateX(0); opacity: 0; } 12%, 85% { opacity: 1; } 100% { transform: translateX(72px); opacity: 0; } }
+.s1-ping { opacity: 0; transform-box: fill-box; transform-origin: center; animation: s1-ping 1.4s var(--ease-out) infinite; }
+@keyframes s1-ping { 0% { opacity: 0.55; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6); } }
+
+/* 02 read-only accounts (rows staggered by --d) */
+.s2-link { stroke-dasharray: 1; stroke-dashoffset: 0; animation: s2-link 6s var(--ease-out) var(--d, 0s) infinite both; }
+@keyframes s2-link { 0%, 6% { stroke-dashoffset: 1; opacity: 1; } 20%, 86% { stroke-dashoffset: 0; opacity: 1; } 94%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+.s2-wait { opacity: 0; animation: s2-wait 6s var(--d, 0s) infinite both; }
+@keyframes s2-wait { 0%, 18% { opacity: 1; } 22%, 94% { opacity: 0; } 100% { opacity: 1; } }
+.s2-ok { animation: s2-ok 6s var(--d, 0s) infinite both; }
+@keyframes s2-ok { 0%, 19% { opacity: 0; } 24%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+.s2-ping { opacity: 0; transform-box: fill-box; transform-origin: center; animation: s2-ping 6s var(--ease-out) var(--d, 0s) infinite both; }
+@keyframes s2-ping { 0%, 19% { opacity: 0; transform: scale(1); } 20% { opacity: 0.7; transform: scale(1); } 32%, 100% { opacity: 0; transform: scale(1.7); } }
+.s2-note { animation: s2-note 6s infinite both; }
+@keyframes s2-note { 0%, 60% { opacity: 0; } 66%, 92% { opacity: 1; } 98%, 100% { opacity: 0; } }
+
+/* 03 findings (rows staggered by --d) */
+.s3-scan { stroke-dasharray: 1; stroke-dashoffset: 0; animation: s3-scan 6.5s linear infinite both; }
+@keyframes s3-scan { 0% { stroke-dashoffset: 1; opacity: 1; } 18%, 94% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.s3-row { animation: s3-row 6.5s var(--ease-out) var(--d, 0s) infinite both; }
+@keyframes s3-row { 0%, 18% { opacity: 0; transform: translateY(6px); } 26%, 90% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; transform: none; } }
+.s3-evidence { animation: s3-evidence 6.5s infinite both; }
+@keyframes s3-evidence { 0%, 30% { opacity: 0; } 34%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+.s3-spark { stroke-dasharray: 1; stroke-dashoffset: 0; animation: s3-spark 6.5s var(--ease-out) infinite both; }
+@keyframes s3-spark { 0%, 32% { stroke-dashoffset: 1; } 48%, 100% { stroke-dashoffset: 0; } }
+
+/* 04 approve, verify, audit log */
+.s4-cursor { opacity: 0; animation: s4-cursor 7s var(--ease-in-out) infinite both; }
+@keyframes s4-cursor {
+  0% { opacity: 0; transform: translate(214px, 128px); }
+  6% { opacity: 1; transform: translate(214px, 128px); }
+  22% { opacity: 1; transform: translate(186px, 68px) scale(1); }
+  24% { opacity: 1; transform: translate(186px, 68px) scale(0.86); }
+  27% { opacity: 1; transform: translate(186px, 68px) scale(1); }
+  42%, 100% { opacity: 0; transform: translate(222px, 132px); }
+}
+.s4-approve { opacity: 0; animation: s4-approve 7s infinite both; }
+@keyframes s4-approve { 0%, 25% { opacity: 1; } 26%, 100% { opacity: 0; } }
+.s4-applying { opacity: 0; animation: s4-applying 7s infinite both; }
+@keyframes s4-applying { 0%, 25% { opacity: 0; } 26%, 56% { opacity: 1; } 58%, 100% { opacity: 0; } }
+.s4-bar { transform-box: fill-box; transform-origin: left center; animation: s4-bar 7s linear infinite both; }
+@keyframes s4-bar { 0%, 26% { transform: scaleX(0); } 56%, 100% { transform: scaleX(1); } }
+.s4-done { animation: s4-done 7s infinite both; }
+@keyframes s4-done { 0%, 57% { opacity: 0; } 59%, 93% { opacity: 1; } 99%, 100% { opacity: 0; } }
+.s4-audit { animation: s4-audit 7s var(--ease-out) infinite both; }
+@keyframes s4-audit { 0%, 62% { opacity: 0; transform: translateY(8px); } 70%, 93% { opacity: 1; transform: none; } 99%, 100% { opacity: 0; transform: none; } }
+
+/* How it works: the chain. Hovering step N outlines steps 1..N in orange and
+ * draws a thin line through them, in order (delays set inline). */
+.step-chain-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+.step-seg {
+  fill: none;
+  stroke: #d2401a;
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 260ms var(--ease-out);
+}
+.step-seg[data-on] { stroke-dashoffset: 0; }
+.step-dot { fill: #d2401a; opacity: 0; transition: opacity 180ms var(--ease-out); }
+.step-dot[data-on] { opacity: 1; }
+.reveal.step-card {
+  transition:
+    opacity 800ms var(--ease-out) var(--reveal-delay, 0ms),
+    transform 1000ms var(--ease-out) var(--reveal-delay, 0ms),
+    border-color 240ms var(--ease-out) var(--chain-delay, 0ms),
+    box-shadow 240ms var(--ease-out) var(--chain-delay, 0ms);
+}
+.step-card[data-on] {
+  border-color: #d2401a;
+  box-shadow: 0 10px 28px -16px rgba(210, 64, 26, 0.45);
+}
+
 /* Light-to-dark crossfade for the video section: it arrives in the light color
  * of its neighbours, then fades to near-black as its copy fades in, and resets
  * once it's fully off screen. */
@@ -562,4 +674,6 @@ html.has-cursor [data-cursor] * {
   .xfade-layer, .xfade-follow, .xfade-content { opacity: 1; translate: 0 0; transition: none; }
   .grid-cells { display: none; }
   .btn-fill::before { transition: none; }
+  .scene * { animation: none !important; }
+  .step-seg, .step-dot, .reveal.step-card { transition: none; }
 }
