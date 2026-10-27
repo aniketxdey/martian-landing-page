@@ -89,8 +89,10 @@ function Nav() {
 
 /* ---------- hero ---------- */
 
-/** A faint orange light behind the hero copy that drifts part of the way toward
- * the pointer. Moved with transforms on a single layer, so it stays cheap. */
+/** A faint orange light behind the hero copy that drifts toward the pointer.
+ * Near its resting spot it follows only part of the way; toward the far corners
+ * it follows further and stretches into an ellipse pointing at the pointer.
+ * Moved with transforms on a single layer, so it stays cheap. */
 function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefObject<HTMLDivElement>) {
   useEffect(() => {
     const host = section.current;
@@ -100,8 +102,17 @@ function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefOb
     let { x, y } = home();
     let tx = x;
     let ty = y;
+    // Stretch as a vector (direction × amount) so it eases smoothly.
+    let sx = 0;
+    let sy = 0;
+    let tsx = 0;
+    let tsy = 0;
     let raf = 0;
-    const place = () => (light.style.transform = `translate3d(${x}px, ${y}px, 0)`);
+    const place = () => {
+      const amount = Math.hypot(sx, sy);
+      const angle = Math.atan2(sy, sx);
+      light.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${angle}rad) scale(${1 + 0.75 * amount}, ${1 - 0.12 * amount})`;
+    };
     place();
     const pointerOk = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
     if (reducedMotion() || !pointerOk) return;
@@ -109,13 +120,28 @@ function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefOb
     const tick = () => {
       x += (tx - x) * 0.05;
       y += (ty - y) * 0.05;
+      sx += (tsx - sx) * 0.05;
+      sy += (tsy - sy) * 0.05;
       place();
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(tick) : 0;
+      const moving = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 || Math.abs(tsx - sx) + Math.abs(tsy - sy) > 0.002;
+      raf = moving ? requestAnimationFrame(tick) : 0;
     };
     const aim = (px: number, py: number) => {
       const h = home();
-      tx = h.x + (px - h.x) * 0.35;
-      ty = h.y + (py - h.y) * 0.35;
+      const vx = px - h.x;
+      const vy = py - h.y;
+      const w = host.clientWidth;
+      const hh = host.clientHeight;
+      // How far out the pointer is, 0 at the resting spot and 1 at the farthest corner.
+      const far = Math.max(Math.hypot(h.x, h.y), Math.hypot(w - h.x, h.y), Math.hypot(h.x, hh - h.y), Math.hypot(w - h.x, hh - h.y));
+      const n = Math.min(1, Math.hypot(vx, vy) / far);
+      const follow = 0.35 + 0.3 * n * n;
+      tx = h.x + vx * follow;
+      ty = h.y + vy * follow;
+      const len = Math.hypot(vx, vy) || 1;
+      const stretch = n * n;
+      tsx = (vx / len) * stretch;
+      tsy = (vy / len) * stretch;
       if (!raf) raf = requestAnimationFrame(tick);
     };
     const onMove = (e: PointerEvent) => {
@@ -136,66 +162,158 @@ function useAmbientGlow(section: React.RefObject<HTMLElement>, glow: React.RefOb
   }, [section, glow]);
 }
 
-/** The hero grid. A faint grid covers the top of the hero, and a brighter,
- * orange-tinted copy shows only in a soft circle around the pointer. That copy is
- * one small layer moved with a transform, with its pattern shifted the opposite
- * way so its lines sit exactly on the faint grid's. Off for touch and reduced
- * motion, which keep just the faint grid. */
+/** The hero grid. A dim 56px grid sits behind the hero (CSS), and a canvas on top
+ * lights individual squares:
+ * - moving the pointer builds up "activity" (faster moves build more);
+ * - while there's activity, random squares inside a radius around the pointer
+ *   flare at random strengths every frame, and the radius grows with activity,
+ *   so a quick sweep lights up a loose, flickering patch rather than a neat shape;
+ * - activity drains over about four seconds once the pointer rests. The radius
+ *   shrinks and far squares fade faster than near ones, so the patch collapses
+ *   onto the one square under the pointer, which stays lit.
+ * The loop only runs while something is changing. Off for touch and reduced
+ * motion, which keep just the dim grid. */
 const GRID = 56;
-function useGridSpotlight(section: React.RefObject<HTMLElement>, lit: React.RefObject<HTMLDivElement>) {
+const LINE = "255, 118, 78";
+const FILL = "255, 107, 61";
+function useGridCells(section: React.RefObject<HTMLElement>, canvas: React.RefObject<HTMLCanvasElement>) {
   useEffect(() => {
     const host = section.current;
-    const el = lit.current;
-    if (!host || !el) return;
-    // A grid line runs down the middle of the hero at any width.
-    let gx = 0;
-    const align = () => {
-      gx = Math.round((host.clientWidth / 2) % GRID);
-      host.style.setProperty("--gx", `${gx}px`);
-    };
-    align();
-    const ro = new ResizeObserver(align);
-    ro.observe(host);
-    const pointerOk = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
-    if (reducedMotion() || !pointerOk) return () => ro.disconnect();
+    const cv = canvas.current;
+    const ctx = cv?.getContext("2d");
+    if (!host || !cv || !ctx) return;
+    const live = !reducedMotion() && !!window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
 
-    const R = el.offsetWidth / 2;
-    let x = 0;
-    let y = 0;
-    let tx = 0;
-    let ty = 0;
-    let raf = 0;
+    let W = 0;
+    let H = 0;
+    let gx = 0;
+    let cols = 0;
+    let rows = 0;
+    let dpr = 1;
+    let E = new Float32Array(0); // brightness per square, 0..1
+    let px = 0;
+    let py = 0;
     let inside = false;
-    const place = () => {
-      // Whole pixels keep the 1px lines crisp and on the faint grid.
-      const left = Math.round(x - R);
-      const top = Math.round(y - R);
-      el.style.transform = `translate3d(${left}px, ${top}px, 0)`;
-      el.style.backgroundPosition = `${gx - left}px ${-top}px`;
-    };
-    const tick = () => {
-      x += (tx - x) * 0.2;
-      y += (ty - y) * 0.2;
-      place();
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.4 ? requestAnimationFrame(tick) : 0;
-    };
-    const onMove = (e: PointerEvent) => {
-      const r = host.getBoundingClientRect();
-      tx = e.clientX - r.left;
-      ty = e.clientY - r.top;
-      if (!inside) {
-        // Appear where the pointer is instead of sliding in from the last spot.
-        inside = true;
-        x = tx;
-        y = ty;
-        place();
-        el.dataset.on = "";
+    let activity = 0;
+    let raf = 0;
+
+    // Square (c, r) has its left edge at gx + (c - 1) * GRID, so c = 0 is the
+    // partial square left of the first line. Lines match the CSS grid exactly.
+    const colOf = (x: number) => Math.floor((x - gx) / GRID) + 1;
+    const rowOf = (y: number) => Math.floor(y / GRID);
+
+    const draw = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      const at = (c: number, r: number) => (c < 0 || r < 0 || c >= cols || r >= rows ? 0 : E[r * cols + c]);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const e = E[r * cols + c];
+          const top = Math.max(e, at(c, r - 1));
+          const left = Math.max(e, at(c - 1, r));
+          const node = Math.max(top, left, at(c - 1, r - 1));
+          if (node < 0.004) continue;
+          const x = gx + (c - 1) * GRID;
+          const y = r * GRID;
+          if (e > 0.004) {
+            ctx.fillStyle = `rgba(${FILL}, ${(0.12 * e).toFixed(3)})`;
+            ctx.fillRect(x + 1, y + 1, GRID - 1, GRID - 1);
+          }
+          if (top > 0.004) {
+            ctx.fillStyle = `rgba(${LINE}, ${(0.75 * top).toFixed(3)})`;
+            ctx.fillRect(x + 1, y, GRID - 1, 1);
+          }
+          if (left > 0.004) {
+            ctx.fillStyle = `rgba(${LINE}, ${(0.75 * left).toFixed(3)})`;
+            ctx.fillRect(x, y + 1, 1, GRID - 1);
+          }
+          ctx.fillStyle = `rgba(255, 168, 136, ${(0.9 * node).toFixed(3)})`;
+          ctx.fillRect(x - 0.5, y - 0.5, 2, 2);
+        }
       }
-      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    const step = () => {
+      raf = 0;
+      const cc = colOf(px);
+      const cr = rowOf(py);
+      // Flare random squares around the pointer while there's activity.
+      if (inside && activity > 0.015) {
+        const radius = GRID * (0.7 + 5 * activity);
+        const sparks = 1 + Math.round(activity * 7);
+        for (let k = 0; k < sparks; k++) {
+          const a = Math.random() * Math.PI * 2;
+          const d = radius * Math.sqrt(Math.random());
+          const c = colOf(px + Math.cos(a) * d);
+          const r = rowOf(py + Math.sin(a) * d);
+          if (c < 0 || r < 0 || c >= cols || r >= rows) continue;
+          const s = (0.25 + 0.75 * Math.random()) * (0.4 + 0.6 * activity) * Math.pow(1 - d / radius, 0.35);
+          const i = r * cols + c;
+          if (s > E[i]) E[i] = s;
+        }
+      }
+      // Fade: far squares go first, so a resting patch shrinks onto the pointer.
+      let busy = false;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const i = r * cols + c;
+          if (inside && c === cc && r === cr) {
+            E[i] += (1 - E[i]) * 0.16;
+            if (E[i] < 0.995) busy = true;
+            continue;
+          }
+          if (E[i] === 0) continue;
+          const dist = Math.hypot(c - cc, r - cr);
+          E[i] *= inside ? 0.9 + 0.085 * Math.max(0, 1 - dist / 8) : 0.92;
+          if (E[i] < 0.004) E[i] = 0;
+          else busy = true;
+        }
+      }
+      activity *= 0.986;
+      if (activity < 0.004) activity = 0;
+      draw();
+      if (busy || activity > 0) raf = requestAnimationFrame(step);
+    };
+    const kick = () => {
+      if (!raf) raf = requestAnimationFrame(step);
+    };
+
+    const resize = () => {
+      W = host.clientWidth;
+      H = host.clientHeight;
+      // A grid line runs down the middle of the hero at any width.
+      gx = Math.round((W / 2) % GRID);
+      host.style.setProperty("--gx", `${gx}px`);
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
+      cv.style.width = `${W}px`;
+      cv.style.height = `${H}px`;
+      cols = Math.ceil((W - gx) / GRID) + 2;
+      rows = Math.ceil(H / GRID) + 1;
+      E = new Float32Array(cols * rows);
+      if (live) kick();
+    };
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(host);
+    if (!live) return () => ro.disconnect();
+
+    let lx = 0;
+    let ly = 0;
+    const onMove = (e: PointerEvent) => {
+      const b = host.getBoundingClientRect();
+      const x = e.clientX - b.left;
+      const y = e.clientY - b.top;
+      if (inside) activity = Math.min(1, activity + Math.hypot(x - lx, y - ly) / 300);
+      inside = true;
+      lx = px = x;
+      ly = py = y;
+      kick();
     };
     const onLeave = () => {
       inside = false;
-      delete el.dataset.on;
+      kick();
     };
     host.addEventListener("pointermove", onMove, { passive: true });
     host.addEventListener("pointerleave", onLeave);
@@ -205,7 +323,7 @@ function useGridSpotlight(section: React.RefObject<HTMLElement>, lit: React.RefO
       host.removeEventListener("pointerleave", onLeave);
       cancelAnimationFrame(raf);
     };
-  }, [section, lit]);
+  }, [section, canvas]);
 }
 
 function AgentCard({ label, amount, quote, tone, delay, children }: { label: string; amount: string; quote: string; tone: 0 | 1 | 2; delay: number; children?: React.ReactNode }) {
@@ -230,15 +348,15 @@ function AgentCard({ label, amount, quote, tone, delay, children }: { label: str
 function Hero() {
   const section = useRef<HTMLElement>(null);
   const glow = useRef<HTMLDivElement>(null);
-  const lit = useRef<HTMLDivElement>(null);
+  const cells = useRef<HTMLCanvasElement>(null);
   useAmbientGlow(section, glow);
-  useGridSpotlight(section, lit);
+  useGridCells(section, cells);
   const rise = (ms: number) => ({ ["--rise-delay" as string]: `${ms}ms` }) as React.CSSProperties;
   return (
     <section ref={section} id="top" className="relative overflow-hidden bg-[#0A0A0B] px-6 pt-[88px] text-white max-md:pt-14">
       <div ref={glow} className="hero-ambient" aria-hidden="true" />
       <div className="hero-grid" aria-hidden="true" />
-      <div ref={lit} className="hero-grid-lit" aria-hidden="true" />
+      <canvas ref={cells} className="hero-cells" aria-hidden="true" />
       <div className="relative mx-auto flex max-w-[1200px] flex-col gap-16">
         <div className="flex flex-wrap items-center gap-14">
           <div className="flex min-w-0 flex-[1.3_1_520px] flex-col gap-7">
