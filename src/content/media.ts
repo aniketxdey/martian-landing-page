@@ -31,22 +31,22 @@ const clip = (name: string, alt: string): Media => ({
 export const MEDIA: Record<"hero" | "discover" | "optimize" | "converse" | "agents", Media> = {
   hero: clip(
     "hero",
-    "The Overview page for Northwind Commerce: $9,312 a month of open waste, then reviewing and approving the idle developer environments finding",
+    "The Overview page for Northwind Commerce: opening a finding that needs a person, approving the idle developer environments, then starting a scan",
   ),
   discover: clip(
     "discover",
-    "The Infrastructure map zooming in on a cluster, then a click on one node that opens its cost and utilization",
+    "The Infrastructure map filtered to cloud, then data center, then opening the storefront web fleet to see its live CPU, memory and cost",
   ),
   optimize: clip(
     "optimize",
-    "Approving the cold data finding from Overview, then watching the change run on the Agents page while an auditor checks it",
+    "Approving the cold data finding from Overview, then filtering the Agents page to changes and opening the run that applies it",
   ),
   converse: clip(
     "converse",
-    "Quick Chat answering which servers are idle and what stopping them would save, with each tool call listed beside the answer",
+    "Quick Chat answering where the money is going, then which servers are idle and what stopping them would save",
   ),
   agents: clip(
     "agents",
-    "One agent run opened from the Agents page: the map of every integration it touched, then the step-by-step trace underneath",
+    "The Agents page filtered to scheduled runs, then one run opened: the map of integrations it touched and a summary from the run's chat",
   ),
 };
