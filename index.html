@@ -1,19 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/home/favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Martian - AI Agents to Eliminate Infrastructure Waste</title>
-    <meta name="description" content="Martian deploys AI agents across AWS, Azure, Google Cloud and your own data centers to find idle VMs, duplicate data and over-provisioned databases, and remove the waste once you approve." />
+    <title>Martian | Agents That Eliminate Your Infrastructure Waste</title>
+    <meta name="description" content="Martian's agents find the machines and disks you pay for but don't use across your cloud accounts and data centers, then remove them once your team approves." />
     <meta name="theme-color" content="#0A0A0B" />
-    <meta name="author" content="Martian AI" />
+    <meta name="author" content="Martian" />
+    <link rel="icon" href="/home/favicon.png" type="image/png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Martian | Agents That Eliminate Your Infrastructure Waste" />
+    <meta property="og:description" content="Agents that find the idle machines and forgotten disks in your cloud accounts and your own data centers, then clean them up after you approve." />
     <meta property="og:image" content="/og-image-update.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Martian | Agents That Eliminate Your Infrastructure Waste" />
+    <meta name="twitter:image" content="/og-image-update.png" />
+
+    <!-- Fonts: connect early, load without blocking render. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+
+    <!-- The hero product shot is the largest paint on the page. -->
+    <link rel="preload" as="image" href="/media/hero.webp" fetchpriority="high" />
   </head>
 
   <body>
     <div id="root"></div>
+    <!-- Shown during route changes in browsers without the View Transitions API. -->
+    <div id="route-curtain" class="route-curtain" aria-hidden="true"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
